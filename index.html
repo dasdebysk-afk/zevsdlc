@@ -21,6 +21,16 @@ section{padding:60px 0}.section-head{text-align:center;margin-bottom:30px}.secti
 footer{border-top:1px solid #ffffff10;padding:28px 0;color:#71839d;font-size:12px}.foot{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;align-items:center}.foot strong{color:#dceaff}
 @media(max-width:1020px){.pricing{grid-template-columns:repeat(2,minmax(0,1fr));max-width:800px}}
 @media(max-width:720px){.navlinks{display:none}.hero{padding:68px 0 48px}h1{letter-spacing:-2px}.features{grid-template-columns:1fr}.pricing{grid-template-columns:1fr}.hero-art{margin-top:35px}.feature{padding:20px}section{padding:44px 0}}
+
+.nav-right{display:flex;align-items:center;gap:10px}.nav-auth{border:1px solid #30415c;background:#ffffff05;color:var(--text);border-radius:10px;padding:11px 16px;font:inherit;font-weight:800;font-size:14px;cursor:pointer;transition:.2s}.nav-auth:hover{border-color:#168cff;transform:translateY(-2px)}
+.modal{position:fixed;inset:0;z-index:50;display:none;align-items:center;justify-content:center;padding:20px;background:#03060cc9;backdrop-filter:blur(6px)}.modal.open{display:flex}
+.modal-box{position:relative;width:min(420px,100%);border:1px solid #1b4b78;border-radius:18px;padding:28px;background:linear-gradient(145deg,#0e1727,#0a101b);box-shadow:0 0 50px #0877f933}
+.modal-close{position:absolute;top:12px;right:14px;border:0;background:none;color:var(--muted);font-size:24px;cursor:pointer}.modal-close:hover{color:#fff}
+.modal-box h3{margin:0 0 6px;font-size:24px;letter-spacing:-.5px}.modal-box>p{margin:0 0 18px;color:var(--muted);font-size:14px;line-height:1.6}
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:5px;margin-bottom:18px;border:1px solid var(--line);border-radius:12px;background:#0b1220}.tab{border:0;border-radius:8px;padding:10px;background:none;color:var(--muted);font:inherit;font-weight:800;font-size:14px;cursor:pointer}.tab.active{background:linear-gradient(100deg,#0877f9,#14b9ff);color:#fff}
+.field{display:grid;gap:6px;margin-bottom:13px}.field label{font-size:12px;font-weight:800;color:#9fb4d3;letter-spacing:.3px}.field input{width:100%;padding:12px 14px;border:1px solid #243650;border-radius:10px;background:#08101c;color:var(--text);font:inherit;font-size:14px;outline:none}.field input:focus{border-color:#168cff;box-shadow:0 0 0 3px #168cff22}
+.form-msg{min-height:20px;margin:0 0 12px;font-size:13px;color:#ff7d8c}.form-msg.ok{color:#4be3a0}.modal-box .btn{width:100%;border:0;cursor:pointer;font-family:inherit}
+@media(max-width:720px){.nav-cta{display:none}}
 </style>
 </head>
 <body>
@@ -28,7 +38,7 @@ footer{border-top:1px solid #ffffff10;padding:28px 0;color:#71839d;font-size:12p
   <nav>
     <a class="brand" href="#"><span class="mark">Z</span><span>ZEVS<em>DLC</em></span></a>
     <div class="navlinks"><a href="#features">Возможности</a><a href="#pricing">Лицензии</a><a href="#faq">FAQ</a></div>
-    <a class="nav-cta" href="#pricing">Купить доступ ↗</a>
+    <div class="nav-right"><button class="nav-auth" id="authBtn" type="button">Войти</button><a class="nav-cta" href="#pricing">Купить доступ ↗</a></div>
   </nav>
 </header>
 <main>
@@ -51,10 +61,10 @@ footer{border-top:1px solid #ffffff10;padding:28px 0;color:#71839d;font-size:12p
   <section id="pricing" class="wrap">
     <div class="section-head"><h2>Выбери доступ</h2><p>Выбери подходящий тариф и срок лицензии.</p></div>
     <div class="pricing">
-      <article class="price-card"><div class="tag">Ранний доступ</div><h3>Beta</h3><p style="color:var(--muted);font-size:14px">Бета-доступ к клиенту</p><div class="price">1 000 ₽</div><div><span class="term">Срок: навсегда</span></div><ul><li>Бессрочная лицензия</li><li>Доступ к бета-версии</li></ul><a class="btn secondary buy-link" href="#contact" data-plan="Beta">Выбрать Beta</a></article>
-      <article class="price-card"><div class="tag">Старт</div><h3>Standard</h3><p style="color:var(--muted);font-size:14px">Для знакомства с клиентом</p><div class="price">150 ₽</div><div><span class="term">Срок: 30 дней</span></div><ul><li>Лицензия на 30 дней</li><li>Все базовые возможности</li></ul><a class="btn secondary buy-link" href="#contact" data-plan="Standard">Выбрать Standard</a></article>
-      <article class="price-card"><div class="tag">Выгодно</div><h3>Annual</h3><p style="color:var(--muted);font-size:14px">Доступ на целый год</p><div class="price">400 ₽</div><div><span class="term">Срок: 365 дней</span></div><ul><li>Лицензия на 365 дней</li><li>Все базовые возможности</li></ul><a class="btn secondary buy-link" href="#contact" data-plan="Annual">Выбрать Annual</a></article>
-      <article class="price-card popular"><div class="tag">Рекомендуем</div><h3>Lifetime</h3><p style="color:var(--muted);font-size:14px">Один раз и навсегда</p><div class="price">649 ₽</div><div><span class="term">Срок: навсегда</span></div><ul><li>Бессрочная лицензия</li><li>Все возможности клиента</li></ul><a class="btn primary buy-link" href="#contact" data-plan="Lifetime">Выбрать Lifetime</a></article>
+      <article class="price-card"><div class="tag">Ранний доступ</div><h3>Beta</h3><p style="color:var(--muted);font-size:14px">Бета-доступ к клиенту</p><div class="price">1 000 ₽</div><div><span class="term">Срок: навсегда</span></div><ul><li>Бессрочная лицензия</li><li>Доступ к бета-версии</li></ul><a class="btn secondary pay-link" href="https://funpay.com/lots/offerEdit?node=1099&amp;offer=79102154" target="_blank" rel="noopener noreferrer">Выбрать Beta</a></article>
+      <article class="price-card"><div class="tag">Старт</div><h3>Standard</h3><p style="color:var(--muted);font-size:14px">Для знакомства с клиентом</p><div class="price">150 ₽</div><div><span class="term">Срок: 30 дней</span></div><ul><li>Лицензия на 30 дней</li><li>Все базовые возможности</li></ul><a class="btn secondary pay-link" href="https://funpay.com/lots/offer?id=78681257" target="_blank" rel="noopener noreferrer">Выбрать Standard</a></article>
+      <article class="price-card"><div class="tag">Выгодно</div><h3>Annual</h3><p style="color:var(--muted);font-size:14px">Доступ на целый год</p><div class="price">400 ₽</div><div><span class="term">Срок: 365 дней</span></div><ul><li>Лицензия на 365 дней</li><li>Все базовые возможности</li></ul><a class="btn secondary pay-link" href="https://funpay.com/lots/offer?id=79102033" target="_blank" rel="noopener noreferrer">Выбрать Annual</a></article>
+      <article class="price-card popular"><div class="tag">Рекомендуем</div><h3>Lifetime</h3><p style="color:var(--muted);font-size:14px">Один раз и навсегда</p><div class="price">649 ₽</div><div><span class="term">Срок: навсегда</span></div><ul><li>Бессрочная лицензия</li><li>Все возможности клиента</li></ul><a class="btn primary pay-link" href="https://funpay.com/lots/offer?id=79102479" target="_blank" rel="noopener noreferrer">Выбрать Lifetime</a></article>
     </div>
     <p id="contact" style="text-align:center;color:var(--muted);font-size:13px;line-height:1.7;margin:24px auto 0;max-width:650px">Для подключения покупки добавь сюда свою ссылку на платёжную страницу или Telegram: <strong style="color:#dceaff">@your_username</strong>. Сейчас кнопки — демонстрационные и не принимают оплату.</p>
   </section>
@@ -68,6 +78,21 @@ footer{border-top:1px solid #ffffff10;padding:28px 0;color:#71839d;font-size:12p
   </section>
 </main>
 <footer><div class="wrap foot"><a class="brand" href="#"><span class="mark">Z</span><span>ZEVS<em style="color:var(--blue);font-style:normal">DLC</em></span></a><span>© 2026 ZevsDLC. Все права защищены.</span><span>Неофициальный проект; Minecraft — товарный знак Mojang/Microsoft.</span></div></footer>
+<div class="modal" id="authModal" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+  <div class="modal-box">
+    <button class="modal-close" id="authClose" type="button" aria-label="Закрыть">×</button>
+    <h3 id="authTitle">Аккаунт ZevsDLC</h3>
+    <p>Чтобы купить лицензию, нужно создать аккаунт или войти.</p>
+    <div class="tabs"><button class="tab active" id="tabReg" type="button">Регистрация</button><button class="tab" id="tabLogin" type="button">Вход</button></div>
+    <div id="authForm">
+      <div class="field" id="nickField"><label for="fNick">Никнейм</label><input id="fNick" autocomplete="username" maxlength="24" placeholder="Steve"></div>
+      <div class="field"><label for="fEmail">Email</label><input id="fEmail" type="email" autocomplete="email" placeholder="you@example.com"></div>
+      <div class="field"><label for="fPass">Пароль</label><input id="fPass" type="password" autocomplete="current-password" placeholder="Минимум 6 символов"></div>
+      <div class="form-msg" id="authMsg" role="alert"></div>
+      <button class="btn primary" id="authSubmit" type="button">Создать аккаунт</button>
+    </div>
+  </div>
+</div>
 <script>
 document.querySelectorAll('.buy-link').forEach(link => link.addEventListener('click', () => {
   const plan = link.dataset.plan;
@@ -75,6 +100,52 @@ document.querySelectorAll('.buy-link').forEach(link => link.addEventListener('cl
   contact.dataset.selectedPlan = plan;
   contact.innerHTML = 'Выбран тариф <strong style="color:#dceaff">' + plan + '</strong>. Для реальной оплаты замени эту кнопку ссылкой на свою платёжную страницу или контакт поддержки.';
 }));
+(function(){
+  var mem={},KEY_USERS='zevsdlc_users',KEY_SESSION='zevsdlc_session';
+  function get(k){try{return localStorage.getItem(k)}catch(e){return mem[k]||null}}
+  function set(k,v){try{localStorage.setItem(k,v)}catch(e){mem[k]=v}}
+  function del(k){try{localStorage.removeItem(k)}catch(e){delete mem[k]}}
+  function users(){try{return JSON.parse(get(KEY_USERS)||'{}')}catch(e){return {}}}
+  async function hash(str){
+    if(window.crypto&&crypto.subtle){var b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(str));return Array.from(new Uint8Array(b)).map(function(x){return x.toString(16).padStart(2,'0')}).join('')}
+    var h=5381;for(var i=0;i<str.length;i++)h=((h<<5)+h+str.charCodeAt(i))|0;return String(h);
+  }
+  var modal=document.getElementById('authModal'),btn=document.getElementById('authBtn'),msg=document.getElementById('authMsg'),
+      tabReg=document.getElementById('tabReg'),tabLogin=document.getElementById('tabLogin'),nickField=document.getElementById('nickField'),
+      submit=document.getElementById('authSubmit'),fNick=document.getElementById('fNick'),fEmail=document.getElementById('fEmail'),fPass=document.getElementById('fPass'),
+      mode='reg';
+  function session(){var e=get(KEY_SESSION);var u=users();return e&&u[e]?u[e]:null}
+  function refresh(){var u=session();btn.textContent=u?(u.nick+' · Выйти'):'Войти'}
+  function setMode(m){mode=m;tabReg.classList.toggle('active',m==='reg');tabLogin.classList.toggle('active',m==='login');nickField.style.display=m==='reg'?'':'none';submit.textContent=m==='reg'?'Создать аккаунт':'Войти';fPass.autocomplete=m==='reg'?'new-password':'current-password';msg.textContent='';msg.className='form-msg'}
+  function open(m){setMode(m||'reg');modal.classList.add('open');setTimeout(function(){(mode==='reg'?fNick:fEmail).focus()},50)}
+  function close(){modal.classList.remove('open');fPass.value=''}
+  tabReg.onclick=function(){setMode('reg')};tabLogin.onclick=function(){setMode('login')};
+  document.getElementById('authClose').onclick=close;
+  modal.addEventListener('click',function(e){if(e.target===modal)close()});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')close();if(e.key==='Enter'&&modal.classList.contains('open'))submit.click()});
+  btn.onclick=function(){if(session()){del(KEY_SESSION);refresh()}else open('login')};
+  submit.onclick=async function(){
+    var email=fEmail.value.trim().toLowerCase(),pass=fPass.value,nick=fNick.value.trim(),all=users();
+    msg.className='form-msg';
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){msg.textContent='Введите корректный email.';return}
+    if(pass.length<6){msg.textContent='Пароль должен быть не короче 6 символов.';return}
+    var h=await hash(email+':'+pass);
+    if(mode==='reg'){
+      if(nick.length<3){msg.textContent='Никнейм — минимум 3 символа.';return}
+      if(all[email]){msg.textContent='Аккаунт с таким email уже существует. Войдите.';return}
+      all[email]={nick:nick,hash:h};set(KEY_USERS,JSON.stringify(all));set(KEY_SESSION,email);
+    }else{
+      if(!all[email]||all[email].hash!==h){msg.textContent='Неверный email или пароль.';return}
+      set(KEY_SESSION,email);
+    }
+    refresh();close();
+    var pr=document.getElementById('pricing');if(pr)pr.scrollIntoView({behavior:'smooth'});
+  };
+  document.querySelectorAll('.pay-link').forEach(function(a){a.addEventListener('click',function(e){
+    if(!session()){e.preventDefault();open('reg')}
+  })});
+  refresh();
+})();
 </script>
 </body>
 </html>
