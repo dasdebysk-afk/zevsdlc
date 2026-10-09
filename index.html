@@ -31,6 +31,11 @@ footer{border-top:1px solid #ffffff10;padding:28px 0;color:#71839d;font-size:12p
 .field{display:grid;gap:6px;margin-bottom:13px}.field label{font-size:12px;font-weight:800;color:#9fb4d3;letter-spacing:.3px}.field input{width:100%;padding:12px 14px;border:1px solid #243650;border-radius:10px;background:#08101c;color:var(--text);font:inherit;font-size:14px;outline:none}.field input:focus{border-color:#168cff;box-shadow:0 0 0 3px #168cff22}
 .form-msg{min-height:20px;margin:0 0 12px;font-size:13px;color:#ff7d8c}.form-msg.ok{color:#4be3a0}.modal-box .btn{width:100%;border:0;cursor:pointer;font-family:inherit}
 @media(max-width:720px){.nav-cta{display:none}}
+
+.profile-head{display:flex;align-items:center;gap:14px;margin-bottom:18px}.avatar{width:54px;height:54px;flex:none;display:grid;place-items:center;border:1px solid #168cff;border-radius:16px;background:linear-gradient(135deg,#168cff33,#19d2ff10);box-shadow:0 0 25px #168cff22;font-size:24px;font-weight:950;text-transform:uppercase}.profile-head h3{margin:0;font-size:22px;word-break:break-all}.profile-head span{color:var(--muted);font-size:13px;word-break:break-all}
+.info{display:grid;gap:8px;margin-bottom:18px}.info div{display:flex;justify-content:space-between;gap:12px;padding:11px 14px;border:1px solid var(--line);border-radius:10px;background:#0b1220;font-size:13px}.info div span{color:var(--muted)}.info div b{font-weight:750;text-align:right;word-break:break-all}
+.pf-actions{display:grid;gap:9px;margin-top:4px}.modal-box .btn.danger{border:1px solid #5b2230;background:#2a0f17;color:#ff9aa9;box-shadow:none}.modal-box .btn.secondary{border:1px solid #30415c;background:#ffffff05;color:var(--text)}
+.pf-section{display:none}.pf-section.show{display:block}
 </style>
 </head>
 <body>
@@ -93,6 +98,30 @@ footer{border-top:1px solid #ffffff10;padding:28px 0;color:#71839d;font-size:12p
     </div>
   </div>
 </div>
+<div class="modal" id="profileModal" role="dialog" aria-modal="true" aria-labelledby="pfName">
+  <div class="modal-box">
+    <button class="modal-close" id="pfClose" type="button" aria-label="Закрыть">×</button>
+    <div class="profile-head"><div class="avatar" id="pfAvatar">Z</div><div><h3 id="pfName">Профиль</h3><span id="pfEmailTop"></span></div></div>
+    <div class="pf-section show" id="pfMain">
+      <div class="info"><div><span>Никнейм</span><b id="pfNick"></b></div><div><span>Email</span><b id="pfEmail"></b></div><div><span>Дата регистрации</span><b id="pfDate"></b></div></div>
+      <div class="pf-actions">
+        <!-- Лаунчер: положи ZevsDLC-Launcher.exe рядом с этим HTML или замени href на прямую ссылку -->
+        <a class="btn primary" id="pfDownload" href="ZevsDLC-Launcher.exe" download="ZevsDLC-Launcher.exe">⬇ Скачать лаунчер (.exe)</a>
+        <a class="btn secondary" href="#pricing" id="pfBuy">Выбрать лицензию</a>
+        <button class="btn secondary" id="pfEditBtn" type="button">Изменить никнейм / пароль</button>
+        <button class="btn secondary" id="pfLogout" type="button">Выйти</button>
+        <button class="btn danger" id="pfDelete" type="button">Удалить аккаунт</button>
+      </div>
+    </div>
+    <div class="pf-section" id="pfEdit">
+      <div class="field"><label for="pfNewNick">Никнейм</label><input id="pfNewNick" maxlength="24"></div>
+      <div class="field"><label for="pfOldPass">Текущий пароль</label><input id="pfOldPass" type="password" autocomplete="current-password" placeholder="Нужен только для смены пароля"></div>
+      <div class="field"><label for="pfNewPass">Новый пароль</label><input id="pfNewPass" type="password" autocomplete="new-password" placeholder="Оставь пустым, чтобы не менять"></div>
+      <div class="form-msg" id="pfMsg" role="alert"></div>
+      <div class="pf-actions"><button class="btn primary" id="pfSave" type="button">Сохранить</button><button class="btn secondary" id="pfCancel" type="button">Назад</button></div>
+    </div>
+  </div>
+</div>
 <script>
 document.querySelectorAll('.buy-link').forEach(link => link.addEventListener('click', () => {
   const plan = link.dataset.plan;
@@ -115,7 +144,7 @@ document.querySelectorAll('.buy-link').forEach(link => link.addEventListener('cl
       submit=document.getElementById('authSubmit'),fNick=document.getElementById('fNick'),fEmail=document.getElementById('fEmail'),fPass=document.getElementById('fPass'),
       mode='reg';
   function session(){var e=get(KEY_SESSION);var u=users();return e&&u[e]?u[e]:null}
-  function refresh(){var u=session();btn.textContent=u?(u.nick+' · Выйти'):'Войти'}
+  function refresh(){var u=session();btn.textContent=u?('👤 '+u.nick):'Войти'}
   function setMode(m){mode=m;tabReg.classList.toggle('active',m==='reg');tabLogin.classList.toggle('active',m==='login');nickField.style.display=m==='reg'?'':'none';submit.textContent=m==='reg'?'Создать аккаунт':'Войти';fPass.autocomplete=m==='reg'?'new-password':'current-password';msg.textContent='';msg.className='form-msg'}
   function open(m){setMode(m||'reg');modal.classList.add('open');setTimeout(function(){(mode==='reg'?fNick:fEmail).focus()},50)}
   function close(){modal.classList.remove('open');fPass.value=''}
@@ -123,7 +152,7 @@ document.querySelectorAll('.buy-link').forEach(link => link.addEventListener('cl
   document.getElementById('authClose').onclick=close;
   modal.addEventListener('click',function(e){if(e.target===modal)close()});
   document.addEventListener('keydown',function(e){if(e.key==='Escape')close();if(e.key==='Enter'&&modal.classList.contains('open'))submit.click()});
-  btn.onclick=function(){if(session()){del(KEY_SESSION);refresh()}else open('login')};
+  btn.onclick=function(){if(session())openProfile();else open('login')};
   submit.onclick=async function(){
     var email=fEmail.value.trim().toLowerCase(),pass=fPass.value,nick=fNick.value.trim(),all=users();
     msg.className='form-msg';
@@ -133,7 +162,7 @@ document.querySelectorAll('.buy-link').forEach(link => link.addEventListener('cl
     if(mode==='reg'){
       if(nick.length<3){msg.textContent='Никнейм — минимум 3 символа.';return}
       if(all[email]){msg.textContent='Аккаунт с таким email уже существует. Войдите.';return}
-      all[email]={nick:nick,hash:h};set(KEY_USERS,JSON.stringify(all));set(KEY_SESSION,email);
+      all[email]={nick:nick,hash:h,created:Date.now()};set(KEY_USERS,JSON.stringify(all));set(KEY_SESSION,email);
     }else{
       if(!all[email]||all[email].hash!==h){msg.textContent='Неверный email или пароль.';return}
       set(KEY_SESSION,email);
@@ -144,6 +173,46 @@ document.querySelectorAll('.buy-link').forEach(link => link.addEventListener('cl
   document.querySelectorAll('.pay-link').forEach(function(a){a.addEventListener('click',function(e){
     if(!session()){e.preventDefault();open('reg')}
   })});
+
+  var pm=document.getElementById('profileModal'),pfMain=document.getElementById('pfMain'),pfEdit=document.getElementById('pfEdit'),pfMsg=document.getElementById('pfMsg');
+  function pfShow(edit){pfMain.classList.toggle('show',!edit);pfEdit.classList.toggle('show',edit);pfMsg.textContent='';pfMsg.className='form-msg'}
+  function fill(){
+    var e=get(KEY_SESSION),u=session();if(!u)return;
+    document.getElementById('pfAvatar').textContent=u.nick.charAt(0);
+    document.getElementById('pfName').textContent=u.nick;
+    document.getElementById('pfEmailTop').textContent=e;
+    document.getElementById('pfNick').textContent=u.nick;
+    document.getElementById('pfEmail').textContent=e;
+    document.getElementById('pfDate').textContent=u.created?new Date(u.created).toLocaleDateString('ru-RU'):'—';
+    document.getElementById('pfNewNick').value=u.nick;
+  }
+  function openProfile(){fill();pfShow(false);pm.classList.add('open')}
+  function closeProfile(){pm.classList.remove('open');document.getElementById('pfOldPass').value='';document.getElementById('pfNewPass').value=''}
+  document.getElementById('pfClose').onclick=closeProfile;
+  pm.addEventListener('click',function(e){if(e.target===pm)closeProfile()});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeProfile()});
+  document.getElementById('pfBuy').onclick=closeProfile;
+  document.getElementById('pfEditBtn').onclick=function(){pfShow(true)};
+  document.getElementById('pfCancel').onclick=function(){pfShow(false)};
+  document.getElementById('pfLogout').onclick=function(){del(KEY_SESSION);refresh();closeProfile()};
+  document.getElementById('pfDelete').onclick=function(){
+    if(!confirm('Удалить аккаунт? Это действие нельзя отменить.'))return;
+    var all=users(),e=get(KEY_SESSION);delete all[e];set(KEY_USERS,JSON.stringify(all));del(KEY_SESSION);refresh();closeProfile();
+  };
+  document.getElementById('pfSave').onclick=async function(){
+    var e=get(KEY_SESSION),all=users(),u=all[e];if(!u)return;
+    var nick=document.getElementById('pfNewNick').value.trim(),oldP=document.getElementById('pfOldPass').value,newP=document.getElementById('pfNewPass').value;
+    pfMsg.className='form-msg';
+    if(nick.length<3){pfMsg.textContent='Никнейм — минимум 3 символа.';return}
+    if(newP){
+      if(newP.length<6){pfMsg.textContent='Новый пароль должен быть не короче 6 символов.';return}
+      if(await hash(e+':'+oldP)!==u.hash){pfMsg.textContent='Текущий пароль указан неверно.';return}
+      u.hash=await hash(e+':'+newP);
+    }
+    u.nick=nick;all[e]=u;set(KEY_USERS,JSON.stringify(all));refresh();fill();
+    document.getElementById('pfOldPass').value='';document.getElementById('pfNewPass').value='';
+    pfShow(false);
+  };
   refresh();
 })();
 </script>
