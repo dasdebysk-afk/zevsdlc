@@ -23,6 +23,7 @@ footer{border-top:1px solid #ffffff10;padding:28px 0;color:#71839d;font-size:12p
 @media(max-width:720px){.navlinks{display:none}.hero{padding:68px 0 48px}h1{letter-spacing:-2px}.features{grid-template-columns:1fr}.pricing{grid-template-columns:1fr}.hero-art{margin-top:35px}.feature{padding:20px}section{padding:44px 0}}
 
 .nav-right{display:flex;align-items:center;gap:10px}.nav-auth{border:1px solid #30415c;background:#ffffff05;color:var(--text);border-radius:10px;padding:11px 16px;font:inherit;font-weight:800;font-size:14px;cursor:pointer;transition:.2s}.nav-auth:hover{border-color:#168cff;transform:translateY(-2px)}
+.nav-discord{border:1px solid #5865F2;background:#5865F210;color:#c7ccff;border-radius:10px;padding:11px 16px;font:inherit;font-weight:800;font-size:14px;cursor:pointer;transition:.2s;display:inline-flex;align-items:center;gap:7px}.nav-discord:hover{border-color:#7d87ff;background:#5865F222;transform:translateY(-2px);color:#fff}.nav-discord svg{width:16px;height:16px;flex:none}
 .modal{position:fixed;inset:0;z-index:50;display:none;align-items:center;justify-content:center;padding:20px;background:#03060cc9;backdrop-filter:blur(6px)}.modal.open{display:flex}
 .modal-box{position:relative;width:min(420px,100%);border:1px solid #1b4b78;border-radius:18px;padding:28px;background:linear-gradient(145deg,#0e1727,#0a101b);box-shadow:0 0 50px #0877f933}
 .modal-close{position:absolute;top:12px;right:14px;border:0;background:none;color:var(--muted);font-size:24px;cursor:pointer}.modal-close:hover{color:#fff}
@@ -30,7 +31,7 @@ footer{border-top:1px solid #ffffff10;padding:28px 0;color:#71839d;font-size:12p
 .tabs{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:5px;margin-bottom:18px;border:1px solid var(--line);border-radius:12px;background:#0b1220}.tab{border:0;border-radius:8px;padding:10px;background:none;color:var(--muted);font:inherit;font-weight:800;font-size:14px;cursor:pointer}.tab.active{background:linear-gradient(100deg,#0877f9,#14b9ff);color:#fff}
 .field{display:grid;gap:6px;margin-bottom:13px}.field label{font-size:12px;font-weight:800;color:#9fb4d3;letter-spacing:.3px}.field input{width:100%;padding:12px 14px;border:1px solid #243650;border-radius:10px;background:#08101c;color:var(--text);font:inherit;font-size:14px;outline:none}.field input:focus{border-color:#168cff;box-shadow:0 0 0 3px #168cff22}
 .form-msg{min-height:20px;margin:0 0 12px;font-size:13px;color:#ff7d8c}.form-msg.ok{color:#4be3a0}.modal-box .btn{width:100%;border:0;cursor:pointer;font-family:inherit}
-@media(max-width:720px){.nav-cta{display:none}}
+@media(max-width:720px){.nav-cta{display:none}.nav-discord{display:none}}
 
 .profile-head{display:flex;align-items:center;gap:14px;margin-bottom:18px}.avatar{width:54px;height:54px;flex:none;display:grid;place-items:center;border:1px solid #168cff;border-radius:16px;background:linear-gradient(135deg,#168cff33,#19d2ff10);box-shadow:0 0 25px #168cff22;font-size:24px;font-weight:950;text-transform:uppercase}.profile-head h3{margin:0;font-size:22px;word-break:break-all}.profile-head span{color:var(--muted);font-size:13px;word-break:break-all}
 .info{display:grid;gap:8px;margin-bottom:18px}.info div{display:flex;justify-content:space-between;gap:12px;padding:11px 14px;border:1px solid var(--line);border-radius:10px;background:#0b1220;font-size:13px}.info div span{color:var(--muted)}.info div b{font-weight:750;text-align:right;word-break:break-all}
@@ -43,7 +44,14 @@ footer{border-top:1px solid #ffffff10;padding:28px 0;color:#71839d;font-size:12p
   <nav>
     <a class="brand" href="#"><span class="mark">Z</span><span>ZEVS<em>DLC</em></span></a>
     <div class="navlinks"><a href="#features">Возможности</a><a href="#pricing">Лицензии</a><a href="#faq">FAQ</a></div>
-    <div class="nav-right"><button class="nav-auth" id="authBtn" type="button">Войти</button><a class="nav-cta" href="#pricing">Купить доступ ↗</a></div>
+    <div class="nav-right">
+      <a class="nav-discord" href="https://discord.gg/uMBXraJs4" target="_blank" rel="noopener noreferrer" aria-label="Discord ZevsDLC">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.3 4.4A19.8 19.8 0 0 0 15.4 3l-.3.5a18 18 0 0 1 4.3 1.4 15 15 0 0 0-13 .1A18 18 0 0 1 8.7 3.5L8.4 3a19.8 19.8 0 0 0-4.9 1.4C.6 9.3-.3 14.1.2 18.7a20 20 0 0 0 6 3l.5-.7a13 13 0 0 1-2.3-1.1l.6-.4a14.3 14.3 0 0 0 12.1 0l.6.4a13 13 0 0 1-2.3 1.1l.5.7a20 20 0 0 0 6-3c.6-5.3-.9-10.1-3.6-14.3ZM8.4 15.4c-1.2 0-2.1-1.1-2.1-2.4s.9-2.4 2.1-2.4 2.2 1.1 2.2 2.4-1 2.4-2.2 2.4Zm7.2 0c-1.2 0-2.1-1.1-2.1-2.4s.9-2.4 2.1-2.4 2.2 1.1 2.2 2.4-1 2.4-2.2 2.4Z"/></svg>
+        Discord
+      </a>
+      <button class="nav-auth" id="authBtn" type="button">Войти</button>
+      <a class="nav-cta" href="#pricing">Купить доступ ↗</a>
+    </div>
   </nav>
 </header>
 <main>
@@ -71,14 +79,24 @@ footer{border-top:1px solid #ffffff10;padding:28px 0;color:#71839d;font-size:12p
       <article class="price-card"><div class="tag">Выгодно</div><h3>Annual</h3><p style="color:var(--muted);font-size:14px">Доступ на целый год</p><div class="price">400 ₽</div><div><span class="term">Срок: 365 дней</span></div><ul><li>Лицензия на 365 дней</li><li>Все базовые возможности</li></ul><a class="btn secondary pay-link" href="https://funpay.com/lots/offer?id=79102033" target="_blank" rel="noopener noreferrer">Выбрать Annual</a></article>
       <article class="price-card popular"><div class="tag">Рекомендуем</div><h3>Lifetime</h3><p style="color:var(--muted);font-size:14px">Один раз и навсегда</p><div class="price">649 ₽</div><div><span class="term">Срок: навсегда</span></div><ul><li>Бессрочная лицензия</li><li>Все возможности клиента</li></ul><a class="btn primary pay-link" href="https://funpay.com/lots/offer?id=79102479" target="_blank" rel="noopener noreferrer">Выбрать Lifetime</a></article>
     </div>
-    <p id="contact" style="text-align:center;color:var(--muted);font-size:13px;line-height:1.7;margin:24px auto 0;max-width:650px">Для подключения покупки добавь сюда свою ссылку на платёжную страницу или Telegram: <strong style="color:#dceaff">@your_username</strong>. Сейчас кнопки — демонстрационные и не принимают оплату.</p>
+    <p id="contact" style="text-align:center;color:var(--muted);font-size:13px;line-height:1.7;margin:24px auto 0;max-width:650px">После оплаты напишите в Discord <strong style="color:#dceaff">tainodergal22842</strong> со скриншотом оплаты — я выдам вам доступ. Либо напишите на FunPay и скиньте свой Discord. <em>(Временно, пока не создадим ключи.)</em></p>
   </section>
   <section id="faq" class="wrap">
     <div class="section-head"><h2>Частые вопросы</h2></div>
     <div class="faq">
-      <details><summary>Как получить доступ после оплаты?</summary><p>Опиши здесь реальный порядок выдачи лицензии: где приходит ключ, сколько занимает активация и куда писать при проблеме.</p></details>
-      <details><summary>Какие версии Minecraft поддерживаются?</summary><p>Добавь актуальный список проверенных версий и требования к Java/лаунчеру. Не указывай версии, которые ещё не тестировал.</p></details>
-      <details><summary>Можно ли вернуть оплату?</summary><p>Опубликуй понятные условия возврата и контакты поддержки до того, как включишь реальные платежи.</p></details>
+      <details>
+        <summary>Как получить доступ после оплаты?</summary>
+        <p>Чтобы получить доступ к клиенту после оплаты, напишите в Discord <strong style="color:#dceaff">tainodergal22842</strong> со скриншотами оплаты, либо напишите на FunPay и скиньте свой Discord — я выдам вам сабку. <em style="color:#9aabc3">(Это временно, пока не создадим ключи.)</em></p>
+        <p style="margin-top:10px">Discord-канал проекта: <a href="https://discord.gg/uMBXraJs4" target="_blank" rel="noopener noreferrer" style="color:#7d87ff;font-weight:800">discord.gg/uMBXraJs4</a></p>
+      </details>
+      <details>
+        <summary>Какие версии Minecraft поддерживаются?</summary>
+        <p>Весь клиент работает под <strong style="color:#dceaff">Minecraft 1.21.4</strong>. Другие версии не тестировались и не поддерживаются.</p>
+      </details>
+      <details>
+        <summary>Можно ли вернуть оплату?</summary>
+        <p>Вернуть оплату, к сожалению, нельзя. Но если у вас возникли проблемы — подайте заявку в техподдержку в нашем Discord-канале: <a href="https://discord.gg/uMBXraJs4" target="_blank" rel="noopener noreferrer" style="color:#7d87ff;font-weight:800">discord.gg/uMBXraJs4</a></p>
+      </details>
     </div>
   </section>
 </main>
@@ -105,7 +123,6 @@ footer{border-top:1px solid #ffffff10;padding:28px 0;color:#71839d;font-size:12p
     <div class="pf-section show" id="pfMain">
       <div class="info"><div><span>Никнейм</span><b id="pfNick"></b></div><div><span>Email</span><b id="pfEmail"></b></div><div><span>Дата регистрации</span><b id="pfDate"></b></div></div>
       <div class="pf-actions">
-        <!-- Лаунчер: положи ZevsDLC-Launcher.exe рядом с этим HTML или замени href на прямую ссылку -->
         <a class="btn primary" id="pfDownload" href="ZevsDLC-Launcher.exe" download="ZevsDLC-Launcher.exe">⬇ Скачать лаунчер (.exe)</a>
         <a class="btn secondary" href="#pricing" id="pfBuy">Выбрать лицензию</a>
         <button class="btn secondary" id="pfEditBtn" type="button">Изменить никнейм / пароль</button>
@@ -126,6 +143,7 @@ footer{border-top:1px solid #ffffff10;padding:28px 0;color:#71839d;font-size:12p
 document.querySelectorAll('.buy-link').forEach(link => link.addEventListener('click', () => {
   const plan = link.dataset.plan;
   const contact = document.querySelector('#contact');
+  if(!contact) return;
   contact.dataset.selectedPlan = plan;
   contact.innerHTML = 'Выбран тариф <strong style="color:#dceaff">' + plan + '</strong>. Для реальной оплаты замени эту кнопку ссылкой на свою платёжную страницу или контакт поддержки.';
 }));
