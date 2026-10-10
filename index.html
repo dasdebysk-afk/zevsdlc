@@ -3,236 +3,141 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#070b14">
-<title>ZevsDLC — Minecraft Client</title>
-<meta name="description" content="ZevsDLC — страница клиента Minecraft. Узнай о возможностях и выбери лицензию.">
+<meta name="theme-color" content="#080612">
+<title>Zevs Visual — бесплатный визуал для Minecraft</title>
+<meta name="description" content="Zevs Visual — бесплатный визуал для Minecraft: кристальные мечи, низкий огонь, заметные эффекты и аккуратный интерфейс.">
 <style>
-:root{--bg:#070b14;--panel:#0d1422;--line:#1b2b43;--blue:#168cff;--cyan:#19d2ff;--text:#f4f8ff;--muted:#9aabc3}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 50% -15%,#102d55 0,transparent 45%),var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+:root{--bg:#080612;--line:#241d3d;--violet:#8b5cf6;--pink:#d946ef;--cyan:#22d3ee;--text:#f5f3ff;--muted:#a59fc0}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(ellipse at 50% -15%,#2a1458 0,transparent 45%),radial-gradient(ellipse at 90% 35%,#0b2a3d55 0,transparent 40%),var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
 a{color:inherit;text-decoration:none}.wrap{width:min(1120px,calc(100% - 40px));margin:auto}
-nav{height:76px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #ffffff10}
-.brand{display:flex;align-items:center;gap:11px;font-weight:900;letter-spacing:.5px}.mark{width:37px;height:37px;display:grid;place-items:center;border:1px solid #168cff;border-radius:11px;color:#fff;background:linear-gradient(135deg,#168cff33,#19d2ff10);box-shadow:0 0 25px #168cff22;font-size:22px;font-weight:950}.brand span em{font-style:normal;color:var(--blue)}
-.navlinks{display:flex;gap:27px;color:var(--muted);font-size:14px}.navlinks a:hover{color:white}.nav-cta,.btn{display:inline-flex;align-items:center;justify-content:center;border-radius:10px;padding:12px 18px;font-weight:800;font-size:14px;transition:.2s}.nav-cta,.btn.primary{background:linear-gradient(100deg,#0877f9,#14b9ff);color:white;box-shadow:0 8px 26px #0877f933}.btn:hover,.nav-cta:hover{transform:translateY(-2px);filter:brightness(1.1)}.btn.secondary{border:1px solid #30415c;background:#ffffff05}
-.hero{padding:92px 0 76px;text-align:center;position:relative}.eyebrow{display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border:1px solid #1b4b78;border-radius:99px;color:#80c9ff;background:#0b1a2b;font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase}.dot{width:6px;height:6px;border-radius:50%;background:#1bd0ff;box-shadow:0 0 10px #1bd0ff}
-h1{font-size:clamp(46px,8vw,88px);line-height:.98;letter-spacing:-4px;margin:25px 0 20px;font-weight:950}.gradient{background:linear-gradient(100deg,#fff 15%,#8bcaff 55%,#168cff 90%);-webkit-background-clip:text;background-clip:text;color:transparent}.hero p{max-width:610px;margin:0 auto;color:var(--muted);font-size:17px;line-height:1.7}.actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:30px}.hero-note{margin-top:28px;color:#667993;font-size:12px}.hero-art{width:min(570px,100%);height:175px;margin:50px auto 0;position:relative;display:grid;place-items:center;overflow:hidden;border:1px solid #173253;border-radius:18px;background:linear-gradient(120deg,#0b1422,#0b2038 55%,#07101e)}.hero-art:before,.hero-art:after{content:"";position:absolute;width:420px;height:1px;background:linear-gradient(90deg,transparent,#168cff,transparent);transform:rotate(-18deg);opacity:.7}.hero-art:after{transform:rotate(18deg);opacity:.35}.big-z{font-size:104px;font-weight:1000;line-height:1;color:#f6fbff;text-shadow:0 0 30px #168cff70;z-index:1;transform:skew(-7deg)}.big-z i{font-style:normal;color:#168cff}
-section{padding:60px 0}.section-head{text-align:center;margin-bottom:30px}.section-head h2{font-size:clamp(28px,4vw,42px);letter-spacing:-1.5px;margin:0 0 10px}.section-head p{margin:0;color:var(--muted);line-height:1.6}.features{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.feature,.price-card{border:1px solid var(--line);background:linear-gradient(145deg,#0e1727,#0a101b);border-radius:16px;padding:24px}.feature-icon{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;color:#5bc4ff;background:#0d2a48;border:1px solid #174b78;font-size:20px}.feature h3{font-size:17px;margin:18px 0 8px}.feature p{font-size:14px;line-height:1.65;color:var(--muted);margin:0}
-.pricing{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;max-width:1120px;margin:auto}.price-card{display:flex;flex-direction:column}.price-card ul{flex:1}.term{display:inline-block;margin-top:2px;padding:5px 10px;border:1px solid #174b78;border-radius:99px;background:#0d2a48;color:#80c9ff;font-size:12px;font-weight:800}.price-card{padding:28px;position:relative}.price-card.popular{border-color:#167ee5;box-shadow:0 0 35px #0877f91a}.tag{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:#69c5ff;font-weight:900}.price-card h3{font-size:23px;margin:12px 0 8px}.price{font-size:36px;letter-spacing:-1.5px;font-weight:950;margin:20px 0}.price small{font-size:13px;letter-spacing:0;color:var(--muted);font-weight:500}.price-card ul{list-style:none;padding:0;margin:20px 0 25px;display:grid;gap:12px;color:#c2cee0;font-size:14px}.price-card li:before{content:"✓";color:#24baff;font-weight:900;margin-right:10px}.price-card .btn{width:100%}
-.faq{max-width:780px;margin:auto;display:grid;gap:10px}.faq details{background:#0b1220;border:1px solid var(--line);border-radius:12px;padding:17px 20px}.faq summary{font-weight:750;cursor:pointer}.faq details p{color:var(--muted);line-height:1.65;font-size:14px;margin-bottom:0}
-footer{border-top:1px solid #ffffff10;padding:28px 0;color:#71839d;font-size:12px}.foot{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;align-items:center}.foot strong{color:#dceaff}
-@media(max-width:1020px){.pricing{grid-template-columns:repeat(2,minmax(0,1fr));max-width:800px}}
-@media(max-width:720px){.navlinks{display:none}.hero{padding:68px 0 48px}h1{letter-spacing:-2px}.features{grid-template-columns:1fr}.pricing{grid-template-columns:1fr}.hero-art{margin-top:35px}.feature{padding:20px}section{padding:44px 0}}
-
-.nav-right{display:flex;align-items:center;gap:10px}.nav-auth{border:1px solid #30415c;background:#ffffff05;color:var(--text);border-radius:10px;padding:11px 16px;font:inherit;font-weight:800;font-size:14px;cursor:pointer;transition:.2s}.nav-auth:hover{border-color:#168cff;transform:translateY(-2px)}
-.nav-discord{border:1px solid #5865F2;background:#5865F210;color:#c7ccff;border-radius:10px;padding:11px 16px;font:inherit;font-weight:800;font-size:14px;cursor:pointer;transition:.2s;display:inline-flex;align-items:center;gap:7px}.nav-discord:hover{border-color:#7d87ff;background:#5865F222;transform:translateY(-2px);color:#fff}.nav-discord svg{width:16px;height:16px;flex:none}
-.modal{position:fixed;inset:0;z-index:50;display:none;align-items:center;justify-content:center;padding:20px;background:#03060cc9;backdrop-filter:blur(6px)}.modal.open{display:flex}
-.modal-box{position:relative;width:min(420px,100%);border:1px solid #1b4b78;border-radius:18px;padding:28px;background:linear-gradient(145deg,#0e1727,#0a101b);box-shadow:0 0 50px #0877f933}
-.modal-close{position:absolute;top:12px;right:14px;border:0;background:none;color:var(--muted);font-size:24px;cursor:pointer}.modal-close:hover{color:#fff}
-.modal-box h3{margin:0 0 6px;font-size:24px;letter-spacing:-.5px}.modal-box>p{margin:0 0 18px;color:var(--muted);font-size:14px;line-height:1.6}
-.tabs{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:5px;margin-bottom:18px;border:1px solid var(--line);border-radius:12px;background:#0b1220}.tab{border:0;border-radius:8px;padding:10px;background:none;color:var(--muted);font:inherit;font-weight:800;font-size:14px;cursor:pointer}.tab.active{background:linear-gradient(100deg,#0877f9,#14b9ff);color:#fff}
-.field{display:grid;gap:6px;margin-bottom:13px}.field label{font-size:12px;font-weight:800;color:#9fb4d3;letter-spacing:.3px}.field input{width:100%;padding:12px 14px;border:1px solid #243650;border-radius:10px;background:#08101c;color:var(--text);font:inherit;font-size:14px;outline:none}.field input:focus{border-color:#168cff;box-shadow:0 0 0 3px #168cff22}
-.form-msg{min-height:20px;margin:0 0 12px;font-size:13px;color:#ff7d8c}.form-msg.ok{color:#4be3a0}.modal-box .btn{width:100%;border:0;cursor:pointer;font-family:inherit}
-@media(max-width:720px){.nav-cta{display:none}.nav-discord{display:none}}
-
-.profile-head{display:flex;align-items:center;gap:14px;margin-bottom:18px}.avatar{width:54px;height:54px;flex:none;display:grid;place-items:center;border:1px solid #168cff;border-radius:16px;background:linear-gradient(135deg,#168cff33,#19d2ff10);box-shadow:0 0 25px #168cff22;font-size:24px;font-weight:950;text-transform:uppercase}.profile-head h3{margin:0;font-size:22px;word-break:break-all}.profile-head span{color:var(--muted);font-size:13px;word-break:break-all}
-.info{display:grid;gap:8px;margin-bottom:18px}.info div{display:flex;justify-content:space-between;gap:12px;padding:11px 14px;border:1px solid var(--line);border-radius:10px;background:#0b1220;font-size:13px}.info div span{color:var(--muted)}.info div b{font-weight:750;text-align:right;word-break:break-all}
-.pf-actions{display:grid;gap:9px;margin-top:4px}.modal-box .btn.danger{border:1px solid #5b2230;background:#2a0f17;color:#ff9aa9;box-shadow:none}.modal-box .btn.secondary{border:1px solid #30415c;background:#ffffff05;color:var(--text)}
-.pf-section{display:none}.pf-section.show{display:block}
+nav{height:74px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #ffffff10}
+.brand{display:flex;align-items:center;gap:11px;font-weight:900;letter-spacing:.4px}
+.mark{width:37px;height:37px;display:grid;place-items:center;border:1px solid var(--violet);border-radius:11px;background:linear-gradient(135deg,#8b5cf633,#22d3ee10);box-shadow:0 0 25px #8b5cf633;font-size:21px;font-weight:950}
+.brand em{font-style:normal;background:linear-gradient(100deg,#c4b5fd,#22d3ee);-webkit-background-clip:text;background-clip:text;color:transparent}
+.navlinks{display:flex;gap:26px;color:var(--muted);font-size:14px}.navlinks a:hover{color:#fff}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:10px;padding:13px 20px;font:inherit;font-weight:800;font-size:14px;cursor:pointer;transition:.2s}
+.btn.primary{background:linear-gradient(100deg,#7c3aed,#c026d3);color:#fff;box-shadow:0 8px 26px #7c3aed44}
+.btn.secondary{border:1px solid #3a2f60;background:#ffffff05;color:var(--text)}
+.btn:hover{transform:translateY(-2px);filter:brightness(1.1)}
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding:80px 0 50px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;padding:7px 13px;border:1px solid #14724a;border-radius:99px;background:#052e1f;color:#4be3a0;font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase}
+.dot{width:6px;height:6px;border-radius:50%;background:#4be3a0;box-shadow:0 0 10px #4be3a0}
+h1{font-size:clamp(44px,7vw,78px);line-height:.98;letter-spacing:-3.5px;margin:24px 0 18px;font-weight:950}
+.grad{background:linear-gradient(100deg,#fff 10%,#c4b5fd 45%,#d946ef 75%,#22d3ee);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{max-width:520px;margin:0;color:var(--muted);font-size:17px;line-height:1.7}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}.note{margin-top:18px;color:#7d7699;font-size:12px}
+.art{position:relative;aspect-ratio:1/1;max-width:430px;width:100%;margin:auto;display:grid;place-items:center;border:1px solid #3a2a6a;border-radius:24px;overflow:hidden;background:radial-gradient(circle at 50% 40%,#5b2bb5aa,transparent 60%),linear-gradient(145deg,#140e2b,#0a0716);box-shadow:0 0 60px #7c3aed33}
+.art:before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,#ffffff06 0 1px,transparent 1px 32px),repeating-linear-gradient(90deg,#ffffff06 0 1px,transparent 1px 32px)}
+.art svg{position:relative;width:78%;filter:drop-shadow(0 0 22px #a855f7aa);animation:float 4s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-10px) rotate(2deg)}}
+@media(prefers-reduced-motion:reduce){.art svg{animation:none}}
+section{padding:54px 0}.head{text-align:center;margin-bottom:28px}.head h2{font-size:clamp(28px,4vw,40px);letter-spacing:-1.4px;margin:0 0 10px}.head p{margin:0;color:var(--muted);line-height:1.6}
+.features{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}
+.feature{border:1px solid var(--line);border-radius:16px;padding:22px;background:linear-gradient(150deg,#141026,#0c0918);transition:.2s}.feature:hover{transform:translateY(-3px);border-color:#4c2f8a}
+.ico{width:44px;height:44px;display:grid;place-items:center;border-radius:12px;background:#2a1a55;border:1px solid #4c2f8a;font-size:21px}.feature h3{margin:16px 0 8px;font-size:17px}.feature p{margin:0;color:var(--muted);font-size:14px;line-height:1.6}
+.specs{max-width:620px;margin:auto;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#0d0a1a}.specs div{display:flex;justify-content:space-between;gap:16px;padding:15px 20px;border-bottom:1px solid var(--line);font-size:14px}.specs div:last-child{border-bottom:0}.specs span{color:var(--muted)}.specs b{text-align:right}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.step{border:1px solid var(--line);border-radius:16px;padding:22px;background:linear-gradient(145deg,#120e22,#0a0714)}.num{width:38px;height:38px;display:grid;place-items:center;border-radius:11px;background:#2a1a55;border:1px solid #4c2f8a;color:#c4b5fd;font-weight:900}.step h3{margin:16px 0 8px;font-size:17px}.step p{margin:0;color:var(--muted);font-size:14px;line-height:1.65}
+.cta{text-align:center;border:1px solid #4c2f8a;border-radius:22px;padding:44px 24px;background:radial-gradient(circle at 50% 0,#3b1a7a88,transparent 70%),#0d0a1a}.cta h2{font-size:clamp(26px,4vw,38px);letter-spacing:-1.2px;margin:0 0 10px}.cta p{margin:0 0 22px;color:var(--muted)}
+.faq{max-width:780px;margin:auto;display:grid;gap:10px}.faq details{background:#0d0a1a;border:1px solid var(--line);border-radius:12px;padding:17px 20px}.faq summary{font-weight:750;cursor:pointer}.faq p{color:var(--muted);line-height:1.65;font-size:14px;margin:12px 0 0}
+footer{border-top:1px solid #ffffff10;padding:28px 0;color:#7d7699;font-size:12px}.foot{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;align-items:center}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,30px);opacity:0;pointer-events:none;padding:12px 18px;border:1px solid #4c2f8a;border-radius:12px;background:#160f2b;color:#e9e3ff;font-size:14px;transition:.25s;z-index:20}.toast.show{opacity:1;transform:translate(-50%,0)}
+code{padding:2px 6px;border-radius:6px;background:#1a1333;color:#c4b5fd;font-size:13px}
+@media(max-width:1020px){.features{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:820px){.hero{grid-template-columns:1fr;text-align:center;padding:56px 0 36px}.hero p{margin:auto}.actions{justify-content:center}.art{max-width:340px}}
+@media(max-width:720px){.navlinks{display:none}h1{letter-spacing:-2px}.features,.steps{grid-template-columns:1fr}section{padding:42px 0}}
 </style>
 </head>
 <body>
 <header class="wrap">
   <nav>
-    <a class="brand" href="#"><span class="mark">Z</span><span>ZEVS<em>DLC</em></span></a>
-    <div class="navlinks"><a href="#features">Возможности</a><a href="#pricing">Лицензии</a><a href="#faq">FAQ</a></div>
-    <div class="nav-right">
-      <a class="nav-discord" href="https://discord.gg/uMBXraJs4" target="_blank" rel="noopener noreferrer" aria-label="Discord ZevsDLC">
-        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.3 4.4A19.8 19.8 0 0 0 15.4 3l-.3.5a18 18 0 0 1 4.3 1.4 15 15 0 0 0-13 .1A18 18 0 0 1 8.7 3.5L8.4 3a19.8 19.8 0 0 0-4.9 1.4C.6 9.3-.3 14.1.2 18.7a20 20 0 0 0 6 3l.5-.7a13 13 0 0 1-2.3-1.1l.6-.4a14.3 14.3 0 0 0 12.1 0l.6.4a13 13 0 0 1-2.3 1.1l.5.7a20 20 0 0 0 6-3c.6-5.3-.9-10.1-3.6-14.3ZM8.4 15.4c-1.2 0-2.1-1.1-2.1-2.4s.9-2.4 2.1-2.4 2.2 1.1 2.2 2.4-1 2.4-2.2 2.4Zm7.2 0c-1.2 0-2.1-1.1-2.1-2.4s.9-2.4 2.1-2.4 2.2 1.1 2.2 2.4-1 2.4-2.2 2.4Z"/></svg>
-        Discord
-      </a>
-      <button class="nav-auth" id="authBtn" type="button">Войти</button>
-      <a class="nav-cta" href="#pricing">Купить доступ ↗</a>
-    </div>
+    <a class="brand" href="#"><span class="mark">Z</span><span>ZEVS <em>VISUAL</em></span></a>
+    <div class="navlinks"><a href="#features">Возможности</a><a href="#install">Установка</a><a href="#faq">FAQ</a></div>
+    <a class="btn primary dl" href="downloads/ZevsVisual-Launcher.exe" download>⬇ Скачать лаунчер</a>
   </nav>
 </header>
+
 <main>
   <section class="hero wrap">
-    <div class="eyebrow"><span class="dot"></span> ZEVSDLC · CLIENT</div>
-    <h1>Играй в своём<br><span class="gradient">стиле.</span></h1>
-    <p>ZevsDLC — лаконичный клиент с акцентом на удобство, стильный интерфейс и настройку под себя.</p>
-    <div class="actions"><a class="btn primary" href="#pricing">Выбрать лицензию <span aria-hidden="true">&nbsp;↗</span></a><a class="btn secondary" href="#features">Подробнее</a></div>
-    <div class="hero-note">Перед покупкой проверь совместимость с версией Minecraft.</div>
-    <div class="hero-art" aria-label="ZevsDLC logo"><div class="big-z">Z<i>.</i></div></div>
+    <div>
+      <div class="eyebrow"><span class="dot"></span> Бесплатно навсегда</div>
+      <h1>Zevs <span class="grad">Visual</span></h1>
+      <p>Единый фиолетово-кристальный визуал для Minecraft: красивые мечи, заметные эффекты и аккуратный интерфейс, которые не просаживают FPS.</p>
+      <div class="actions"><a class="btn primary dl" href="downloads/ZevsVisual-Launcher.exe" download>⬇ Скачать лаунчер</a><a class="btn secondary" href="#features">Возможности</a></div>
+      <div class="note">Без оплаты и регистрации. Скачай лаунчер и запускай. Проверь, что у тебя Windows.</div>
+    </div>
+    <div class="art" aria-label="Кристальный меч Zevs Visual">
+      <svg viewBox="0 0 200 260" xmlns="http://www.w3.org/2000/svg" role="img">
+        <defs>
+          <linearGradient id="bl" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f0e7ff"/><stop offset=".45" stop-color="#a855f7"/><stop offset="1" stop-color="#5b21b6"/></linearGradient>
+          <linearGradient id="gd" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#67e8f9"/><stop offset="1" stop-color="#7c3aed"/></linearGradient>
+        </defs>
+        <polygon points="100,8 126,40 118,168 100,182 82,168 74,40" fill="url(#bl)" stroke="#e9d5ff" stroke-width="2"/>
+        <polygon points="100,8 126,40 100,60 74,40" fill="#fff" opacity=".35"/>
+        <line x1="100" y1="60" x2="100" y2="176" stroke="#fff" stroke-opacity=".4" stroke-width="2"/>
+        <rect x="52" y="178" width="96" height="14" rx="5" fill="#2e1065" stroke="#c4b5fd" stroke-width="2"/>
+        <rect x="92" y="192" width="16" height="44" rx="4" fill="#1e1b4b" stroke="#8b5cf6" stroke-width="2"/>
+        <polygon points="100,230 114,244 100,258 86,244" fill="url(#gd)" stroke="#e9d5ff" stroke-width="2"/>
+      </svg>
+    </div>
   </section>
+
   <section id="features" class="wrap">
-    <div class="section-head"><h2>Всё по делу.</h2><p>Без перегруженного дизайна — только самое важное.</p></div>
+    <div class="head"><h2>Возможности Zevs Visual</h2><p>Всё, что нужно для красивой и читаемой игры.</p></div>
     <div class="features">
-      <article class="feature"><div class="feature-icon">⌘</div><h3>Удобный интерфейс</h3><p>Понятная навигация и аккуратные настройки, чтобы быстро находить нужное.</p></article>
-      <article class="feature"><div class="feature-icon">◈</div><h3>Настройка под себя</h3><p>Подстрой внешний вид и доступные параметры под собственный стиль игры.</p></article>
-      <article class="feature"><div class="feature-icon">⚡</div><h3>Обновления</h3><p>Добавь информацию о поддерживаемых версиях и обновлениях перед запуском продаж.</p></article>
+      <article class="feature"><div class="ico">💎</div><h3>Кристальные мечи</h3><p>Все мечи выполнены в едином стиле: фиолетовое кристальное лезвие и рукоять с самоцветом.</p></article>
+      <article class="feature"><div class="ico">🔥</div><h3>Низкий огонь</h3><p>Огонь не перекрывает обзор, так что в бою и PvP экран остаётся чистым.</p></article>
+      <article class="feature"><div class="ico">💥</div><h3>Заметные эффекты</h3><p>Яркие частицы ударов, тотема и зелий — важные события видно сразу.</p></article>
+      <article class="feature"><div class="ico">🛡️</div><h3>Броня в одном стиле</h3><p>Комплекты брони подогнаны под палитру визуала и хорошо читаются на игроках.</p></article>
+      <article class="feature"><div class="ico">🍎</div><h3>Золотое яблоко и тотем</h3><p>Ключевые предметы PvP переработаны так, чтобы их было легко узнать в инвентаре и руках.</p></article>
+      <article class="feature"><div class="ico">🧩</div><h3>Аккуратный интерфейс</h3><p>Тёмное меню и чистый интерфейс без лишних деталей, приятные для долгой игры.</p></article>
+      <article class="feature"><div class="ico">⚡</div><h3>Лёгкий для FPS</h3><p>Визуал оптимизирован так, чтобы не просаживать FPS, и работает даже на слабых ПК.</p></article>
+      <article class="feature"><div class="ico">🆓</div><h3>Полностью бесплатно</h3><p>Скачивай без оплаты, регистрации и подписок. Обновления будут выходить на этом же сайте.</p></article>
     </div>
   </section>
-  <section id="pricing" class="wrap">
-    <div class="section-head"><h2>Выбери доступ</h2><p>Выбери подходящий тариф и срок лицензии.</p></div>
-    <div class="pricing">
-      <article class="price-card"><div class="tag">Ранний доступ</div><h3>Beta</h3><p style="color:var(--muted);font-size:14px">Бета-доступ к клиенту</p><div class="price">1 000 ₽</div><div><span class="term">Срок: навсегда</span></div><ul><li>Бессрочная лицензия</li><li>Доступ к бета-версии</li></ul><a class="btn secondary pay-link" href="https://funpay.com/lots/offerEdit?node=1099&amp;offer=79102154" target="_blank" rel="noopener noreferrer">Выбрать Beta</a></article>
-      <article class="price-card"><div class="tag">Старт</div><h3>Standard</h3><p style="color:var(--muted);font-size:14px">Для знакомства с клиентом</p><div class="price">150 ₽</div><div><span class="term">Срок: 30 дней</span></div><ul><li>Лицензия на 30 дней</li><li>Все базовые возможности</li></ul><a class="btn secondary pay-link" href="https://funpay.com/lots/offer?id=78681257" target="_blank" rel="noopener noreferrer">Выбрать Standard</a></article>
-      <article class="price-card"><div class="tag">Выгодно</div><h3>Annual</h3><p style="color:var(--muted);font-size:14px">Доступ на целый год</p><div class="price">400 ₽</div><div><span class="term">Срок: 365 дней</span></div><ul><li>Лицензия на 365 дней</li><li>Все базовые возможности</li></ul><a class="btn secondary pay-link" href="https://funpay.com/lots/offer?id=79102033" target="_blank" rel="noopener noreferrer">Выбрать Annual</a></article>
-      <article class="price-card popular"><div class="tag">Рекомендуем</div><h3>Lifetime</h3><p style="color:var(--muted);font-size:14px">Один раз и навсегда</p><div class="price">649 ₽</div><div><span class="term">Срок: навсегда</span></div><ul><li>Бессрочная лицензия</li><li>Все возможности клиента</li></ul><a class="btn primary pay-link" href="https://funpay.com/lots/offer?id=79102479" target="_blank" rel="noopener noreferrer">Выбрать Lifetime</a></article>
+
+  <section class="wrap">
+    <div class="head"><h2>О визуале</h2></div>
+    <div class="specs">
+      <div><span>Название</span><b>Zevs Visual</b></div>
+      <div><span>Тип</span><b>Мод</b></div>
+      <div><span>Версия Minecraft</span><b>1.21+</b></div>
+      <div><span>Цена</span><b>Бесплатно</b></div>
     </div>
-    <p id="contact" style="text-align:center;color:var(--muted);font-size:13px;line-height:1.7;margin:24px auto 0;max-width:650px">После оплаты напишите в Discord <strong style="color:#dceaff">tainodergal22842</strong> со скриншотом оплаты — я выдам вам доступ. Либо напишите на FunPay и скиньте свой Discord. <em>(Временно, пока не создадим ключи.)</em></p>
   </section>
+
+  <section id="install" class="wrap">
+    <div class="head"><h2>Как установить</h2><p>Три простых шага.</p></div>
+    <div class="steps">
+      <div class="step"><div class="num">1</div><h3>Скачай лаунчер</h3><p>Нажми «Скачать лаунчер» на этой странице и сохрани <code>.exe</code> файл на компьютер.</p></div>
+      <div class="step"><div class="num">2</div><h3>Запусти его</h3><p>Открой скачанный файл. Если Windows покажет предупреждение, подтверди запуск.</p></div>
+      <div class="step"><div class="num">3</div><h3>Играй</h3><p>Запусти игру через лаунчер: Zevs Visual подключится сам, ничего копировать не нужно.</p></div>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <div class="cta"><h2>Играй в своём стиле</h2><p>Zevs Visual — бесплатно, красиво и без потери FPS.</p><a class="btn primary dl" href="downloads/ZevsVisual-Launcher.exe" download>⬇ Скачать лаунчер</a></div>
+  </section>
+
   <section id="faq" class="wrap">
-    <div class="section-head"><h2>Частые вопросы</h2></div>
+    <div class="head"><h2>Частые вопросы</h2></div>
     <div class="faq">
-      <details>
-        <summary>Как получить доступ после оплаты?</summary>
-        <p>Чтобы получить доступ к клиенту после оплаты, напишите в Discord <strong style="color:#dceaff">tainodergal22842</strong> со скриншотами оплаты, либо напишите на FunPay и скиньте свой Discord — я выдам вам сабку. <em style="color:#9aabc3">(Это временно, пока не создадим ключи.)</em></p>
-        <p style="margin-top:10px">Discord-канал проекта: <a href="https://discord.gg/uMBXraJs4" target="_blank" rel="noopener noreferrer" style="color:#7d87ff;font-weight:800">discord.gg/uMBXraJs4</a></p>
-      </details>
-      <details>
-        <summary>Какие версии Minecraft поддерживаются?</summary>
-        <p>Весь клиент работает под <strong style="color:#dceaff">Minecraft 1.21.4</strong>. Другие версии не тестировались и не поддерживаются.</p>
-      </details>
-      <details>
-        <summary>Можно ли вернуть оплату?</summary>
-        <p>Вернуть оплату, к сожалению, нельзя. Но если у вас возникли проблемы — подайте заявку в техподдержку в нашем Discord-канале: <a href="https://discord.gg/uMBXraJs4" target="_blank" rel="noopener noreferrer" style="color:#7d87ff;font-weight:800">discord.gg/uMBXraJs4</a></p>
-      </details>
+      <details><summary>Это правда бесплатно?</summary><p>Да, лаунчер и Zevs Visual можно скачать и использовать бесплатно, без регистрации и подписок.</p></details>
+      <details><summary>Какие версии Minecraft поддерживаются?</summary><p>Визуал рассчитан на версии 1.21 и новее. На других версиях он может работать неправильно.</p></details>
+      <details><summary>Влияет ли визуал на FPS?</summary><p>Практически нет: Zevs Visual оптимизирован и не использует тяжёлых эффектов, которые сильно нагружают видеокарту.</p></details>
+      <details><summary>Можно ли играть с ним на серверах?</summary><p>Zevs Visual меняет только то, как игра выглядит у тебя. Но правила у серверов разные, поэтому перед игрой проверь, разрешены ли там моды.</p></details>
     </div>
   </section>
 </main>
-<footer><div class="wrap foot"><a class="brand" href="#"><span class="mark">Z</span><span>ZEVS<em style="color:var(--blue);font-style:normal">DLC</em></span></a><span>© 2026 ZevsDLC. Все права защищены.</span><span>Неофициальный проект; Minecraft — товарный знак Mojang/Microsoft.</span></div></footer>
-<div class="modal" id="authModal" role="dialog" aria-modal="true" aria-labelledby="authTitle">
-  <div class="modal-box">
-    <button class="modal-close" id="authClose" type="button" aria-label="Закрыть">×</button>
-    <h3 id="authTitle">Аккаунт ZevsDLC</h3>
-    <p>Чтобы купить лицензию, нужно создать аккаунт или войти.</p>
-    <div class="tabs"><button class="tab active" id="tabReg" type="button">Регистрация</button><button class="tab" id="tabLogin" type="button">Вход</button></div>
-    <div id="authForm">
-      <div class="field" id="nickField"><label for="fNick">Никнейм</label><input id="fNick" autocomplete="username" maxlength="24" placeholder="Steve"></div>
-      <div class="field"><label for="fEmail">Email</label><input id="fEmail" type="email" autocomplete="email" placeholder="you@example.com"></div>
-      <div class="field"><label for="fPass">Пароль</label><input id="fPass" type="password" autocomplete="current-password" placeholder="Минимум 6 символов"></div>
-      <div class="form-msg" id="authMsg" role="alert"></div>
-      <button class="btn primary" id="authSubmit" type="button">Создать аккаунт</button>
-    </div>
-  </div>
-</div>
-<div class="modal" id="profileModal" role="dialog" aria-modal="true" aria-labelledby="pfName">
-  <div class="modal-box">
-    <button class="modal-close" id="pfClose" type="button" aria-label="Закрыть">×</button>
-    <div class="profile-head"><div class="avatar" id="pfAvatar">Z</div><div><h3 id="pfName">Профиль</h3><span id="pfEmailTop"></span></div></div>
-    <div class="pf-section show" id="pfMain">
-      <div class="info"><div><span>Никнейм</span><b id="pfNick"></b></div><div><span>Email</span><b id="pfEmail"></b></div><div><span>Дата регистрации</span><b id="pfDate"></b></div></div>
-      <div class="pf-actions">
-        <a class="btn primary" id="pfDownload" href="ZevsDLC-Launcher.exe" download="ZevsDLC-Launcher.exe">⬇ Скачать лаунчер (.exe)</a>
-        <a class="btn secondary" href="#pricing" id="pfBuy">Выбрать лицензию</a>
-        <button class="btn secondary" id="pfEditBtn" type="button">Изменить никнейм / пароль</button>
-        <button class="btn secondary" id="pfLogout" type="button">Выйти</button>
-        <button class="btn danger" id="pfDelete" type="button">Удалить аккаунт</button>
-      </div>
-    </div>
-    <div class="pf-section" id="pfEdit">
-      <div class="field"><label for="pfNewNick">Никнейм</label><input id="pfNewNick" maxlength="24"></div>
-      <div class="field"><label for="pfOldPass">Текущий пароль</label><input id="pfOldPass" type="password" autocomplete="current-password" placeholder="Нужен только для смены пароля"></div>
-      <div class="field"><label for="pfNewPass">Новый пароль</label><input id="pfNewPass" type="password" autocomplete="new-password" placeholder="Оставь пустым, чтобы не менять"></div>
-      <div class="form-msg" id="pfMsg" role="alert"></div>
-      <div class="pf-actions"><button class="btn primary" id="pfSave" type="button">Сохранить</button><button class="btn secondary" id="pfCancel" type="button">Назад</button></div>
-    </div>
-  </div>
-</div>
-<script>
-document.querySelectorAll('.buy-link').forEach(link => link.addEventListener('click', () => {
-  const plan = link.dataset.plan;
-  const contact = document.querySelector('#contact');
-  if(!contact) return;
-  contact.dataset.selectedPlan = plan;
-  contact.innerHTML = 'Выбран тариф <strong style="color:#dceaff">' + plan + '</strong>. Для реальной оплаты замени эту кнопку ссылкой на свою платёжную страницу или контакт поддержки.';
-}));
-(function(){
-  var mem={},KEY_USERS='zevsdlc_users',KEY_SESSION='zevsdlc_session';
-  function get(k){try{return localStorage.getItem(k)}catch(e){return mem[k]||null}}
-  function set(k,v){try{localStorage.setItem(k,v)}catch(e){mem[k]=v}}
-  function del(k){try{localStorage.removeItem(k)}catch(e){delete mem[k]}}
-  function users(){try{return JSON.parse(get(KEY_USERS)||'{}')}catch(e){return {}}}
-  async function hash(str){
-    if(window.crypto&&crypto.subtle){var b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(str));return Array.from(new Uint8Array(b)).map(function(x){return x.toString(16).padStart(2,'0')}).join('')}
-    var h=5381;for(var i=0;i<str.length;i++)h=((h<<5)+h+str.charCodeAt(i))|0;return String(h);
-  }
-  var modal=document.getElementById('authModal'),btn=document.getElementById('authBtn'),msg=document.getElementById('authMsg'),
-      tabReg=document.getElementById('tabReg'),tabLogin=document.getElementById('tabLogin'),nickField=document.getElementById('nickField'),
-      submit=document.getElementById('authSubmit'),fNick=document.getElementById('fNick'),fEmail=document.getElementById('fEmail'),fPass=document.getElementById('fPass'),
-      mode='reg';
-  function session(){var e=get(KEY_SESSION);var u=users();return e&&u[e]?u[e]:null}
-  function refresh(){var u=session();btn.textContent=u?('👤 '+u.nick):'Войти'}
-  function setMode(m){mode=m;tabReg.classList.toggle('active',m==='reg');tabLogin.classList.toggle('active',m==='login');nickField.style.display=m==='reg'?'':'none';submit.textContent=m==='reg'?'Создать аккаунт':'Войти';fPass.autocomplete=m==='reg'?'new-password':'current-password';msg.textContent='';msg.className='form-msg'}
-  function open(m){setMode(m||'reg');modal.classList.add('open');setTimeout(function(){(mode==='reg'?fNick:fEmail).focus()},50)}
-  function close(){modal.classList.remove('open');fPass.value=''}
-  tabReg.onclick=function(){setMode('reg')};tabLogin.onclick=function(){setMode('login')};
-  document.getElementById('authClose').onclick=close;
-  modal.addEventListener('click',function(e){if(e.target===modal)close()});
-  document.addEventListener('keydown',function(e){if(e.key==='Escape')close();if(e.key==='Enter'&&modal.classList.contains('open'))submit.click()});
-  btn.onclick=function(){if(session())openProfile();else open('login')};
-  submit.onclick=async function(){
-    var email=fEmail.value.trim().toLowerCase(),pass=fPass.value,nick=fNick.value.trim(),all=users();
-    msg.className='form-msg';
-    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){msg.textContent='Введите корректный email.';return}
-    if(pass.length<6){msg.textContent='Пароль должен быть не короче 6 символов.';return}
-    var h=await hash(email+':'+pass);
-    if(mode==='reg'){
-      if(nick.length<3){msg.textContent='Никнейм — минимум 3 символа.';return}
-      if(all[email]){msg.textContent='Аккаунт с таким email уже существует. Войдите.';return}
-      all[email]={nick:nick,hash:h,created:Date.now()};set(KEY_USERS,JSON.stringify(all));set(KEY_SESSION,email);
-    }else{
-      if(!all[email]||all[email].hash!==h){msg.textContent='Неверный email или пароль.';return}
-      set(KEY_SESSION,email);
-    }
-    refresh();close();
-    var pr=document.getElementById('pricing');if(pr)pr.scrollIntoView({behavior:'smooth'});
-  };
-  document.querySelectorAll('.pay-link').forEach(function(a){a.addEventListener('click',function(e){
-    if(!session()){e.preventDefault();open('reg')}
-  })});
 
-  var pm=document.getElementById('profileModal'),pfMain=document.getElementById('pfMain'),pfEdit=document.getElementById('pfEdit'),pfMsg=document.getElementById('pfMsg');
-  function pfShow(edit){pfMain.classList.toggle('show',!edit);pfEdit.classList.toggle('show',edit);pfMsg.textContent='';pfMsg.className='form-msg'}
-  function fill(){
-    var e=get(KEY_SESSION),u=session();if(!u)return;
-    document.getElementById('pfAvatar').textContent=u.nick.charAt(0);
-    document.getElementById('pfName').textContent=u.nick;
-    document.getElementById('pfEmailTop').textContent=e;
-    document.getElementById('pfNick').textContent=u.nick;
-    document.getElementById('pfEmail').textContent=e;
-    document.getElementById('pfDate').textContent=u.created?new Date(u.created).toLocaleDateString('ru-RU'):'—';
-    document.getElementById('pfNewNick').value=u.nick;
-  }
-  function openProfile(){fill();pfShow(false);pm.classList.add('open')}
-  function closeProfile(){pm.classList.remove('open');document.getElementById('pfOldPass').value='';document.getElementById('pfNewPass').value=''}
-  document.getElementById('pfClose').onclick=closeProfile;
-  pm.addEventListener('click',function(e){if(e.target===pm)closeProfile()});
-  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeProfile()});
-  document.getElementById('pfBuy').onclick=closeProfile;
-  document.getElementById('pfEditBtn').onclick=function(){pfShow(true)};
-  document.getElementById('pfCancel').onclick=function(){pfShow(false)};
-  document.getElementById('pfLogout').onclick=function(){del(KEY_SESSION);refresh();closeProfile()};
-  document.getElementById('pfDelete').onclick=function(){
-    if(!confirm('Удалить аккаунт? Это действие нельзя отменить.'))return;
-    var all=users(),e=get(KEY_SESSION);delete all[e];set(KEY_USERS,JSON.stringify(all));del(KEY_SESSION);refresh();closeProfile();
-  };
-  document.getElementById('pfSave').onclick=async function(){
-    var e=get(KEY_SESSION),all=users(),u=all[e];if(!u)return;
-    var nick=document.getElementById('pfNewNick').value.trim(),oldP=document.getElementById('pfOldPass').value,newP=document.getElementById('pfNewPass').value;
-    pfMsg.className='form-msg';
-    if(nick.length<3){pfMsg.textContent='Никнейм — минимум 3 символа.';return}
-    if(newP){
-      if(newP.length<6){pfMsg.textContent='Новый пароль должен быть не короче 6 символов.';return}
-      if(await hash(e+':'+oldP)!==u.hash){pfMsg.textContent='Текущий пароль указан неверно.';return}
-      u.hash=await hash(e+':'+newP);
-    }
-    u.nick=nick;all[e]=u;set(KEY_USERS,JSON.stringify(all));refresh();fill();
-    document.getElementById('pfOldPass').value='';document.getElementById('pfNewPass').value='';
-    pfShow(false);
-  };
-  refresh();
-})();
+<footer><div class="wrap foot"><a class="brand" href="#"><span class="mark">Z</span><span>ZEVS <em>VISUAL</em></span></a><span>© 2026 Zevs Visual. Бесплатный визуал.</span><span>Неофициальный проект; Minecraft — товарный знак Mojang/Microsoft.</span></div></footer>
+<div class="toast" id="toast"></div>
+<script>
+var toast=document.getElementById('toast');
+document.querySelectorAll('.dl').forEach(function(a){a.addEventListener('click',function(){
+  toast.textContent='Скачивание лаунчера началось';toast.classList.add('show');
+  clearTimeout(toast.t);toast.t=setTimeout(function(){toast.classList.remove('show')},2600);
+})});
 </script>
 </body>
 </html>
