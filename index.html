@@ -3,260 +3,239 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Кубокрафт — игра про кубики в браузере</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Silkscreen:wght@700&display=swap">
+<title>ZevsDLC — клиент для Minecraft 1.21.11</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@400;600&family=Unbounded:wght@600;800&display=swap">
 <style>
-:root{--bg:#f2f7ec;--ink:#1c2a1f;--muted:#4d5f4f;--line:#3a2a18;--panel:rgba(14,22,32,.82);--acc:#7bd45a;--btn:#3f9a34;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121c26;--ink:#eaf2e4;--muted:#9fb3a3;--line:#000}}
-:root[data-theme="dark"]{--bg:#121c26;--ink:#eaf2e4;--muted:#9fb3a3;--line:#000}
-html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
-html,body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 Nunito,"Trebuchet MS",system-ui,sans-serif}
-.top{display:flex;justify-content:space-between;align-items:center;gap:16px;max-width:1100px;margin:0 auto;padding:16px 20px}
-.logo{font:700 22px Silkscreen,"Courier New",monospace;color:var(--btn);text-decoration:none;text-shadow:2px 2px 0 var(--line)}
-.top nav{display:flex;gap:20px}.top nav a{color:var(--ink);text-decoration:none;font-weight:700}.top nav a:hover{color:var(--btn)}
-.hero{max-width:1100px;margin:0 auto;padding:28px 20px 24px}
-.hero h1{margin:0 0 12px;font:700 clamp(30px,6vw,60px)/1.1 Silkscreen,"Courier New",monospace;max-width:14em}
-.hero p{margin:0 0 20px;max-width:34em;color:var(--muted);font-size:19px}
-.btn{font:700 17px Nunito,sans-serif;padding:12px 26px;color:#fff;background:var(--btn);border:3px solid var(--line);box-shadow:4px 4px 0 var(--line);cursor:pointer}
-.btn:hover{transform:translate(-1px,-1px)}.btn:focus-visible,.top a:focus-visible{outline:3px solid var(--acc);outline-offset:3px}
-.btn.ghost{background:transparent;color:var(--ink);box-shadow:none;padding:8px 16px}
-main{max-width:1100px;margin:0 auto;padding:0 20px}
-.tools{display:flex;align-items:center;gap:16px;margin:14px 0 0;color:var(--muted);flex-wrap:wrap}
-.how{max-width:1100px;margin:0 auto;padding:48px 20px 24px}
-.how h2{margin:0 0 18px;font:700 28px Silkscreen,"Courier New",monospace}
-.keys{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px 40px;margin:0}
-.keys div{display:flex;gap:14px;align-items:baseline;padding:10px 0;border-bottom:2px dashed var(--muted)}
-.keys dt{min-width:128px;font-weight:700}.keys dd{margin:0;color:var(--muted)}
-kbd{display:inline-block;padding:1px 8px;border:2px solid var(--line);background:var(--bg);font:700 14px monospace;box-shadow:2px 2px 0 var(--line)}
-footer{max-width:1100px;margin:0 auto;padding:32px 20px 40px;color:var(--muted)}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn:hover{transform:none}}
-#stage{position:relative;height:min(72vh,640px);min-height:340px;background:#8ecbff;border:3px solid var(--line);box-shadow:6px 6px 0 var(--line);overflow:hidden}
-#stage:fullscreen{height:100%;border:0;box-shadow:none}
-canvas{display:block;width:100%;height:100%}
-#cross{position:absolute;left:50%;top:50%;width:22px;height:22px;margin:-11px 0 0 -11px;pointer-events:none;mix-blend-mode:difference}
-#cross:before,#cross:after{content:"";position:absolute;background:#fff}
-#cross:before{left:10px;top:0;width:2px;height:22px}#cross:after{top:10px;left:0;height:2px;width:22px}
-#bar{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);display:flex;gap:6px;padding:6px;background:var(--panel);border-radius:6px}
-.s{width:48px;height:48px;border:3px solid #55606b;position:relative;image-rendering:pixelated}
-.s.on{border-color:#fff;transform:translateY(-6px)}
-.s i{position:absolute;left:4px;top:2px;font:700 12px monospace;font-style:normal;text-shadow:0 1px 2px #000}
-#ov{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(10,16,24,.7);cursor:pointer}
-#ov div{color:#f4f1e8;max-width:420px;padding:28px 32px;background:var(--panel);border:3px solid var(--acc);text-align:left;line-height:1.55}
-#ov h1{margin:0 0 10px;font-size:40px;letter-spacing:2px;color:var(--acc);text-shadow:3px 3px 0 #1e4d12}
-#ov p{margin:4px 0}
-#ov b{color:var(--acc)}
+:root{--bg:#0b0e24;--bg2:#12163a;--ink:#eef1ff;--muted:#9aa3d1;--line:#262c5e;--gold:#ffd24a;--blue:#6a93ff;
+--disp:Unbounded,"Arial Black",system-ui,sans-serif;--body:Onest,system-ui,sans-serif;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:dark}
+html{scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*:before,*:after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 var(--body)}
+a{color:inherit}
+.w{max-width:1120px;margin:0 auto;padding:0 22px}
+nav{position:absolute;inset:0 0 auto 0;z-index:3}
+nav .w{display:flex;justify-content:space-between;align-items:center;height:72px}
+.logo{font:800 20px var(--disp);text-decoration:none;letter-spacing:-.02em}
+.logo b{color:var(--gold);font-weight:800}
+.links{display:flex;gap:26px;align-items:center}
+.links a{text-decoration:none;color:var(--muted);font-weight:600}.links a:hover{color:var(--ink)}
+.btn{display:inline-block;padding:14px 26px;border-radius:10px;background:var(--gold);color:#1a1400;font:600 16px var(--body);text-decoration:none;border:0;cursor:pointer;transition:transform .15s,box-shadow .15s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(255,210,74,.35)}
+.btn.o{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+.btn.o:hover{border-color:var(--blue);box-shadow:none}
+a:focus-visible,.btn:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+.hero{position:relative;min-height:min(92vh,760px);display:flex;align-items:center;overflow:hidden;background:radial-gradient(900px 500px at 78% 30%,#1c2360 0%,transparent 70%),var(--bg)}
+#bolt{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.hero .w{position:relative;z-index:2;padding-top:90px;padding-bottom:60px}
+.ver{display:inline-block;margin:0 0 20px;padding:6px 14px;border:1.5px solid var(--line);border-radius:99px;color:var(--muted);font-size:15px}
+h1{margin:0;font:800 clamp(52px,11vw,140px)/.95 var(--disp);letter-spacing:-.04em}
+h1 span{color:var(--gold)}
+.lead{max-width:30em;margin:24px 0 32px;font-size:clamp(18px,2.2vw,22px);color:var(--muted)}
+.cta{display:flex;gap:14px;flex-wrap:wrap}
+section{padding:96px 0}
+h2{margin:0 0 14px;font:800 clamp(28px,4.5vw,44px)/1.1 var(--disp);letter-spacing:-.03em}
+.sub{margin:0 0 44px;color:var(--muted);max-width:36em}
+.mods{border-top:1.5px solid var(--line)}
+.mod{display:grid;grid-template-columns:minmax(150px,1fr) 2.4fr;gap:8px 40px;padding:24px 0;border-bottom:1.5px solid var(--line)}
+.mod h3{margin:0;font:600 22px var(--disp);letter-spacing:-.02em}
+.mod p{margin:0;color:var(--muted)}
+.alt{background:var(--bg2)}
+.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}
+.plan{display:flex;flex-direction:column;padding:28px 24px;border:1.5px solid var(--line);border-radius:16px;background:var(--bg)}
+.plan.top{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold),0 20px 60px rgba(255,210,74,.12)}
+.plan h3{margin:0 0 4px;font:600 20px var(--disp)}
+.tag{margin:0 0 22px;color:var(--muted);font-size:15px}
+.price{margin:0;font:800 40px var(--disp);letter-spacing:-.03em}
+.per{margin:2px 0 26px;color:var(--muted)}
+.plan .btn{margin-top:auto;text-align:center}
+.plan:not(.top) .btn{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+.plan:not(.top) .btn:hover{border-color:var(--blue);box-shadow:none}
+.faq{max-width:760px}
+details{border-bottom:1.5px solid var(--line);padding:18px 0}
+summary{cursor:pointer;font:600 19px var(--body);list-style:none;display:flex;justify-content:space-between;gap:16px}
+summary::-webkit-details-marker{display:none}
+summary:after{content:"+";color:var(--gold);font-size:24px;line-height:1}
+details[open] summary:after{content:"−"}
+details p{margin:12px 0 0;color:var(--muted)}
+footer{padding:40px 0 56px;border-top:1.5px solid var(--line);color:var(--muted);font-size:15px}
+footer .w{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+[hidden]{display:none!important}
+.links .btn{padding:10px 18px}
+#acc{max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+dialog{width:min(440px,calc(100vw - 32px));padding:26px;border:1.5px solid var(--line);border-radius:18px;background:var(--bg2);color:var(--ink)}
+dialog::backdrop{background:rgba(5,7,20,.72);backdrop-filter:blur(4px)}
+.dh{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+dialog h2{margin:0;font:800 24px var(--disp);letter-spacing:-.02em}
+.x{background:none;border:0;color:var(--muted);font-size:30px;line-height:1;cursor:pointer}
+.tabs{display:flex;gap:6px;padding:4px;margin-bottom:18px;background:var(--bg);border-radius:10px}
+.tabs button{flex:1;padding:10px;border:0;border-radius:8px;background:none;color:var(--muted);font:600 15px var(--body);cursor:pointer}
+.tabs .on{background:var(--line);color:var(--ink)}
+dialog label{display:block;margin-bottom:14px;color:var(--muted);font-size:15px}
+dialog input{display:block;width:100%;margin-top:6px;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);font:17px var(--body)}
+dialog input:focus-visible,.x:focus-visible,.tabs button:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.note{margin:0 0 16px;padding:10px 14px;border-radius:10px;background:rgba(106,147,255,.14);color:var(--ink);font-size:15px}
+#msg{min-height:1.4em;margin:0 0 10px;color:#ff9a9a;font-size:15px}
+#f .btn,.cabx .btn{width:100%;text-align:center}
+.cab{display:grid;grid-template-columns:auto 1fr;gap:10px 18px;margin:0 0 22px}
+.cab dt{color:var(--muted)}.cab dd{margin:0;font-weight:600;word-break:break-word}
+.cabx{display:grid;gap:10px}
+@media (max-width:640px){.links{gap:10px}.links a:not(.btn){display:none}.mod{grid-template-columns:1fr}section{padding:72px 0}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn{transition:none}.btn:hover{transform:none}}
 </style>
 </head>
 <body>
-<header class="top"><a class="logo" href="#">Кубокрафт</a><nav><a href="#play">Играть</a><a href="#how">Управление</a></nav></header>
-<section class="hero"><h1>Построй свой мир из кубов</h1><p>Бесплатная игра прямо в браузере. Каждый запуск — новый остров с холмами и лесом. Без установки и регистрации.</p><button class="btn" data-play>Играть</button></section>
-<main id="play"><div id="stage">
-<div id="cross"></div>
-<div id="bar"></div>
-<div id="ov"><div>
-<h1>КУБОКРАФТ</h1>
-<p>Нажми, чтобы играть. Мир создаётся заново при каждом запуске.</p>
-<p><b>WASD</b> — ходьба, <b>Shift</b> — бег, <b>Пробел</b> — прыжок</p>
-<p><b>ЛКМ</b> — сломать блок, <b>ПКМ</b> — поставить</p>
-<p><b>1–6</b> или колесо — выбор блока, <b>F</b> — полёт</p>
-<p><b>Esc</b> — пауза</p>
-<p>Если мышь не захватывается: тяни с зажатой ЛКМ или поворачивай стрелками, клик — сломать.</p>
-</div></div>
+<nav><div class="w"><a class="logo" href="#">Zevs<b>DLC</b></a>
+<div class="links"><a href="#mods">Возможности</a><a href="#pricing">Тарифы</a><a href="#faq">Вопросы</a><button class="btn o" id="acc" type="button">Войти</button><a class="btn" href="#pricing">Купить</a></div></div></nav>
+
+<header class="hero">
+<canvas id="bolt"></canvas>
+<div class="w">
+<p class="ver">Minecraft 1.21.11 · Fabric</p>
+<h1>Zevs<span>DLC</span></h1>
+<p class="lead">Клиент для серверов, где читы разрешены. Быстрый запуск, гибкие настройки и всё под рукой в одном меню.</p>
+<div class="cta"><a class="btn" id="buy" href="#pricing">Выбрать тариф</a><a class="btn o" href="#mods">Что внутри</a></div>
 </div>
-<div class="tools"><button id="fs" class="btn ghost">На весь экран</button><span>Нужны мышь и клавиатура, на телефоне игра не работает.</span></div>
-</main>
-<section id="how" class="how"><h2>Управление</h2>
-<dl class="keys">
-<div><dt><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd></dt><dd>ходьба</dd></div>
-<div><dt><kbd>Shift</kbd></dt><dd>бег (в полёте — вниз)</dd></div>
-<div><dt><kbd>Пробел</kbd></dt><dd>прыжок (в полёте — вверх)</dd></div>
-<div><dt><kbd>F</kbd></dt><dd>включить или выключить полёт</dd></div>
-<div><dt><kbd>ЛКМ</kbd></dt><dd>сломать блок</dd></div>
-<div><dt><kbd>ПКМ</kbd></dt><dd>поставить блок</dd></div>
-<div><dt><kbd>1–6</kbd></dt><dd>выбор блока, можно колесом мыши</dd></div>
-<div><dt><kbd>Esc</kbd></dt><dd>пауза и выход из игры</dd></div>
-</dl></section>
-<footer>Кубокрафт: мир строится случайно, сохранений пока нет.</footer>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</header>
+
+<section id="mods"><div class="w">
+<h2>Что внутри</h2>
+<p class="sub">Модули собраны по группам, чтобы нужную функцию находить за секунду.</p>
+<div class="mods">
+<div class="mod"><h3>Бой</h3><p>Инструменты для PvP и тренировки реакции: прицеливание, тайминги ударов, настройка дистанции.</p></div>
+<div class="mod"><h3>Движение</h3><p>Скорость, прыжки, полёт и другие способы перемещения с гибкими параметрами.</p></div>
+<div class="mod"><h3>Мир</h3><p>Помощь со строительством, добычей и ориентированием по карте.</p></div>
+<div class="mod"><h3>Визуал</h3><p>Подсветка объектов, информация на экране и настройка картинки под себя.</p></div>
+<div class="mod"><h3>Интерфейс</h3><p>Единое меню, горячие клавиши и профили настроек, которые можно переключать в игре.</p></div>
+</div></div></section>
+
+<section id="pricing" class="alt"><div class="w">
+<h2>Тарифы</h2>
+<p class="sub">Выбери срок доступа. Оплата в рублях, ключ приходит после покупки.</p>
+<div class="plans">
+<div class="plan"><h3>Standard</h3><p class="tag">Попробовать клиент</p><p class="price">150 ₽</p><p class="per">на 30 дней</p><a class="btn" href="#">Купить Standard</a></div>
+<div class="plan"><h3>Annual</h3><p class="tag">Выгоднее помесячной оплаты</p><p class="price">400 ₽</p><p class="per">на 365 дней, около 33 ₽ в месяц</p><a class="btn" href="#">Купить Annual</a></div>
+<div class="plan top"><h3>Lifetime</h3><p class="tag">Один платёж и забыть</p><p class="price">649 ₽</p><p class="per">навсегда</p><a class="btn" href="#">Купить Lifetime</a></div>
+<div class="plan"><h3>Beta</h3><p class="tag">Бета-версия клиента</p><p class="price">899 ₽</p><p class="per">навсегда</p><a class="btn" href="#">Купить Beta</a></div>
+</div></div></section>
+
+<section id="faq"><div class="w faq">
+<h2>Вопросы</h2>
+<p class="sub">Коротко о главном.</p>
+<details><summary>Какая версия Minecraft нужна?</summary><p>Клиент работает на Minecraft 1.21.11 и загрузчике Fabric.</p></details>
+<details><summary>Под какие сервера подходит клиент?</summary><p>Клиент подходит под серверы FunTime и SpookyTime.</p></details>
+<details><summary>Как я получу клиент после оплаты?</summary><p>После покупки тебе придёт ключ и инструкция по установке. Если что-то не получается, напиши в поддержку.</p></details>
+</div></section>
+
+<footer><div class="w"><span>ZevsDLC © 2026</span><span>Не связан с Mojang и Microsoft. Minecraft — товарный знак Mojang Synergies AB.</span></div></footer>
+
 <script>
-const N=64,H=32,C=16,W=new Uint8Array(N*H*N);
-const get=(x,y,z)=>(x<0||x>=N||z<0||z>=N||y<0||y>=H)?0:W[(y*N+z)*N+x];
-const set=(x,y,z,b)=>{if(x>=0&&x<N&&z>=0&&z<N&&y>=0&&y<H)W[(y*N+z)*N+x]=b};
-const h=(x,z)=>{const n=Math.sin(x*127.1+z*311.7)*43758.5453;return n-Math.floor(n)};
-const vn=(x,z)=>{const xi=Math.floor(x),zi=Math.floor(z),xf=x-xi,zf=z-zi,u=xf*xf*(3-2*xf),v=zf*zf*(3-2*zf);
-return h(xi,zi)*(1-u)*(1-v)+h(xi+1,zi)*u*(1-v)+h(xi,zi+1)*(1-u)*v+h(xi+1,zi+1)*u*v};
-const top=(x,z)=>{for(let y=H-1;y>=0;y--)if(get(x,y,z))return y;return 0};
-const seed=Math.random()*500;
-for(let x=0;x<N;x++)for(let z=0;z<N;z++){
- const hg=Math.floor(7+vn(x/22+seed,z/22)*11+vn(x/7,z/7+seed)*3);
- for(let y=0;y<=hg;y++)set(x,y,z,y<hg-3?3:y<hg?2:1);
+(()=>{
+const cv=document.getElementById('bolt'),c=cv.getContext('2d'),dpr=Math.min(devicePixelRatio||1,2);
+const calm=matchMedia('(prefers-reduced-motion:reduce)').matches;
+let life=0,main=[],branch=[];
+function size(){cv.width=cv.clientWidth*dpr;cv.height=cv.clientHeight*dpr}
+function path(x,y,len,drift){const p=[[x,y]];for(let i=0;i<len;i++){y+=(14+Math.random()*26)*dpr;x+=(Math.random()-.5)*drift*dpr;p.push([x,y])}return p}
+function strike(){
+ if(calm)return;
+ size();const x=cv.width*(innerWidth<700?.7:.72)+(Math.random()-.5)*60*dpr;
+ main=path(x,0,Math.ceil(cv.height/(26*dpr)),70);
+ const i=Math.floor(main.length*.4);branch=path(main[i][0],main[i][1],8,90);
+ life=1;draw();
 }
-for(let i=0;i<70;i++){
- const x=3+Math.floor(Math.random()*(N-6)),z=3+Math.floor(Math.random()*(N-6)),y=top(x,z);
- if(get(x,y,z)!==1)continue;
- const t=4+Math.floor(Math.random()*2);
- for(let k=1;k<=t;k++)set(x,y+k,z,4);
- for(let dx=-2;dx<=2;dx++)for(let dz=-2;dz<=2;dz++)for(let dy=t-1;dy<=t+1;dy++){
-  if(Math.abs(dx)+Math.abs(dz)+(dy>t-1?1:0)>3)continue;
-  if(!get(x+dx,y+dy,z+dz))set(x+dx,y+dy,z+dz,5);
- }
+function line(p,w,a){c.beginPath();p.forEach((q,i)=>i?c.lineTo(q[0],q[1]):c.moveTo(q[0],q[1]));c.lineWidth=w*dpr;c.strokeStyle=`rgba(255,226,130,${a})`;c.stroke()}
+function draw(){
+ c.clearRect(0,0,cv.width,cv.height);
+ if(life<=0)return;
+ c.fillStyle=`rgba(120,150,255,${life*.12})`;c.fillRect(0,0,cv.width,cv.height);
+ c.shadowColor='rgba(255,210,74,.9)';c.shadowBlur=24*dpr;c.lineJoin='round';
+ line(main,3,life);line(branch,1.6,life*.8);
+ life-=.035;requestAnimationFrame(draw);
 }
-const col=a=>new THREE.Color(a);
-const pal=[0,[col(0x62b845),col(0x62b845),col(0x8a6238)],[col(0x8a6238),col(0x8a6238),col(0x8a6238)],
-[col(0x8c8c8f),col(0x8c8c8f),col(0x8c8c8f)],[col(0x9a7440),col(0x6e4f29),col(0x9a7440)],
-[col(0x3f9a34),col(0x3f9a34),col(0x3f9a34)],[col(0xc79a5a),col(0xc79a5a),col(0xc79a5a)]];
-const faces=[
-{d:[1,0,0],c:[[1,0,1],[1,0,0],[1,1,0],[1,1,1]],s:.8},
-{d:[-1,0,0],c:[[0,0,0],[0,0,1],[0,1,1],[0,1,0]],s:.8},
-{d:[0,1,0],c:[[0,1,1],[1,1,1],[1,1,0],[0,1,0]],s:1},
-{d:[0,-1,0],c:[[0,0,0],[1,0,0],[1,0,1],[0,0,1]],s:.5},
-{d:[0,0,1],c:[[0,0,1],[1,0,1],[1,1,1],[0,1,1]],s:.7},
-{d:[0,0,-1],c:[[1,0,0],[0,0,0],[0,1,0],[1,1,0]],s:.7}];
-
-const renderer=new THREE.WebGLRenderer({antialias:false});
-renderer.setPixelRatio(Math.min(devicePixelRatio,2));
-const stage=document.getElementById('stage');stage.prepend(renderer.domElement);
-const scene=new THREE.Scene(),SKY=0x8ecbff;
-scene.background=col(SKY);scene.fog=new THREE.Fog(SKY,25,70);
-const camera=new THREE.PerspectiveCamera(75,1,.05,200);camera.rotation.order='YXZ';
-function resize(){const w=stage.clientWidth||1,h=stage.clientHeight||1;renderer.setSize(w,h);camera.aspect=w/h;camera.updateProjectionMatrix()}
-new ResizeObserver(resize).observe(stage);resize();
-
-const cv=document.createElement('canvas');cv.width=cv.height=16;
-const cx2=cv.getContext('2d');
-for(let i=0;i<16;i++)for(let j=0;j<16;j++){const g=205+Math.floor(Math.random()*50);cx2.fillStyle=`rgb(${g},${g},${g})`;cx2.fillRect(i,j,1,1)}
-const tex=new THREE.CanvasTexture(cv);tex.magFilter=tex.minFilter=THREE.NearestFilter;
-const mat=new THREE.MeshBasicMaterial({map:tex,vertexColors:true});
-const meshes={};
-function build(cx,cz){
- const k=cx+','+cz;
- if(meshes[k]){scene.remove(meshes[k]);meshes[k].geometry.dispose()}
- const P=[],Cl=[],U=[],I=[];let n=0;
- for(let y=0;y<H;y++)for(let z=cz*C;z<cz*C+C;z++)for(let x=cx*C;x<cx*C+C;x++){
-  const b=W[(y*N+z)*N+x];if(!b)continue;
-  const r=.9+h(x+y*13,z*7+y)*.1;
-  for(let f=0;f<6;f++){
-   const F=faces[f];if(get(x+F.d[0],y+F.d[1],z+F.d[2]))continue;
-   const cs=f==2?0:f==3?2:1;
-   for(let i=0;i<4;i++){
-    const c=F.c[i];P.push(x+c[0],y+c[1],z+c[2]);
-    let q=pal[b][cs];if(b==1&&cs==1&&c[1]==0)q=pal[2][1];
-    Cl.push(q.r*F.s*r,q.g*F.s*r,q.b*F.s*r);
-   }
-   U.push(0,0,1,0,1,1,0,1);I.push(n,n+1,n+2,n,n+2,n+3);n+=4;
-  }
- }
- const g=new THREE.BufferGeometry();
- g.setAttribute('position',new THREE.Float32BufferAttribute(P,3));
- g.setAttribute('color',new THREE.Float32BufferAttribute(Cl,3));
- g.setAttribute('uv',new THREE.Float32BufferAttribute(U,2));
- g.setIndex(I);
- const m=new THREE.Mesh(g,mat);scene.add(m);meshes[k]=m;
+addEventListener('resize',()=>{if(life<=0)size()});
+size();setTimeout(strike,500);
+document.getElementById('buy').addEventListener('mouseenter',()=>{if(life<=0)strike()});
+document.querySelector('.hero').addEventListener('click',e=>{if(!e.target.closest('a')&&life<=0)strike()});
+})();
+</script>
+<dialog id="dlg" aria-labelledby="dt">
+<div class="dh"><h2 id="dt">Вход</h2><button class="x" id="dx" type="button" aria-label="Закрыть">×</button></div>
+<div id="vAuth">
+<p class="note" id="note" hidden>Чтобы оформить тариф, войди в аккаунт или создай новый.</p>
+<div class="tabs"><button type="button" id="tIn" class="on">Вход</button><button type="button" id="tUp">Регистрация</button></div>
+<form id="f">
+<label>Ник в Minecraft<input id="fn" required minlength="3" maxlength="16" pattern="[A-Za-z0-9_]+" autocomplete="username"></label>
+<label id="le" hidden>Почта<input id="fe" type="email" autocomplete="email"></label>
+<label>Пароль<input id="fp" type="password" required minlength="6" autocomplete="current-password"></label>
+<p id="msg" role="alert"></p>
+<button class="btn" id="fs" type="submit">Войти</button>
+</form></div>
+<div id="vCab" hidden>
+<dl class="cab"><dt>Ник</dt><dd id="cn"></dd><dt>Почта</dt><dd id="ce"></dd><dt>Тариф</dt><dd id="cp"></dd><dt>Ключ</dt><dd id="ck">Появится после подтверждения оплаты</dd></dl>
+<div class="cabx"><a class="btn" id="cbuy" href="#pricing">Выбрать тариф</a><button class="btn o" id="out" type="button">Выйти</button></div>
+</div>
+</dialog>
+<script>
+(()=>{
+const $=id=>document.getElementById(id),dlg=$('dlg'),K='zevs_users',S='zevs_session';
+let mode='in',pending=null;
+const load=()=>{try{return JSON.parse(localStorage.getItem(K)||'{}')}catch(e){return{}}};
+const save=u=>{try{localStorage.setItem(K,JSON.stringify(u))}catch(e){}};
+const cur=()=>{try{return localStorage.getItem(S)}catch(e){return null}};
+const setCur=n=>{try{n?localStorage.setItem(S,n):localStorage.removeItem(S)}catch(e){}};
+async function hash(p,salt){
+ const s=salt+p;
+ if(!(window.crypto&&crypto.subtle))return btoa(unescape(encodeURIComponent(s)));
+ const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));
+ return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('');
 }
-for(let a=0;a<N/C;a++)for(let b=0;b<N/C;b++)build(a,b);
-function rebuildAt(x,z){
- const a=Math.floor(x/C),b=Math.floor(z/C);build(a,b);
- const lx=x%C,lz=z%C;
- if(lx==0&&a>0)build(a-1,b);if(lx==C-1&&a<N/C-1)build(a+1,b);
- if(lz==0&&b>0)build(a,b-1);if(lz==C-1&&b<N/C-1)build(a,b+1);
+const msg=t=>{$('msg').textContent=t};
+function setMode(m){
+ mode=m;msg('');
+ $('tIn').classList.toggle('on',m=='in');$('tUp').classList.toggle('on',m=='up');
+ $('le').hidden=m=='in';$('fe').required=m=='up';
+ $('fs').textContent=m=='in'?'Войти':'Создать аккаунт';
+ $('dt').textContent=m=='in'?'Вход':'Регистрация';
+ $('fp').autocomplete=m=='in'?'current-password':'new-password';
 }
-
-const hl=new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.BoxGeometry(1.005,1.005,1.005)),new THREE.LineBasicMaterial({color:0x000000}));
-hl.visible=false;scene.add(hl);
-
-const bar=document.getElementById('bar'),ids=[1,2,3,4,5,6];let sel=0;
-ids.forEach((b,i)=>{const d=document.createElement('div');d.className='s';
- d.style.background='#'+pal[b][b==4?1:0].getHexString();d.innerHTML='<i>'+(i+1)+'</i>';
- d.onclick=()=>pick(i);bar.appendChild(d)});
-function pick(i){sel=(i+6)%6;[...bar.children].forEach((e,j)=>e.classList.toggle('on',j==sel))}
-pick(0);
-
-const px=N/2+.5,pz=N/2+.5;
-const p={x:px,y:top(N/2,N/2)+2,z:pz},v={x:0,y:0,z:0};
-let yaw=0,pitch=0,onG=false,fly=false;const keys={};
-const solid=(x,y,z)=>(x<0||x>=N||z<0||z>=N||y<0)?true:get(x,y,z)>0;
-function hit(){
- for(let x=Math.floor(p.x-.3);x<=Math.floor(p.x+.3);x++)
- for(let y=Math.floor(p.y);y<=Math.floor(p.y+1.79);y++)
- for(let z=Math.floor(p.z-.3);z<=Math.floor(p.z+.3);z++)if(solid(x,y,z))return true;
- return false;
+function render(){
+ const k=cur(),u=load()[k];
+ const logged=!!(k&&u);
+ $('vAuth').hidden=logged;$('vCab').hidden=!logged;
+ $('note').hidden=!pending;
+ $('acc').textContent=logged?u.nick:'Войти';
+ if(logged){
+  $('dt').textContent='Кабинет';$('cn').textContent=u.nick;$('ce').textContent=u.email||'не указана';
+  $('cp').textContent=u.plan?u.plan+' (ждёт оплаты)':'не выбран';
+ }else setMode(mode);
 }
-const ov=document.getElementById('ov'),el=renderer.domElement;
-let playing=false,locked=false,wasLocked=false;
-function pause(){playing=false;drag=false;ov.style.display='flex'}
-function start(){ov.style.display='none';playing=true;try{const r=el.requestPointerLock();if(r&&r.catch)r.catch(()=>{})}catch(e){}}
-ov.onclick=start;
-document.querySelectorAll('[data-play]').forEach(b=>b.onclick=()=>{stage.scrollIntoView({behavior:'smooth',block:'center'});start()});
-document.getElementById('fs').onclick=()=>stage.requestFullscreen&&stage.requestFullscreen();
-document.addEventListener('pointerlockchange',()=>{locked=document.pointerLockElement===el;if(locked)wasLocked=true;else if(wasLocked){wasLocked=false;pause()}});
-let drag=false,moved=0;
-document.addEventListener('mousemove',e=>{
- if(!playing||!(locked||drag))return;
- moved+=Math.abs(e.movementX)+Math.abs(e.movementY);
- yaw-=e.movementX*.0022;pitch=Math.max(-1.55,Math.min(1.55,pitch-e.movementY*.0022));
-});
-addEventListener('keydown',e=>{
- keys[e.code]=true;
- if(e.code=='KeyF'){fly=!fly;v.y=0}
- if(e.code.startsWith('Digit')){const n=+e.code.slice(5);if(n>=1&&n<=6)pick(n-1)}
- if(e.code=='Escape'&&playing&&!locked)pause();
- if(playing&&(e.code=='Space'||e.code.startsWith('Arrow')))e.preventDefault();
-});
-addEventListener('keyup',e=>keys[e.code]=false);
-addEventListener('wheel',e=>{if(playing){e.preventDefault();pick(sel+(e.deltaY>0?1:-1))}},{passive:false});
-addEventListener('contextmenu',e=>e.preventDefault());
-
-const dir=new THREE.Vector3();
-function ray(){
- camera.getWorldDirection(dir);let last=null;
- for(let t=0;t<6;t+=.03){
-  const x=Math.floor(camera.position.x+dir.x*t),y=Math.floor(camera.position.y+dir.y*t),z=Math.floor(camera.position.z+dir.z*t);
-  if(get(x,y,z))return{h:[x,y,z],p:last};
-  last=[x,y,z];
- }
- return null;
-}
-function act(btn){
- const r=ray();if(!r)return;
- if(btn==0){
-  const[x,y,z]=r.h;if(y==0)return;
-  set(x,y,z,0);rebuildAt(x,z);
- }else if(btn==2&&r.p){
-  const[x,y,z]=r.p;set(x,y,z,ids[sel]);
-  if(hit())set(x,y,z,0);else rebuildAt(x,z);
- }
-}
-addEventListener('mousedown',e=>{
- if(!playing)return;
- if(locked){act(e.button);return}
- if(e.target!==el)return;
- if(e.button==0){drag=true;moved=0}else act(e.button);
-});
-addEventListener('mouseup',e=>{if(drag&&e.button==0){drag=false;if(moved<6)act(0)}});
-
-let last=performance.now();
-function loop(now){
- requestAnimationFrame(loop);
- const dt=Math.min((now-last)/1000,.05);last=now;
- if(playing){yaw+=((keys.ArrowLeft?1:0)-(keys.ArrowRight?1:0))*2*dt;pitch=Math.max(-1.55,Math.min(1.55,pitch+((keys.ArrowUp?1:0)-(keys.ArrowDown?1:0))*1.5*dt))}
- const fx=(keys.KeyW?1:0)-(keys.KeyS?1:0),sx=(keys.KeyD?1:0)-(keys.KeyA?1:0);
- const sp=(keys.ShiftLeft&&!fly?7:4.3)*(fly?2:1),l=Math.hypot(fx,sx)||1;
- const s=Math.sin(yaw),c=Math.cos(yaw);
- v.x=((-s)*fx+c*sx)/l*sp;v.z=((-c)*fx-s*sx)/l*sp;
- if(fly)v.y=((keys.Space?1:0)-(keys.ShiftLeft?1:0))*8;
- else{v.y=Math.max(v.y-28*dt,-30);if(keys.Space&&onG)v.y=8.6}
- p.x+=v.x*dt;if(hit())p.x-=v.x*dt;
- p.z+=v.z*dt;if(hit())p.z-=v.z*dt;
- onG=false;p.y+=v.y*dt;
- if(hit()){p.y-=v.y*dt;if(v.y<0)onG=true;v.y=0}
- if(p.y<-10){p.y=top(N/2,N/2)+2;v.y=0}
- camera.position.set(p.x,p.y+1.62,p.z);
- camera.rotation.set(pitch,yaw,0);
- const r=ray();
- if(r){hl.visible=true;hl.position.set(r.h[0]+.5,r.h[1]+.5,r.h[2]+.5)}else hl.visible=false;
- renderer.render(scene,camera);
-}
-requestAnimationFrame(loop);
+function open(){render();if(!dlg.open)dlg.showModal()}
+$('acc').onclick=open;
+$('dx').onclick=()=>dlg.close();
+dlg.addEventListener('click',e=>{if(e.target===dlg)dlg.close()});
+$('tIn').onclick=()=>setMode('in');$('tUp').onclick=()=>setMode('up');
+$('cbuy').onclick=()=>dlg.close();
+$('out').onclick=()=>{setCur(null);pending=null;setMode('in');render()};
+$('f').onsubmit=async e=>{
+ e.preventDefault();
+ const n=$('fn').value.trim(),p=$('fp').value,k=n.toLowerCase(),u=load();
+ if(mode=='up'){
+  if(u[k])return msg('Этот ник уже занят.');
+  const salt=Math.random().toString(36).slice(2);
+  u[k]={nick:n,email:$('fe').value.trim(),salt,h:await hash(p,salt),plan:null};
+ }else if(!u[k]||u[k].h!==await hash(p,u[k].salt))return msg('Неверный ник или пароль.');
+ if(pending){u[k].plan=pending;pending=null}
+ save(u);setCur(k);$('f').reset();render();
+};
+document.querySelectorAll('.plan .btn').forEach(b=>b.addEventListener('click',e=>{
+ e.preventDefault();
+ const pl=b.closest('.plan'),name=pl.querySelector('h3').textContent+', '+pl.querySelector('.price').textContent+' '+pl.querySelector('.per').textContent;
+ const k=cur(),u=load();
+ if(k&&u[k]){u[k].plan=name;save(u)}else{pending=name;setMode('up')}
+ open();
+}));
+render();
+})();
 </script>
 </body>
 </html>
