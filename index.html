@@ -60,6 +60,11 @@ details[open] summary:after{content:"−"}
 details p{margin:12px 0 0;color:var(--muted)}
 footer{padding:40px 0 56px;border-top:1.5px solid var(--line);color:var(--muted);font-size:15px}
 footer .w{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.dc{display:flex;align-items:center;gap:14px 20px;flex-wrap:wrap;max-width:620px;padding:20px 24px;border:1.5px solid var(--line);border-radius:16px;background:var(--bg)}
+.dc span{color:var(--muted)}
+.dc b{font:600 22px var(--disp);letter-spacing:-.02em;word-break:break-all}
+.dc .btn{margin-left:auto;padding:10px 18px}
+footer a{color:var(--gold)}
 [hidden]{display:none!important}
 .links .btn{padding:10px 18px}
 #acc{max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -86,7 +91,7 @@ dialog input:focus-visible,.x:focus-visible,.tabs button:focus-visible{outline:3
 </head>
 <body>
 <nav><div class="w"><a class="logo" href="#">Zevs<b>DLC</b></a>
-<div class="links"><a href="#mods">Возможности</a><a href="#pricing">Тарифы</a><a href="#faq">Вопросы</a><button class="btn o" id="acc" type="button">Войти</button><a class="btn" href="#pricing">Купить</a></div></div></nav>
+<div class="links"><a href="#mods">Возможности</a><a href="#pricing">Тарифы</a><a href="#faq">Вопросы</a><a href="#support">Поддержка</a><button class="btn o" id="acc" type="button">Войти</button><a class="btn" href="#pricing">Купить</a></div></div></nav>
 
 <header class="hero">
 <canvas id="bolt"></canvas>
@@ -127,7 +132,13 @@ dialog input:focus-visible,.x:focus-visible,.tabs button:focus-visible{outline:3
 <details><summary>Как я получу клиент после оплаты?</summary><p>После покупки тебе придёт ключ и инструкция по установке. Если что-то не получается, напиши в поддержку.</p></details>
 </div></section>
 
-<footer><div class="w"><span>ZevsDLC © 2026</span><span>Не связан с Mojang и Microsoft. Minecraft — товарный знак Mojang Synergies AB.</span></div></footer>
+<section id="support" class="alt"><div class="w">
+<h2>Техподдержка</h2>
+<p class="sub">Проблемы с установкой, ключом или оплатой? Напиши нам в Discord.</p>
+<div class="dc"><span>Discord</span><b id="dcn">tainodergal22842</b><button class="btn o" id="dcopy" type="button">Скопировать ник</button></div>
+</div></section>
+
+<footer><div class="w"><span>ZevsDLC © 2026</span><a href="#support">Техподдержка в Discord</a><span>Не связан с Mojang и Microsoft. Minecraft — товарный знак Mojang Synergies AB.</span></div></footer>
 
 <script>
 (()=>{
@@ -235,6 +246,20 @@ document.querySelectorAll('.plan .btn').forEach(b=>b.addEventListener('click',e=
  open();
 }));
 render();
+})();
+</script>
+<script>
+(()=>{
+const b=document.getElementById('dcopy'),t='tainodergal22842';
+b.onclick=async()=>{
+ let ok=false;
+ try{await navigator.clipboard.writeText(t);ok=true}catch(e){
+  const i=document.createElement('input');i.value=t;document.body.appendChild(i);i.select();
+  try{ok=document.execCommand('copy')}catch(e2){}i.remove();
+ }
+ b.textContent=ok?'Скопировано':'Выдели ник и скопируй';
+ setTimeout(()=>b.textContent='Скопировать ник',2200);
+};
 })();
 </script>
 </body>
