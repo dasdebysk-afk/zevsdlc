@@ -60,10 +60,6 @@ details[open] summary:after{content:"−"}
 details p{margin:12px 0 0;color:var(--muted)}
 footer{padding:40px 0 56px;border-top:1.5px solid var(--line);color:var(--muted);font-size:15px}
 footer .w{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
-.dc{display:flex;align-items:center;gap:14px 20px;flex-wrap:wrap;max-width:620px;padding:20px 24px;border:1.5px solid var(--line);border-radius:16px;background:var(--bg)}
-.dc span{color:var(--muted)}
-.dc b{font:600 22px var(--disp);letter-spacing:-.02em;word-break:break-all}
-.dc .btn{margin-left:auto;padding:10px 18px}
 footer a{color:var(--gold)}
 [hidden]{display:none!important}
 .links .btn{padding:10px 18px}
@@ -135,8 +131,7 @@ dialog input:focus-visible,.x:focus-visible,.tabs button:focus-visible{outline:3
 <section id="support" class="alt"><div class="w">
 <h2>Техподдержка</h2>
 <p class="sub">Проблемы с установкой, ключом или оплатой? Заходи на наш Discord-сервер, мы ответим.</p>
-<p style="margin:0 0 22px"><a class="btn" href="https://discord.gg/uMBXraJs4" target="_blank" rel="noopener noreferrer">Зайти на сервер Discord</a></p>
-<div class="dc"><span>Или в личные сообщения</span><b id="dcn">tainodergal22842</b><button class="btn o" id="dcopy" type="button">Скопировать ник</button></div>
+<p style="margin:0"><a class="btn" href="https://discord.gg/uMBXraJs4" target="_blank" rel="noopener noreferrer">Зайти на сервер Discord</a></p>
 </div></section>
 
 <footer><div class="w"><span>ZevsDLC © 2026</span><a href="https://discord.gg/uMBXraJs4" target="_blank" rel="noopener noreferrer">Техподдержка в Discord</a><span>Не связан с Mojang и Microsoft. Minecraft — товарный знак Mojang Synergies AB.</span></div></footer>
@@ -245,20 +240,6 @@ document.querySelectorAll('.plan .btn').forEach(b=>b.addEventListener('click',()
  if(k&&u[k]){u[k].plan=name;save(u)}
 }));
 render();
-})();
-</script>
-<script>
-(()=>{
-const b=document.getElementById('dcopy'),t='tainodergal22842';
-b.onclick=async()=>{
- let ok=false;
- try{await navigator.clipboard.writeText(t);ok=true}catch(e){
-  const i=document.createElement('input');i.value=t;document.body.appendChild(i);i.select();
-  try{ok=document.execCommand('copy')}catch(e2){}i.remove();
- }
- b.textContent=ok?'Скопировано':'Выдели ник и скопируй';
- setTimeout(()=>b.textContent='Скопировать ник',2200);
-};
 })();
 </script>
 </body>
