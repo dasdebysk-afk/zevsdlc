@@ -200,7 +200,7 @@ document.querySelector('.hero').addEventListener('click',e=>{if(!e.target.closes
 </form></div>
 <div id="vCab" hidden>
 <dl class="cab"><dt>Ник</dt><dd id="cn"></dd><dt>Почта</dt><dd id="ce"></dd><dt>Тариф</dt><dd id="cp"></dd><dt>Ключ</dt><dd id="ck">Появится после подтверждения оплаты</dd></dl>
-<div class="cabx"><a class="btn" id="cbuy" href="#pricing">Выбрать тариф</a><button class="btn o" id="out" type="button">Выйти</button></div>
+<div class="cabx"><button class="btn" id="dl" type="button">Скачать лаунчер</button><p class="note" id="dlmsg" hidden>Ещё не готово</p><a class="btn o" id="cbuy" href="#pricing">Выбрать тариф</a><button class="btn o" id="out" type="button">Выйти</button></div>
 </div>
 </dialog>
 <script>
@@ -248,12 +248,13 @@ function render(){
   $('cp').textContent=u.plan?u.plan+' (ждёт оплаты)':'не выбран';
  }else setMode(mode);
 }
-function open(){render();if(!dlg.open)dlg.showModal()}
+function open(){$('dlmsg').hidden=true;render();if(!dlg.open)dlg.showModal()}
 $('acc').onclick=open;
 $('dx').onclick=()=>dlg.close();
 dlg.addEventListener('click',e=>{if(e.target===dlg)dlg.close()});
 $('tIn').onclick=()=>setMode('in');$('tUp').onclick=()=>setMode('up');$('capr').onclick=cap;
 $('cbuy').onclick=()=>dlg.close();
+$('dl').onclick=()=>{$('dlmsg').hidden=false};
 $('out').onclick=()=>{setCur(null);pending=null;setMode('in');render()};
 $('f').onsubmit=async e=>{
  e.preventDefault();
