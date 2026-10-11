@@ -118,10 +118,10 @@ dialog input:focus-visible,.x:focus-visible,.tabs button:focus-visible{outline:3
 <h2>Тарифы</h2>
 <p class="sub">Выбери срок доступа. Оплата в рублях, ключ приходит после покупки.</p>
 <div class="plans">
-<div class="plan"><h3>Standard</h3><p class="tag">Попробовать клиент</p><p class="price">150 ₽</p><p class="per">на 30 дней</p><a class="btn" href="#">Купить Standard</a></div>
-<div class="plan"><h3>Annual</h3><p class="tag">Выгоднее помесячной оплаты</p><p class="price">400 ₽</p><p class="per">на 365 дней, около 33 ₽ в месяц</p><a class="btn" href="#">Купить Annual</a></div>
-<div class="plan top"><h3>Lifetime</h3><p class="tag">Один платёж и забыть</p><p class="price">649 ₽</p><p class="per">навсегда</p><a class="btn" href="#">Купить Lifetime</a></div>
-<div class="plan"><h3>Beta</h3><p class="tag">Бета-версия клиента</p><p class="price">899 ₽</p><p class="per">навсегда</p><a class="btn" href="#">Купить Beta</a></div>
+<div class="plan"><h3>Standard</h3><p class="tag">Попробовать клиент</p><p class="price">150 ₽</p><p class="per">на 30 дней</p><a class="btn" href="https://funpay.com/lots/offer?id=78681257" target="_blank" rel="noopener noreferrer">Купить Standard</a></div>
+<div class="plan"><h3>Annual</h3><p class="tag">Выгоднее помесячной оплаты</p><p class="price">400 ₽</p><p class="per">на 365 дней, около 33 ₽ в месяц</p><a class="btn" href="https://funpay.com/lots/offer?id=79102033" target="_blank" rel="noopener noreferrer">Купить Annual</a></div>
+<div class="plan top"><h3>Lifetime</h3><p class="tag">Один платёж и забыть</p><p class="price">649 ₽</p><p class="per">навсегда</p><a class="btn" href="https://funpay.com/lots/offer?id=79102479" target="_blank" rel="noopener noreferrer">Купить Lifetime</a></div>
+<div class="plan"><h3>Beta</h3><p class="tag">Бета-версия клиента</p><p class="price">899 ₽</p><p class="per">навсегда</p><a class="btn" href="https://funpay.com/lots/offer?id=79102154" target="_blank" rel="noopener noreferrer">Купить Beta</a></div>
 </div></div></section>
 
 <section id="faq"><div class="w faq">
@@ -134,11 +134,12 @@ dialog input:focus-visible,.x:focus-visible,.tabs button:focus-visible{outline:3
 
 <section id="support" class="alt"><div class="w">
 <h2>Техподдержка</h2>
-<p class="sub">Проблемы с установкой, ключом или оплатой? Напиши нам в Discord.</p>
-<div class="dc"><span>Discord</span><b id="dcn">tainodergal22842</b><button class="btn o" id="dcopy" type="button">Скопировать ник</button></div>
+<p class="sub">Проблемы с установкой, ключом или оплатой? Заходи на наш Discord-сервер, мы ответим.</p>
+<p style="margin:0 0 22px"><a class="btn" href="https://discord.gg/uMBXraJs4" target="_blank" rel="noopener noreferrer">Зайти на сервер Discord</a></p>
+<div class="dc"><span>Или в личные сообщения</span><b id="dcn">tainodergal22842</b><button class="btn o" id="dcopy" type="button">Скопировать ник</button></div>
 </div></section>
 
-<footer><div class="w"><span>ZevsDLC © 2026</span><a href="#support">Техподдержка в Discord</a><span>Не связан с Mojang и Microsoft. Minecraft — товарный знак Mojang Synergies AB.</span></div></footer>
+<footer><div class="w"><span>ZevsDLC © 2026</span><a href="https://discord.gg/uMBXraJs4" target="_blank" rel="noopener noreferrer">Техподдержка в Discord</a><span>Не связан с Mojang и Microsoft. Minecraft — товарный знак Mojang Synergies AB.</span></div></footer>
 
 <script>
 (()=>{
@@ -238,12 +239,10 @@ $('f').onsubmit=async e=>{
  if(pending){u[k].plan=pending;pending=null}
  save(u);setCur(k);$('f').reset();render();
 };
-document.querySelectorAll('.plan .btn').forEach(b=>b.addEventListener('click',e=>{
- e.preventDefault();
+document.querySelectorAll('.plan .btn').forEach(b=>b.addEventListener('click',()=>{
  const pl=b.closest('.plan'),name=pl.querySelector('h3').textContent+', '+pl.querySelector('.price').textContent+' '+pl.querySelector('.per').textContent;
  const k=cur(),u=load();
- if(k&&u[k]){u[k].plan=name;save(u)}else{pending=name;setMode('up')}
- open();
+ if(k&&u[k]){u[k].plan=name;save(u)}
 }));
 render();
 })();
