@@ -81,6 +81,9 @@ dialog input:focus-visible,.x:focus-visible,.tabs button:focus-visible{outline:3
 .cab{display:grid;grid-template-columns:auto 1fr;gap:10px 18px;margin:0 0 22px}
 .cab dt{color:var(--muted)}.cab dd{margin:0;font-weight:600;word-break:break-word}
 .cabx{display:grid;gap:10px}
+.cap{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.cap canvas{border-radius:8px;border:1.5px solid var(--line)}
+.cap .x{font-size:26px;padding:6px 10px;border:1.5px solid var(--line);border-radius:10px}
 @media (max-width:640px){.links{gap:10px}.links a:not(.btn){display:none}.mod{grid-template-columns:1fr}section{padding:72px 0}}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn{transition:none}.btn:hover{transform:none}}
 </style>
@@ -174,6 +177,8 @@ document.querySelector('.hero').addEventListener('click',e=>{if(!e.target.closes
 <label>Ник в Minecraft<input id="fn" required minlength="3" maxlength="16" pattern="[A-Za-z0-9_]+" autocomplete="username"></label>
 <label id="le" hidden>Почта<input id="fe" type="email" autocomplete="email"></label>
 <label>Пароль<input id="fp" type="password" required minlength="6" autocomplete="current-password"></label>
+<div class="cap"><canvas id="capc" width="150" height="50" role="img" aria-label="Код с картинки"></canvas><button type="button" id="capr" class="x" aria-label="Обновить код">↻</button></div>
+<label>Код с картинки<input id="capi" required maxlength="5" autocomplete="off" autocapitalize="characters"></label>
 <p id="msg" role="alert"></p>
 <button class="btn" id="fs" type="submit">Войти</button>
 </form></div>
@@ -197,6 +202,16 @@ async function hash(p,salt){
  return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('');
 }
 const msg=t=>{$('msg').textContent=t};
+let code='';
+function cap(){
+ const cv=$('capc'),c=cv.getContext('2d'),A='ABCDEFGHJKLMNPQRSTUVWXYZ23456789',r=Math.random;
+ code='';for(let i=0;i<5;i++)code+=A[Math.floor(r()*A.length)];
+ c.fillStyle='#0b0e24';c.fillRect(0,0,150,50);
+ for(let i=0;i<7;i++){c.strokeStyle=`hsla(${r()*360},70%,65%,.6)`;c.lineWidth=1.5;c.beginPath();c.moveTo(r()*150,r()*50);c.lineTo(r()*150,r()*50);c.stroke()}
+ for(let i=0;i<5;i++){c.save();c.translate(18+i*28,34+(r()-.5)*8);c.rotate((r()-.5)*.6);c.font='700 28px Unbounded,Arial,sans-serif';c.textAlign='center';c.fillStyle=`hsl(${40+r()*30},90%,70%)`;c.fillText(code[i],0,0);c.restore()}
+ for(let i=0;i<40;i++){c.fillStyle='rgba(255,255,255,.35)';c.fillRect(r()*150,r()*50,2,2)}
+ $('capi').value='';
+}
 function setMode(m){
  mode=m;msg('');
  $('tIn').classList.toggle('on',m=='in');$('tUp').classList.toggle('on',m=='up');
@@ -204,6 +219,7 @@ function setMode(m){
  $('fs').textContent=m=='in'?'Войти':'Создать аккаунт';
  $('dt').textContent=m=='in'?'Вход':'Регистрация';
  $('fp').autocomplete=m=='in'?'current-password':'new-password';
+ cap();
 }
 function render(){
  const k=cur(),u=load()[k];
@@ -220,17 +236,20 @@ function open(){render();if(!dlg.open)dlg.showModal()}
 $('acc').onclick=open;
 $('dx').onclick=()=>dlg.close();
 dlg.addEventListener('click',e=>{if(e.target===dlg)dlg.close()});
-$('tIn').onclick=()=>setMode('in');$('tUp').onclick=()=>setMode('up');
+$('tIn').onclick=()=>setMode('in');$('tUp').onclick=()=>setMode('up');$('capr').onclick=cap;
 $('cbuy').onclick=()=>dlg.close();
 $('out').onclick=()=>{setCur(null);pending=null;setMode('in');render()};
 $('f').onsubmit=async e=>{
  e.preventDefault();
  const n=$('fn').value.trim(),p=$('fp').value,k=n.toLowerCase(),u=load();
+ if($('capi').value.trim().toUpperCase()!==code){cap();return msg('Неверный код с картинки.')}
  if(mode=='up'){
+  const em=$('fe').value.trim().toLowerCase();
+  if(Object.values(u).some(x=>(x.email||'').toLowerCase()===em))return msg('Эта почта уже используется.');
   if(u[k])return msg('Этот ник уже занят.');
   const salt=Math.random().toString(36).slice(2);
   u[k]={nick:n,email:$('fe').value.trim(),salt,h:await hash(p,salt),plan:null};
- }else if(!u[k]||u[k].h!==await hash(p,u[k].salt))return msg('Неверный ник или пароль.');
+ }else if(!u[k]||u[k].h!==await hash(p,u[k].salt)){cap();return msg('Неверный ник или пароль.')}
  if(pending){u[k].plan=pending;pending=null}
  save(u);setCur(k);$('f').reset();render();
 };
