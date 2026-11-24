@@ -1,505 +1,1269 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>ZevsDLC — клиент для Minecraft 1.21.11</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@400;600&family=Unbounded:wght@600;800&display=swap">
-<style>
-:root{--bg:#0b0e24;--bg2:#12163a;--ink:#eef1ff;--muted:#9aa3d1;--line:#262c5e;--gold:#ffd24a;--blue:#6a93ff;
---disp:Unbounded,"Arial Black",system-ui,sans-serif;--body:Onest,system-ui,sans-serif;
-box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:dark}
-html{scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px)}
-*,*:before,*:after{box-sizing:inherit}
-body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 var(--body)}
-a{color:inherit}
-.w{max-width:1120px;margin:0 auto;padding:0 22px}
-nav{position:absolute;inset:0 0 auto 0;z-index:3}
-nav .w{display:flex;justify-content:space-between;align-items:center;height:72px}
-.logo{font:800 20px var(--disp);text-decoration:none;letter-spacing:-.02em}
-.logo b{color:var(--gold);font-weight:800}
-.links{display:flex;gap:26px;align-items:center}
-.links a{text-decoration:none;color:var(--muted);font-weight:600}.links a:hover{color:var(--ink)}
-.btn{display:inline-block;padding:14px 26px;border-radius:10px;background:var(--gold);color:#1a1400;font:600 16px var(--body);text-decoration:none;border:0;cursor:pointer;transition:transform .15s,box-shadow .15s}
-.btn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(255,210,74,.35)}
-.btn.o{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
-.btn.o:hover{border-color:var(--blue);box-shadow:none}
-a:focus-visible,.btn:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
-.hero{position:relative;min-height:min(92vh,760px);display:flex;align-items:center;overflow:hidden;background:radial-gradient(900px 500px at 78% 30%,#1c2360 0%,transparent 70%),var(--bg)}
-#bolt{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
-.hero .w{position:relative;z-index:2;padding-top:90px;padding-bottom:60px}
-.ver{display:inline-block;margin:0 0 20px;padding:6px 14px;border:1.5px solid var(--line);border-radius:99px;color:var(--muted);font-size:15px}
-h1{margin:0;font:800 clamp(52px,11vw,140px)/.95 var(--disp);letter-spacing:-.04em}
-h1 span{color:var(--gold)}
-.lead{max-width:30em;margin:24px 0 32px;font-size:clamp(18px,2.2vw,22px);color:var(--muted)}
-.cta{display:flex;gap:14px;flex-wrap:wrap}
-section{padding:96px 0}
-h2{margin:0 0 14px;font:800 clamp(28px,4.5vw,44px)/1.1 var(--disp);letter-spacing:-.03em}
-.sub{margin:0 0 44px;color:var(--muted);max-width:36em}
-.mods{border-top:1.5px solid var(--line)}
-.mod{display:grid;grid-template-columns:minmax(150px,1fr) 2.4fr;gap:8px 40px;padding:24px 0;border-bottom:1.5px solid var(--line)}
-.mod h3{margin:0;font:600 22px var(--disp);letter-spacing:-.02em}
-.mod p{margin:0;color:var(--muted)}
-.alt{background:var(--bg2)}
-.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}
-.plan{display:flex;flex-direction:column;padding:28px 24px;border:1.5px solid var(--line);border-radius:16px;background:var(--bg)}
-.plan.top{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold),0 20px 60px rgba(255,210,74,.12)}
-.plan h3{margin:0 0 4px;font:600 20px var(--disp)}
-.tag{margin:0 0 22px;color:var(--muted);font-size:15px}
-.price{margin:0;font:800 40px var(--disp);letter-spacing:-.03em}
-.per{margin:2px 0 26px;color:var(--muted)}
-.plan .btn{margin-top:auto;text-align:center}
-.plan:not(.top) .btn{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
-.plan:not(.top) .btn:hover{border-color:var(--blue);box-shadow:none}
-.faq{max-width:760px}
-details{border-bottom:1.5px solid var(--line);padding:18px 0}
-summary{cursor:pointer;font:600 19px var(--body);list-style:none;display:flex;justify-content:space-between;gap:16px}
-summary::-webkit-details-marker{display:none}
-summary:after{content:"+";color:var(--gold);font-size:24px;line-height:1}
-details[open] summary:after{content:"−"}
-details p{margin:12px 0 0;color:var(--muted)}
-footer{padding:40px 0 56px;border-top:1.5px solid var(--line);color:var(--muted);font-size:15px}
-footer .w{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
-footer a{color:var(--gold)}
-#trailer{padding-top:72px}
-#tstage{position:relative;aspect-ratio:16/9;background:#000;border:1.5px solid var(--line);border-radius:14px;overflow:hidden}
-#tstage:fullscreen{border:0;border-radius:0}
-#tstage canvas{display:block;width:100%;height:100%}
-#tov{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;background:rgba(5,7,20,.55);cursor:pointer}
-#tov strong{font:800 clamp(20px,3.6vw,40px) var(--disp);letter-spacing:-.02em}
-#tov span{color:var(--muted)}
-.tbar{display:flex;gap:12px;margin-top:14px;flex-wrap:wrap}
-.pre{max-width:620px;margin:-24px 0 32px;padding:14px 18px;border:1.5px solid var(--gold);border-radius:12px;background:rgba(255,210,74,.08);color:var(--ink)}
-.hero h1{font-size:clamp(48px,9vw,116px)}
-.tagl{margin:24px 0 34px;max-width:30em;font:600 clamp(20px,2.4vw,28px)/1.3 var(--body);color:var(--ink)}
-.tagl b{font-weight:800}.tagl b:nth-child(2){color:var(--gold)}.tagl b:nth-child(3){color:var(--blue)}
-.gpan{display:none}
-@media (min-width:980px){.gpan{display:block;position:absolute;right:22px;top:50%;transform:translateY(-44%);width:290px;padding:20px 22px 8px;border-radius:18px;background:rgba(14,18,48,.7);border:1.5px solid var(--line);backdrop-filter:blur(10px);box-shadow:0 30px 80px rgba(0,0,0,.45)}}
-.gpan h4{margin:0 0 10px;font:800 14px var(--disp);letter-spacing:.1em;color:var(--gold)}
-.gr{display:flex;justify-content:space-between;align-items:center;padding:13px 0;border-top:1.5px solid var(--line);font-weight:600}
-.tg{--d:0s;position:relative;width:44px;height:24px;border-radius:12px;background:rgba(255,255,255,.12);animation:trk 9s infinite;animation-delay:var(--d)}
-.tg:after{content:"";position:absolute;left:3px;top:3px;width:18px;height:18px;border-radius:50%;background:#fff;animation:knb 9s infinite;animation-delay:var(--d)}
-@keyframes trk{0%,8%{background:rgba(255,255,255,.12)}12%,88%{background:var(--gold)}94%,100%{background:rgba(255,255,255,.12)}}
-@keyframes knb{0%,8%{transform:translateX(0)}12%,88%{transform:translateX(20px)}94%,100%{transform:translateX(0)}}
-@media (prefers-reduced-motion:reduce){.tg,.tg:after{animation:none}.tg{background:var(--gold)}.tg:after{transform:translateX(20px)}}
-[hidden]{display:none!important}
-.links .btn{padding:10px 18px}
-#acc{max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-dialog{width:min(440px,calc(100vw - 32px));padding:26px;border:1.5px solid var(--line);border-radius:18px;background:var(--bg2);color:var(--ink)}
-dialog::backdrop{background:rgba(5,7,20,.72);backdrop-filter:blur(4px)}
-.dh{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
-dialog h2{margin:0;font:800 24px var(--disp);letter-spacing:-.02em}
-.x{background:none;border:0;color:var(--muted);font-size:30px;line-height:1;cursor:pointer}
-.tabs{display:flex;gap:6px;padding:4px;margin-bottom:18px;background:var(--bg);border-radius:10px}
-.tabs button{flex:1;padding:10px;border:0;border-radius:8px;background:none;color:var(--muted);font:600 15px var(--body);cursor:pointer}
-.tabs .on{background:var(--line);color:var(--ink)}
-dialog label{display:block;margin-bottom:14px;color:var(--muted);font-size:15px}
-dialog input{display:block;width:100%;margin-top:6px;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);font:17px var(--body)}
-dialog input:focus-visible,.x:focus-visible,.tabs button:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
-.note{margin:0 0 16px;padding:10px 14px;border-radius:10px;background:rgba(106,147,255,.14);color:var(--ink);font-size:15px}
-#msg{min-height:1.4em;margin:0 0 10px;color:#ff9a9a;font-size:15px}
-#f .btn,.cabx .btn{width:100%;text-align:center}
-.cab{display:grid;grid-template-columns:auto 1fr;gap:10px 18px;margin:0 0 22px}
-.cab dt{color:var(--muted)}.cab dd{margin:0;font-weight:600;word-break:break-word}
-.cabx{display:grid;gap:10px}
-.cap{display:flex;align-items:center;gap:10px;margin-bottom:10px}
-.cap canvas{border-radius:8px;border:1.5px solid var(--line)}
-.cap .x{font-size:26px;padding:6px 10px;border:1.5px solid var(--line);border-radius:10px}
-@media (max-width:640px){.links{gap:10px}.links a:not(.btn){display:none}.mod{grid-template-columns:1fr}section{padding:72px 0}}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn{transition:none}.btn:hover{transform:none}}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🎄 С Новым Годом 2027!</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&family=Playfair+Display:wght@700;900&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-dark: #0a0e27;
+      --bg-card: rgba(255, 255, 255, 0.05);
+      --accent-gold: #f0c040;
+      --accent-red: #e74c3c;
+      --accent-green: #2ecc71;
+      --accent-blue: #4a90d9;
+      --accent-purple: #9b59b6;
+      --text-primary: #ffffff;
+      --text-secondary: rgba(255, 255, 255, 0.7);
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* === SNOWFALL === */
+    .snowfall {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1000;
+      overflow: hidden;
+    }
+
+    .snowflake {
+      position: absolute;
+      top: -10px;
+      color: #fff;
+      font-size: 1rem;
+      opacity: 0.8;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(-10px) rotate(0deg); opacity: 0.8; }
+      100% { transform: translateY(100vh) rotate(360deg); opacity: 0.2; }
+    }
+
+    /* === HERO === */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      position: relative;
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(74, 144, 217, 0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 50%, rgba(155, 89, 182, 0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 100%, rgba(231, 76, 60, 0.1) 0%, transparent 50%);
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,0.4), transparent),
+        radial-gradient(1px 1px at 30% 60%, rgba(255,255,255,0.3), transparent),
+        radial-gradient(1.5px 1.5px at 50% 10%, rgba(255,255,255,0.5), transparent),
+        radial-gradient(1px 1px at 70% 40%, rgba(255,255,255,0.3), transparent),
+        radial-gradient(1px 1px at 90% 80%, rgba(255,255,255,0.4), transparent),
+        radial-gradient(1.5px 1.5px at 15% 90%, rgba(255,255,255,0.3), transparent),
+        radial-gradient(1px 1px at 85% 15%, rgba(255,255,255,0.5), transparent),
+        radial-gradient(1px 1px at 45% 75%, rgba(255,255,255,0.2), transparent),
+        radial-gradient(1.5px 1.5px at 60% 30%, rgba(255,255,255,0.4), transparent),
+        radial-gradient(1px 1px at 25% 45%, rgba(255,255,255,0.3), transparent);
+      animation: twinkle 4s ease-in-out infinite alternate;
+    }
+
+    @keyframes twinkle {
+      0% { opacity: 0.5; }
+      100% { opacity: 1; }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .tree-emoji {
+      font-size: 5rem;
+      margin-bottom: 1.5rem;
+      animation: bounce 2s ease-in-out infinite;
+      filter: drop-shadow(0 0 30px rgba(46, 204, 113, 0.4));
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+
+    .year-badge {
+      display: inline-block;
+      padding: 0.4rem 1.5rem;
+      border-radius: 50px;
+      background: linear-gradient(135deg, var(--accent-gold), #f39c12);
+      color: var(--bg-dark);
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 2px;
+      margin-bottom: 1.5rem;
+      animation: fadeInDown 1s ease-out;
+    }
+
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.5rem, 7vw, 5rem);
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #ffffff 0%, #f0c040 30%, #ffffff 50%, #f0c040 70%, #ffffff 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shimmer 3s linear infinite;
+    }
+
+    @keyframes shimmer {
+      to { background-position: 200% center; }
+    }
+
+    .hero p {
+      font-size: clamp(1rem, 2.5vw, 1.3rem);
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto 2rem;
+      line-height: 1.7;
+      animation: fadeInUp 1s ease-out 0.3s both;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 1rem 2.5rem;
+      border-radius: 50px;
+      border: none;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      color: var(--bg-dark);
+      background: linear-gradient(135deg, var(--accent-gold), #f39c12);
+      box-shadow: 0 4px 25px rgba(240, 192, 64, 0.3);
+      transition: all 0.3s ease;
+      animation: fadeInUp 1s ease-out 0.6s both;
+    }
+
+    .cta-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 35px rgba(240, 192, 64, 0.5);
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-secondary);
+      font-size: 0.8rem;
+      animation: fadeInUp 1s ease-out 1s both;
+    }
+
+    .scroll-arrow {
+      width: 24px;
+      height: 24px;
+      border-right: 2px solid var(--text-secondary);
+      border-bottom: 2px solid var(--text-secondary);
+      transform: rotate(45deg);
+      animation: scrollBounce 2s ease-in-out infinite;
+    }
+
+    @keyframes scrollBounce {
+      0%, 100% { transform: rotate(45deg) translateY(0); }
+      50% { transform: rotate(45deg) translateY(8px); }
+    }
+
+    /* === SECTION === */
+    section {
+      padding: 5rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 900;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto 3rem;
+      line-height: 1.6;
+    }
+
+    /* === CARDS GRID === */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      padding: 2rem;
+      backdrop-filter: blur(10px);
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--card-accent, var(--accent-blue)), transparent);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(255, 255, 255, 0.15);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    }
+
+    .card-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .card h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+
+    .card p {
+      color: var(--text-secondary);
+      line-height: 1.6;
+      font-size: 0.95rem;
+    }
+
+    /* === COUNTDOWN === */
+    .countdown-section {
+      background:
+        radial-gradient(ellipse at 50% 50%, rgba(240, 192, 64, 0.08) 0%, transparent 70%);
+      border-radius: 30px;
+      padding: 4rem 2rem !important;
+      margin: 2rem auto;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .countdown {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .countdown-item {
+      text-align: center;
+      min-width: 100px;
+    }
+
+    .countdown-value {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--accent-gold), #f39c12);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+    }
+
+    .countdown-label {
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      margin-top: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    /* === WISHES === */
+    .wishes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .wish-card {
+      background: var(--bg-card);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      padding: 2rem;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .wish-card:hover {
+      transform: scale(1.03);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .wish-emoji {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .wish-card h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .wish-card p {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    /* === GALLERY === */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(2, 200px);
+      gap: 1rem;
+    }
+
+    .gallery-item {
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s ease;
+    }
+
+    .gallery-item:hover {
+      transform: scale(1.03);
+    }
+
+    .gallery-item:nth-child(1) {
+      grid-column: 1 / 3;
+      background: linear-gradient(135deg, #1a1a3e, #2d1b4e);
+    }
+    .gallery-item:nth-child(2) {
+      background: linear-gradient(135deg, #1b3a2d, #1a2a4e);
+    }
+    .gallery-item:nth-child(3) {
+      background: linear-gradient(135deg, #3a1b1b, #4e2d1a);
+    }
+    .gallery-item:nth-child(4) {
+      grid-column: 2 / 4;
+      background: linear-gradient(135deg, #1b2a4e, #1a1a3e);
+    }
+
+    .gallery-item span {
+      position: relative;
+      z-index: 1;
+    }
+
+    .gallery-item::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 30% 70%, rgba(255,255,255,0.1), transparent 60%);
+    }
+
+    /* === FOOTER === */
+    footer {
+      text-align: center;
+      padding: 3rem 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    footer .hearts {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    /* === RESPONSIVE === */
+    @media (max-width: 768px) {
+      .gallery {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+      }
+      .gallery-item:nth-child(1),
+      .gallery-item:nth-child(4) {
+        grid-column: auto;
+      }
+      .gallery-item {
+        min-height: 150px;
+      }
+      .countdown {
+        gap: 1rem;
+      }
+      .countdown-item {
+        min-width: 70px;
+      }
+    }
+
+    /* === DECORATION ORNAMENTS === */
+    .ornaments {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin: 2rem 0;
+      flex-wrap: wrap;
+    }
+
+    .ornament {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      animation: float 3s ease-in-out infinite;
+      cursor: default;
+      transition: transform 0.3s ease;
+    }
+
+    .ornament:hover {
+      transform: scale(1.3) rotate(10deg) !important;
+    }
+
+    .ornament:nth-child(1) {
+      background: radial-gradient(circle, #e74c3c, #c0392b);
+      animation-delay: 0s;
+    }
+    .ornament:nth-child(2) {
+      background: radial-gradient(circle, #f0c040, #d4a017);
+      animation-delay: 0.5s;
+    }
+    .ornament:nth-child(3) {
+      background: radial-gradient(circle, #4a90d9, #357abd);
+      animation-delay: 1s;
+    }
+    .ornament:nth-child(4) {
+      background: radial-gradient(circle, #2ecc71, #27ae60);
+      animation-delay: 1.5s;
+    }
+    .ornament:nth-child(5) {
+      background: radial-gradient(circle, #9b59b6, #8e44ad);
+      animation-delay: 2s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    /* === TRADITIONS LIST === */
+    .traditions {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+
+    .tradition-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.2rem;
+      background: var(--bg-card);
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      transition: all 0.3s ease;
+    }
+
+    .tradition-item:hover {
+      background: rgba(255, 255, 255, 0.08);
+      transform: translateX(5px);
+    }
+
+    .tradition-item .icon {
+      font-size: 1.8rem;
+      flex-shrink: 0;
+    }
+
+    .tradition-item span {
+      font-weight: 500;
+      font-size: 0.95rem;
+    }
+
+    /* === MAGIC CURSOR TRAIL === */
+    .cursor-trail {
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      font-size: 1.2rem;
+      animation: cursorFade 1s ease-out forwards;
+    }
+
+    @keyframes cursorFade {
+      0% { opacity: 1; transform: scale(1) translateY(0); }
+      100% { opacity: 0; transform: scale(0.3) translateY(-40px); }
+    }
+
+    /* === FIREWORKS === */
+    .firework-particle {
+      position: fixed;
+      pointer-events: none;
+      z-index: 9998;
+      border-radius: 50%;
+      animation: fireworkExplode 1s ease-out forwards;
+    }
+
+    @keyframes fireworkExplode {
+      0% { opacity: 1; transform: translate(0, 0) scale(1); }
+      100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(0); }
+    }
+
+    /* === SHOOTING STAR === */
+    .shooting-star {
+      position: fixed;
+      width: 100px;
+      height: 2px;
+      background: linear-gradient(90deg, rgba(255,255,255,0.8), transparent);
+      border-radius: 2px;
+      pointer-events: none;
+      z-index: 1;
+      animation: shoot 1.5s linear forwards;
+    }
+
+    @keyframes shoot {
+      0% { transform: translateX(0) translateY(0) rotate(-45deg); opacity: 1; }
+      100% { transform: translateX(400px) translateY(400px) rotate(-45deg); opacity: 0; }
+    }
+
+    /* === MUSIC BUTTON === */
+    .music-btn {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 9997;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      border: 2px solid var(--accent-gold);
+      background: rgba(240, 192, 64, 0.15);
+      backdrop-filter: blur(10px);
+      font-size: 1.5rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 20px rgba(240, 192, 64, 0.2);
+    }
+
+    .music-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 30px rgba(240, 192, 64, 0.4);
+    }
+
+    .music-btn.playing {
+      animation: musicPulse 1s ease-in-out infinite;
+    }
+
+    @keyframes musicPulse {
+      0%, 100% { box-shadow: 0 0 20px rgba(240, 192, 64, 0.2); }
+      50% { box-shadow: 0 0 40px rgba(240, 192, 64, 0.5); }
+    }
+
+    /* === WISH MAKER === */
+    .wish-maker-section {
+      background:
+        radial-gradient(ellipse at 50% 50%, rgba(155, 89, 182, 0.1) 0%, transparent 70%);
+      border-radius: 30px;
+      padding: 4rem 2rem !important;
+      margin: 2rem auto;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .wish-input-container {
+      max-width: 600px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .wish-input {
+      width: 100%;
+      padding: 1.2rem 1.5rem;
+      border-radius: 16px;
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      background: var(--bg-card);
+      color: var(--text-primary);
+      font-size: 1.1rem;
+      font-family: 'Inter', sans-serif;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+      outline: none;
+    }
+
+    .wish-input:focus {
+      border-color: var(--accent-gold);
+      box-shadow: 0 0 30px rgba(240, 192, 64, 0.2);
+    }
+
+    .wish-input::placeholder {
+      color: var(--text-secondary);
+    }
+
+    .wish-submit-btn {
+      display: block;
+      margin: 1.5rem auto 0;
+      padding: 1rem 2.5rem;
+      border-radius: 50px;
+      border: none;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      color: var(--bg-dark);
+      background: linear-gradient(135deg, var(--accent-purple), #8e44ad);
+      box-shadow: 0 4px 25px rgba(155, 89, 182, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .wish-submit-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 35px rgba(155, 89, 182, 0.5);
+    }
+
+    .launched-wishes {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+      min-height: 60px;
+    }
+
+    .launched-bubble {
+      padding: 0.6rem 1.2rem;
+      border-radius: 50px;
+      background: rgba(155, 89, 182, 0.15);
+      border: 1px solid rgba(155, 89, 182, 0.3);
+      font-size: 0.9rem;
+      animation: bubbleFloat 3s ease-in-out infinite;
+      position: relative;
+    }
+
+    .launched-bubble::before {
+      content: '🌠';
+      margin-right: 0.4rem;
+    }
+
+    @keyframes bubbleFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    /* === EASTER EGG KONAMI === */
+    .konami-triggered {
+      animation: rainbowBg 2s linear infinite;
+    }
+
+    @keyframes rainbowBg {
+      0% { filter: hue-rotate(0deg); }
+      100% { filter: hue-rotate(360deg); }
+    }
+
+    /* === PREVIOUS YEARS FUN FACTS === */
+    .fun-facts {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .fact-card {
+      background: var(--bg-card);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 1.5rem;
+      text-align: center;
+      transition: all 0.3s ease;
+      cursor: default;
+    }
+
+    .fact-card:hover {
+      transform: rotate(-2deg) scale(1.05);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .fact-year {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: var(--accent-gold);
+      margin-bottom: 0.5rem;
+    }
+
+    .fact-text {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+  </style>
 </head>
 <body>
-<nav><div class="w"><a class="logo" href="#">Zevs<b>DLC</b></a>
-<div class="links"><a href="#trailer">Трейлер</a><a href="#mods">Возможности</a><a href="#pricing">Тарифы</a><a href="#faq">Вопросы</a><a href="#support">Поддержка</a><button class="btn o" id="acc" type="button">Войти</button><a class="btn" href="#pricing">Купить</a></div></div></nav>
 
-<header class="hero">
-<canvas id="bolt"></canvas>
-<div class="w">
-<p class="ver">Minecraft 1.21.11 · Fabric</p>
-<h1>Zevs<span>DLC</span></h1>
-<p class="tagl"><b>Точность.</b> <b>Скорость.</b> <b>Контроль.</b></p>
-<div class="cta"><a class="btn" id="buy" href="#pricing">Выбрать тариф</a><a class="btn o" href="#mods">Что внутри</a></div>
-<div class="gpan" aria-hidden="true"><h4>ZEVSDLC</h4>
-<div class="gr">Бой<i class="tg" style="--d:0s"></i></div>
-<div class="gr">Движение<i class="tg" style="--d:.7s"></i></div>
-<div class="gr">Мир<i class="tg" style="--d:1.4s"></i></div>
-<div class="gr">Визуал<i class="tg" style="--d:2.1s"></i></div>
-<div class="gr">Интерфейс<i class="tg" style="--d:2.8s"></i></div></div>
-</div>
-</header>
+  <!-- Snowfall -->
+  <div class="snowfall" id="snowfall"></div>
 
-<section id="trailer"><div class="w">
-<h2>Трейлер</h2>
-<p class="sub">Короткий ролик про ZevsDLC. Включи звук.</p>
-<div id="tstage"><canvas id="tc" width="1280" height="720"></canvas>
-<div id="tov"><strong>ZevsDLC</strong><button class="btn" id="tgo" type="button">Смотреть трейлер</button><span>Со звуком</span></div></div>
-<div class="tbar"><button class="btn o" id="tfs" type="button">На весь экран</button><button class="btn o" id="tmu" type="button">Звук включён</button></div>
-</div></section>
+  <!-- Music Button -->
+  <button class="music-btn" id="musicBtn" title="Включить новогоднюю музыку 🎵">🎵</button>
 
-<section id="mods"><div class="w">
-<h2>Что внутри</h2>
-<p class="sub">Модули собраны по группам, чтобы нужную функцию находить за секунду.</p>
-<div class="mods">
-<div class="mod"><h3>Бой</h3><p>Инструменты для PvP и тренировки реакции: прицеливание, тайминги ударов, настройка дистанции.</p></div>
-<div class="mod"><h3>Движение</h3><p>Скорость, прыжки, полёт и другие способы перемещения с гибкими параметрами.</p></div>
-<div class="mod"><h3>Мир</h3><p>Помощь со строительством, добычей и ориентированием по карте.</p></div>
-<div class="mod"><h3>Визуал</h3><p>Подсветка объектов, информация на экране и настройка картинки под себя.</p></div>
-<div class="mod"><h3>Интерфейс</h3><p>Единое меню, горячие клавиши и профили настроек, которые можно переключать в игре.</p></div>
-</div></div></section>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="tree-emoji">🎄</div>
+      <div class="year-badge">✦ 2 0 2 7 ✦</div>
+      <h1>С Новым Годом!</h1>
+      <p>Пусть новый год принесёт вдохновение, тепло и невероятные возможности. Время чудес уже наступило! ✨</p>
+      <a href="#wishes" class="cta-btn">🎁 Получить настроение</a>
+    </div>
+    <div class="scroll-hint">
+      <span>Листай вниз</span>
+      <div class="scroll-arrow"></div>
+    </div>
+  </section>
 
-<section id="pricing" class="alt"><div class="w">
-<h2>Тарифы</h2>
-<p class="sub">Выбери срок доступа. Оплата в рублях.</p>
-<p class="pre"><b>Клиент ещё не готов.</b> Сейчас вы покупаете предзаказ.</p>
-<div class="plans">
-<div class="plan"><h3>Standard</h3><p class="tag">Попробовать клиент</p><p class="price">100 ₽</p><p class="per">на 30 дней</p><a class="btn" href="https://funpay.com/lots/offer?id=78681257" target="_blank" rel="noopener noreferrer">Купить Standard</a></div>
-<div class="plan"><h3>Annual</h3><p class="tag">Выгоднее помесячной оплаты</p><p class="price">267 ₽</p><p class="per">на 365 дней, около 22 ₽ в месяц</p><a class="btn" href="https://funpay.com/lots/offer?id=79102033" target="_blank" rel="noopener noreferrer">Купить Annual</a></div>
-<div class="plan top"><h3>Lifetime</h3><p class="tag">Один платёж и забыть</p><p class="price">433 ₽</p><p class="per">навсегда</p><a class="btn" href="https://funpay.com/lots/offer?id=79102479" target="_blank" rel="noopener noreferrer">Купить Lifetime</a></div>
-<div class="plan"><h3>Beta</h3><p class="tag">Бета-версия клиента</p><p class="price">599 ₽</p><p class="per">навсегда</p><a class="btn" href="https://funpay.com/lots/offer?id=79102154" target="_blank" rel="noopener noreferrer">Купить Beta</a></div>
-</div></div></section>
+  <!-- Countdown -->
+  <section class="countdown-section" id="countdown">
+    <h2 class="section-title">⏰ Обратный отсчёт</h2>
+    <p class="section-subtitle">До наступления Нового Года осталось</p>
+    <div class="countdown">
+      <div class="countdown-item">
+        <div class="countdown-value" id="days">00</div>
+        <div class="countdown-label">Дней</div>
+      </div>
+      <div class="countdown-item">
+        <div class="countdown-value" id="hours">00</div>
+        <div class="countdown-label">Часов</div>
+      </div>
+      <div class="countdown-item">
+        <div class="countdown-value" id="minutes">00</div>
+        <div class="countdown-label">Минут</div>
+      </div>
+      <div class="countdown-item">
+        <div class="countdown-value" id="seconds">00</div>
+        <div class="countdown-label">Секунд</div>
+      </div>
+    </div>
+  </section>
 
-<section id="faq"><div class="w faq">
-<h2>Вопросы</h2>
-<p class="sub">Коротко о главном.</p>
-<details><summary>Какая версия Minecraft нужна?</summary><p>Клиент работает на Minecraft 1.21.11 и загрузчике Fabric.</p></details>
-<details><summary>Под какие сервера подходит клиент?</summary><p>Клиент подходит под серверы FunTime и SpookyTime.</p></details>
-<details><summary>Как я получу клиент после оплаты?</summary><p>После покупки тебе придёт ключ и инструкция по установке. Если что-то не получается, напиши в поддержку.</p></details>
-</div></section>
+  <!-- Ornaments -->
+  <section>
+    <div class="ornaments">
+      <div class="ornament">🔴</div>
+      <div class="ornament">🟡</div>
+      <div class="ornament">🔵</div>
+      <div class="ornament">🟢</div>
+      <div class="ornament">🟣</div>
+    </div>
+  </section>
 
-<section id="support" class="alt"><div class="w">
-<h2>Техподдержка</h2>
-<p class="sub">Проблемы с установкой, ключом или оплатой? Заходи на наш Discord-сервер, мы ответим.</p>
-<p style="margin:0;display:flex;gap:12px;flex-wrap:wrap"><a class="btn" href="https://discord.gg/uMBXraJs4" target="_blank" rel="noopener noreferrer">Зайти на сервер Discord</a><a class="btn o" href="https://t.me/ZevsDLCbestclient" target="_blank" rel="noopener noreferrer">Наш Telegram</a></p>
-</div></section>
+  <!-- Traditions -->
+  <section>
+    <h2 class="section-title">🌍 Новогодние традиции</h2>
+    <p class="section-subtitle">Каждая культура встречает Новый год по-своему, но радость и надежду объединяет всех</p>
+    <div class="traditions">
+      <div class="tradition-item">
+        <span class="icon">🎄</span>
+        <span>Украшаем ёлку</span>
+      </div>
+      <div class="tradition-item">
+        <span class="icon">🍕</span>
+        <span>Готовим праздничный стол</span>
+      </div>
+      <div class="tradition-item">
+        <span class="icon">🎆</span>
+        <span>Запускаем фейерверки</span>
+      </div>
+      <div class="tradition-item">
+        <span class="icon">🎁</span>
+        <span>Обмениваемся подарками</span>
+      </div>
+      <div class="tradition-item">
+        <span class="icon">🥂</span>
+        <span>Чокаемся под бой курантов</span>
+      </div>
+      <div class="tradition-item">
+        <span class="icon">🎬</span>
+        <span>Смотрим любимые фильмы</span>
+      </div>
+      <div class="tradition-item">
+        <span class="icon">📝</span>
+        <span>Пишем новогодние желания</span>
+      </div>
+      <div class="tradition-item">
+        <span class="icon">👨‍👩‍👧‍👦</span>
+        <span>Собираем семью за столом</span>
+      </div>
+    </div>
+  </section>
 
-<footer><div class="w"><span>ZevsDLC © 2026</span><a href="https://discord.gg/uMBXraJs4" target="_blank" rel="noopener noreferrer">Техподдержка в Discord</a><a href="https://t.me/ZevsDLCbestclient" target="_blank" rel="noopener noreferrer">Telegram</a><span>Не связан с Mojang и Microsoft. Minecraft — товарный знак Mojang Synergies AB.</span></div></footer>
+  <!-- Wishes -->
+  <section id="wishes">
+    <h2 class="section-title">✨ Пожелания на новый год</h2>
+    <p class="section-subtitle">Нажми на карточку, чтобы получить случайное пожелание</p>
+    <div class="wishes-grid" id="wishesGrid">
+      <div class="wish-card">
+        <span class="wish-emoji">💖</span>
+        <h3>Любви</h3>
+        <p>Пусть рядом будут люди, которые дарят тепло и заботу каждый день</p>
+      </div>
+      <div class="wish-card">
+        <span class="wish-emoji">🚀</span>
+        <h3>Успеха</h3>
+        <p>Пусть все цели будут достигнуты, а мечты — воплощены в реальность</p>
+      </div>
+      <div class="wish-card">
+        <span class="wish-emoji">🌟</span>
+        <h3>Вдохновения</h3>
+        <p>Пусть каждый день приносит новые идеи и творческую энергию</p>
+      </div>
+      <div class="wish-card">
+        <span class="wish-emoji">🧘</span>
+        <h3>Гармонии</h3>
+        <p>Пусть в душе царит спокойствие, а в сердце — мир и уют</p>
+      </div>
+    </div>
+  </section>
 
-<script>
-(()=>{
-const cv=document.getElementById('bolt'),c=cv.getContext('2d'),dpr=Math.min(devicePixelRatio||1,2);
-const calm=matchMedia('(prefers-reduced-motion:reduce)').matches;
-let life=0,main=[],branch=[];
-function size(){cv.width=cv.clientWidth*dpr;cv.height=cv.clientHeight*dpr}
-function path(x,y,len,drift){const p=[[x,y]];for(let i=0;i<len;i++){y+=(14+Math.random()*26)*dpr;x+=(Math.random()-.5)*drift*dpr;p.push([x,y])}return p}
-function strike(){
- if(calm)return;
- size();const x=cv.width*(innerWidth<700?.7:.72)+(Math.random()-.5)*60*dpr;
- main=path(x,0,Math.ceil(cv.height/(26*dpr)),70);
- const i=Math.floor(main.length*.4);branch=path(main[i][0],main[i][1],8,90);
- life=1;draw();
-}
-function line(p,w,a){c.beginPath();p.forEach((q,i)=>i?c.lineTo(q[0],q[1]):c.moveTo(q[0],q[1]));c.lineWidth=w*dpr;c.strokeStyle=`rgba(255,226,130,${a})`;c.stroke()}
-function draw(){
- c.clearRect(0,0,cv.width,cv.height);
- if(life<=0)return;
- c.fillStyle=`rgba(120,150,255,${life*.12})`;c.fillRect(0,0,cv.width,cv.height);
- c.shadowColor='rgba(255,210,74,.9)';c.shadowBlur=24*dpr;c.lineJoin='round';
- line(main,3,life);line(branch,1.6,life*.8);
- life-=.035;requestAnimationFrame(draw);
-}
-addEventListener('resize',()=>{if(life<=0)size()});
-size();setTimeout(strike,500);
-document.getElementById('buy').addEventListener('mouseenter',()=>{if(life<=0)strike()});
-document.querySelector('.hero').addEventListener('click',e=>{if(!e.target.closest('a')&&life<=0)strike()});
-})();
-</script>
-<dialog id="dlg" aria-labelledby="dt">
-<div class="dh"><h2 id="dt">Вход</h2><button class="x" id="dx" type="button" aria-label="Закрыть">×</button></div>
-<div id="vAuth">
-<p class="note" id="note" hidden>Чтобы оформить тариф, войди в аккаунт или создай новый.</p>
-<div class="tabs"><button type="button" id="tIn" class="on">Вход</button><button type="button" id="tUp">Регистрация</button></div>
-<form id="f">
-<label>Ник в Minecraft<input id="fn" required minlength="3" maxlength="16" pattern="[A-Za-z0-9_]+" autocomplete="username"></label>
-<label id="le" hidden>Почта<input id="fe" type="email" autocomplete="email"></label>
-<label>Пароль<input id="fp" type="password" required minlength="6" autocomplete="current-password"></label>
-<div class="cap"><canvas id="capc" width="150" height="50" role="img" aria-label="Код с картинки"></canvas><button type="button" id="capr" class="x" aria-label="Обновить код">↻</button></div>
-<label>Код с картинки<input id="capi" required maxlength="5" autocomplete="off" autocapitalize="characters"></label>
-<p id="msg" role="alert"></p>
-<button class="btn" id="fs" type="submit">Войти</button>
-</form></div>
-<div id="vCab" hidden>
-<dl class="cab"><dt>Ник</dt><dd id="cn"></dd><dt>Почта</dt><dd id="ce"></dd><dt>Тариф</dt><dd id="cp"></dd><dt>Ключ</dt><dd id="ck">Появится после подтверждения оплаты</dd></dl>
-<div class="cabx"><button class="btn" id="dl" type="button">Скачать лаунчер</button><p class="note" id="dlmsg" hidden>Ещё не готово</p><a class="btn o" id="cbuy" href="#pricing">Выбрать тариф</a><button class="btn o" id="out" type="button">Выйти</button></div>
-</div>
-</dialog>
-<script>
-(()=>{
-const $=id=>document.getElementById(id),dlg=$('dlg'),K='zevs_users',S='zevs_session';
-let mode='in',pending=null;
-const load=()=>{try{return JSON.parse(localStorage.getItem(K)||'{}')}catch(e){return{}}};
-const save=u=>{try{localStorage.setItem(K,JSON.stringify(u))}catch(e){}};
-const cur=()=>{try{return localStorage.getItem(S)}catch(e){return null}};
-const setCur=n=>{try{n?localStorage.setItem(S,n):localStorage.removeItem(S)}catch(e){}};
-async function hash(p,salt){
- const s=salt+p;
- if(!(window.crypto&&crypto.subtle))return btoa(unescape(encodeURIComponent(s)));
- const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));
- return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('');
-}
-const msg=t=>{$('msg').textContent=t};
-let code='';
-function cap(){
- const cv=$('capc'),c=cv.getContext('2d'),A='ABCDEFGHJKLMNPQRSTUVWXYZ23456789',r=Math.random;
- code='';for(let i=0;i<5;i++)code+=A[Math.floor(r()*A.length)];
- c.fillStyle='#0b0e24';c.fillRect(0,0,150,50);
- for(let i=0;i<7;i++){c.strokeStyle=`hsla(${r()*360},70%,65%,.6)`;c.lineWidth=1.5;c.beginPath();c.moveTo(r()*150,r()*50);c.lineTo(r()*150,r()*50);c.stroke()}
- for(let i=0;i<5;i++){c.save();c.translate(18+i*28,34+(r()-.5)*8);c.rotate((r()-.5)*.6);c.font='700 28px Unbounded,Arial,sans-serif';c.textAlign='center';c.fillStyle=`hsl(${40+r()*30},90%,70%)`;c.fillText(code[i],0,0);c.restore()}
- for(let i=0;i<40;i++){c.fillStyle='rgba(255,255,255,.35)';c.fillRect(r()*150,r()*50,2,2)}
- $('capi').value='';
-}
-function setMode(m){
- mode=m;msg('');
- $('tIn').classList.toggle('on',m=='in');$('tUp').classList.toggle('on',m=='up');
- $('le').hidden=m=='in';$('fe').required=m=='up';
- $('fs').textContent=m=='in'?'Войти':'Создать аккаунт';
- $('dt').textContent=m=='in'?'Вход':'Регистрация';
- $('fp').autocomplete=m=='in'?'current-password':'new-password';
- cap();
-}
-function render(){
- const k=cur(),u=load()[k];
- const logged=!!(k&&u);
- $('vAuth').hidden=logged;$('vCab').hidden=!logged;
- $('note').hidden=!pending;
- $('acc').textContent=logged?u.nick:'Войти';
- if(logged){
-  $('dt').textContent='Кабинет';$('cn').textContent=u.nick;$('ce').textContent=u.email||'не указана';
-  $('cp').textContent=u.plan?u.plan+' (ждёт оплаты)':'не выбран';
- }else setMode(mode);
-}
-function open(){$('dlmsg').hidden=true;render();if(!dlg.open)dlg.showModal()}
-$('acc').onclick=open;
-$('dx').onclick=()=>dlg.close();
-dlg.addEventListener('click',e=>{if(e.target===dlg)dlg.close()});
-$('tIn').onclick=()=>setMode('in');$('tUp').onclick=()=>setMode('up');$('capr').onclick=cap;
-$('cbuy').onclick=()=>dlg.close();
-$('dl').onclick=()=>{$('dlmsg').hidden=false};
-$('out').onclick=()=>{setCur(null);pending=null;setMode('in');render()};
-$('f').onsubmit=async e=>{
- e.preventDefault();
- const n=$('fn').value.trim(),p=$('fp').value,k=n.toLowerCase(),u=load();
- if($('capi').value.trim().toUpperCase()!==code){cap();return msg('Неверный код с картинки.')}
- if(mode=='up'){
-  const em=$('fe').value.trim().toLowerCase();
-  if(Object.values(u).some(x=>(x.email||'').toLowerCase()===em))return msg('Эта почта уже используется.');
-  if(u[k])return msg('Этот ник уже занят.');
-  const salt=Math.random().toString(36).slice(2);
-  u[k]={nick:n,email:$('fe').value.trim(),salt,h:await hash(p,salt),plan:null};
- }else if(!u[k]||u[k].h!==await hash(p,u[k].salt)){cap();return msg('Неверный ник или пароль.')}
- if(pending){u[k].plan=pending;pending=null}
- save(u);setCur(k);$('f').reset();render();
-};
-document.querySelectorAll('.plan .btn').forEach(b=>b.addEventListener('click',()=>{
- const pl=b.closest('.plan'),name=pl.querySelector('h3').textContent+', '+pl.querySelector('.price').textContent+' '+pl.querySelector('.per').textContent;
- const k=cur(),u=load();
- if(k&&u[k]){u[k].plan=name;save(u)}
-}));
-render();
-})();
-</script>
-<script>
+  <!-- Gallery -->
+  <section>
+    <h2 class="section-title">🎨 Праздничная галерея</h2>
+    <p class="section-subtitle">Атмосфера праздника повсюду</p>
+    <div class="gallery">
+      <div class="gallery-item"><span>❄️🎄✨🌟</span></div>
+      <div class="gallery-item"><span>🎅</span></div>
+      <div class="gallery-item"><span>🦌</span></div>
+      <div class="gallery-item"><span>🎁🎀🎊🎉</span></div>
+    </div>
+  </section>
 
-(()=>{
-const $=id=>document.getElementById(id),W=1280,H=720,BT=.5,c=$('tc').getContext('2d');
-const calm=matchMedia('(prefers-reduced-motion:reduce)').matches;
-const UI='Onest,"Segoe UI",system-ui,sans-serif',WM='Unbounded,"Arial Black",sans-serif',MONO='"Courier New",monospace';
-const GOLD='#ffc83d';
-const CATS=[
- ['БОЙ',[['Прицел'],['Тайминги'],['Дистанция',1]]],
- ['ДВИЖЕНИЕ',[['Скорость'],['Прыжок'],['Полёт']]],
- ['МИР',[['Строительство'],['Добыча'],['Ориентирование']]],
- ['ВИЗУАЛ',[['Подсветка'],['Информация'],['Цвета']]],
- ['ИНТЕРФЕЙС',[['Меню'],['Бинды'],['Профили',1]]]];
-const WORDS=['Точность.','Скорость.','Контроль.'];
-const PW=210,PG=20,PX=(W-(5*PW+4*PG))/2,PY=195;
-let S={},END=24.6,G=0,segs=[],vids=[],playing=false,t0=0,muted=false,ac=null,master=null,TG=[];
-const cl=x=>Math.max(0,Math.min(1,x)),ease=x=>1-Math.pow(1-cl(x),3);
-function plan(g){G=g;S.gui=3;S.gp=10.5;S.words=S.gp+g;S.srv=S.words+5.4;S.end=S.srv+3.2;END=S.end+5.5}
-/* цели курсора: позиции и моменты включения */
-CATS.forEach((cat,i)=>cat[1].forEach((r,j)=>{TG.push({x:PX+i*(PW+PG)+PW-40,y:PY+52+j*58+30,t:5+(TG.length)*.28,i,j})}));
+  <!-- Wish Maker -->
+  <section class="wish-maker-section">
+    <h2 class="section-title">🌠 Запусти желание</h2>
+    <p class="section-subtitle">Напиши своё желание на Новый Год и отправь его в космос!</p>
+    <div class="wish-input-container">
+      <input type="text" class="wish-input" id="wishInput" placeholder="Моё желание на 2027 год..." maxlength="100">
+      <button class="wish-submit-btn" id="wishSubmit">🚀 Запустить в космос!</button>
+    </div>
+    <div class="launched-wishes" id="launchedWishes"></div>
+  </section>
 
-function sp(s,x,y,size,col,a,gap,w,f){
- c.font=`${w||600} ${size}px ${f||UI}`;c.textBaseline='middle';c.textAlign='left';c.globalAlpha=Math.max(0,a);c.fillStyle=col;
- const ch=[...s],ws=ch.map(q=>c.measureText(q).width),tot=ws.reduce((p,q)=>p+q,0)+gap*(ch.length-1);let cx=x-tot/2;
- ch.forEach((q,i)=>{c.fillText(q,cx,y);cx+=ws[i]+gap});c.globalAlpha=1;return tot;
-}
-const goldG=(x,w)=>{const g=c.createLinearGradient(x-w/2,0,x+w/2,0);g.addColorStop(0,'#ffe27a');g.addColorStop(1,'#ff9d2e');return g};
-function show(s,y,size,col,lt,total,gap,w,f){
- const a=ease(lt/.7)*cl((total-lt)/.45);if(a<=0)return;
- sp(s,W/2,y+(1-ease(lt/.7))*26,size,col,a,gap,w,f);
-}
-function rrect(x,y,w,h,r){c.beginPath();c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+h,r);c.arcTo(x+w,y+h,x,y+h,r);c.arcTo(x,y+h,x,y,r);c.arcTo(x,y,x+w,y,r);c.closePath()}
+  <!-- Fun Facts -->
+  <section>
+    <h2 class="section-title">🎲 Факты о Новом Годе</h2>
+    <p class="section-subtitle">Интересные вещи, которые ты мог не знать</p>
+    <div class="fun-facts">
+      <div class="fact-card">
+        <div class="fact-year">🕐</div>
+        <div class="fact-text">Первый час Нового Года — самый важный. В Японии 108 звона колоколов, чтобы очистить 108 грехов</div>
+      </div>
+      <div class="fact-card">
+        <div class="fact-year">🍇</div>
+        <div class="fact-text">В Испании на Новый Год съедают 1000 тонн винограда — по одной ягодке на каждый бой курантов</div>
+      </div>
+      <div class="fact-card">
+        <div class="fact-year">🎵</div>
+        <div class="fact-text">«Auld Lang Syne» — самая популярная новогодняя песня в мире, её поют в 80+ странах</div>
+      </div>
+      <div class="fact-card">
+        <div class="fact-year">🌍</div>
+        <div class="fact-text">Новый год встречают по-разному: с 1 января в Китае до 13 января в Эфиопии</div>
+      </div>
+      <div class="fact-card">
+        <div class="fact-year">🎆</div>
+        <div class="fact-text">Фейерверки изобрели в Китае 2000 лет назад — сначала как способ отпугнуть злых духов</div>
+      </div>
+      <div class="fact-card">
+        <div class="fact-year">🎄</div>
+        <div class="fact-text">Каждый год в мире продают ~50 миллионов новогодних ёлок. Это 15 миллионов в США alone!</div>
+      </div>
+    </div>
+  </section>
 
-function bg(t){
- c.fillStyle='#07080f';c.fillRect(0,0,W,H);
- [[.2,.3,560,'255,190,60',.15,.31],[.85,.78,680,'70,86,255',.17,.23],[.62,.05,420,'255,120,70',.07,.37]].forEach((o,i)=>{
-  const x=(o[0]+Math.sin(t*o[5]+i)*.07)*W,y=(o[1]+Math.cos(t*o[5]*.8+i)*.06)*H,g=c.createRadialGradient(x,y,0,x,y,o[2]);
-  g.addColorStop(0,`rgba(${o[3]},${o[4]})`);g.addColorStop(1,`rgba(${o[3]},0)`);c.fillStyle=g;c.fillRect(0,0,W,H);
- });
- c.strokeStyle='rgba(255,255,255,.035)';c.lineWidth=1;c.beginPath();
- for(let x=0;x<=W;x+=80){c.moveTo(x,0);c.lineTo(x,H)}for(let y=0;y<=H;y+=80){c.moveTo(0,y);c.lineTo(W,y)}c.stroke();
-}
-function mark(a){
- if(a<=0)return;
- sp('ZEVSDLC',112,32,goldG(112,160),a,5,700,WM);c.globalAlpha=1;
- c.font=`600 14px ${UI}`;c.textAlign='left';c.fillStyle=`rgba(141,147,184,${a})`;c.fillText('MINECRAFT CLIENT  ·  1.21.11',46,76);
-}
-function intro(t){
- const l=ease((t-.4)/1.1),out=cl((3-t)/.4);
- c.globalAlpha=out;
- c.fillStyle=goldG(W/2,320);c.fillRect(W/2-160*l,H/2+62,320*l,2);
- const a=ease((t-.7)/1.1),y=H/2-10+(1-a)*18;
- c.font=`700 104px ${WM}`;c.textBaseline='middle';
- const ch=[...'ZEVSDLC'],ws=ch.map(q=>c.measureText(q).width),gap=16,tot=ws.reduce((p,q)=>p+q,0)+gap*6;let cx=W/2-tot/2;
- c.textAlign='left';c.fillStyle=goldG(W/2,tot);c.globalAlpha=a*out;ch.forEach((q,i)=>{c.fillText(q,cx,y);cx+=ws[i]+gap});
- c.globalAlpha=1;
- sp('MINECRAFT CLIENT  ·  1.21.11',W/2,H/2+104,22,'#8d93b8',ease((t-1.8)/.8)*out,7,600);
-}
-/* ClickGUI */
-function gui(t){
- const out=cl((S.gp-t)/.6)*(S.gp-.01>t?1:0);
- CATS.forEach((cat,i)=>{
-  const ap=ease((t-(3.2+i*.2))/.7)*out;if(ap<=0)return;
-  const x=PX+i*(PW+PG),y=PY+(1-ap)*34,h=52+3*58+10;
-  c.globalAlpha=ap;
-  rrect(x,y,PW,h,16);c.fillStyle='rgba(14,16,34,.78)';c.fill();c.strokeStyle='rgba(255,255,255,.08)';c.lineWidth=1.5;c.stroke();
-  c.fillStyle=goldG(x+PW/2,PW);c.fillRect(x+18,y+20,4,18);
-  c.textAlign='left';c.textBaseline='middle';c.font=`700 15px ${UI}`;c.fillStyle='#eef0fb';
-  c.fillText(cat[0],x+32,y+30);
-  cat[1].forEach((r,j)=>{
-   const ry=y+52+j*58,tg=TG.find(q=>q.i==i&&q.j==j),p=ease((t-tg.t)/.3);
-   c.font=`600 17px ${UI}`;c.fillStyle=p>.5?'#eef0fb':'#a7acd0';c.textAlign='left';c.fillText(r[0],x+18,ry+(r[1]?20:30));
-   const tx=x+PW-62,ty=ry+18;rrect(tx,ty,44,24,12);c.fillStyle=p>0?`rgba(255,${Math.round(110+90*p)},${Math.round(40+20*(1-p))},${.25+.75*p})`:'rgba(255,255,255,.1)';c.fill();
-   c.beginPath();c.arc(tx+12+20*p,ty+12,9,0,7);c.fillStyle='#fff';c.fill();
-   if(r[1]){const sx=x+18,sw=PW-36,sy=ry+44,f=.18+.6*ease((t-tg.t)/1.2);
-    rrect(sx,sy,sw,6,3);c.fillStyle='rgba(255,255,255,.1)';c.fill();rrect(sx,sy,sw*f,6,3);c.fillStyle=goldG(sx+sw/2,sw);c.fill();
-    c.beginPath();c.arc(sx+sw*f,sy+3,7,0,7);c.fillStyle='#fff';c.fill()}
-  });
-  c.globalAlpha=1;
- });
- /* курсор */
- const ca=cl((t-4.4)/.4)*cl((9.9-t)/.4)*out;
- if(ca>0){
-  let j=TG.findIndex(q=>q.t-.06>t);if(j<0)j=TG.length-1;
-  const prev=j?TG[j-1]:{x:W/2,y:H-120},k=j?ease((t-(TG[j].t-.26))/.2):ease((t-4.4)/.6),px=prev.x+(TG[j].x-prev.x)*k+6,py=prev.y+(TG[j].y-prev.y)*k+6;
-  TG.forEach(q=>{const l=(t-q.t)/.4;if(l>0&&l<1){c.strokeStyle=`rgba(255,200,61,${.6*(1-l)})`;c.lineWidth=2;c.beginPath();c.arc(q.x,q.y,10+22*l,0,7);c.stroke()}});
-  c.globalAlpha=ca;c.save();c.translate(px,py);c.shadowColor='rgba(0,0,0,.6)';c.shadowBlur=8;
-  c.beginPath();c.moveTo(0,0);c.lineTo(0,22);c.lineTo(6,17);c.lineTo(11,27);c.lineTo(15,25);c.lineTo(10,16);c.lineTo(17,16);c.closePath();c.fillStyle='#fff';c.fill();c.strokeStyle='#111';c.lineWidth=1.2;c.stroke();c.restore();c.globalAlpha=1;
- }
-}
-/* геймплей */
-function clips(t){
- const l=t-S.gp;let idx=segs.findIndex(s=>l>=s.start&&l<s.start+s.len);if(idx<0)idx=segs.length-1;
- const draw=(s,a)=>{const v=s.v;if(!v.videoWidth)return;const k=Math.max(W/v.videoWidth,H/v.videoHeight)*(1+(l-s.start)*.012),w=v.videoWidth*k,h=v.videoHeight*k;c.globalAlpha=a;c.drawImage(v,(W-w)/2,(H-h)/2,w,h);c.globalAlpha=1};
- const s=segs[idx],ls=l-s.start;
- if(idx>0&&ls<.45)draw(segs[idx-1],1);draw(s,idx>0?ease(ls/.45):ease(l/.45));
- const g=c.createLinearGradient(0,0,0,H);g.addColorStop(0,'rgba(5,6,12,.55)');g.addColorStop(.3,'rgba(5,6,12,0)');g.addColorStop(.7,'rgba(5,6,12,0)');g.addColorStop(1,'rgba(5,6,12,.6)');c.fillStyle=g;c.fillRect(0,0,W,H);
- const fo=cl((S.words-t)/.5),fi=ease(l/.6)*fo;
- mark(fo*ease(l/.4));
- CATS.forEach((cat,i)=>{
-  const a=ease((l-.4-i*.18)/.4)*fo;if(a<=0)return;
-  c.font=`700 22px ${UI}`;const w=c.measureText(cat[0]).width,x=W-54+(1-a)*60,y=90+i*44;
-  c.globalAlpha=a;c.fillStyle='rgba(6,7,16,.6)';c.fillRect(x-w-30,y,w+30,36);c.fillStyle=goldG(x,60);c.fillRect(x-4,y,4,36);
-  c.textAlign='right';c.textBaseline='middle';c.fillStyle='#fff';c.fillText(cat[0],x-14,y+19);c.globalAlpha=1;
- });
-}
-function tail(t){
- if(t>=S.words&&t<S.srv){
-  const i=Math.min(2,Math.floor((t-S.words)/1.8)),l=t-S.words-i*1.8,a=ease(l/.7)*cl((1.8-l)/.45);
-  show(WORDS[i],H/2-8,118,'#fff',l,1.8,2,700,WM);
-  c.fillStyle=goldG(W/2,160);c.globalAlpha=a;c.fillRect(W/2-80*ease(l/.8),H/2+72,160*ease(l/.8),4);c.globalAlpha=1;
- }else if(t>=S.srv&&t<S.end){
-  const l=t-S.srv;show('ПОДХОДИТ ДЛЯ СЕРВЕРОВ',H/2-110,20,'#8d93b8',l,3.2,7,600);
-  show('FunTime',H/2-20,92,'#fff',l-.2,3,2,700,WM);show('SpookyTime',H/2+86,92,goldG(W/2,640),l-.5,2.7,2,700,WM);
- }else if(t>=S.end){
-  const l=t-S.end,fo=cl((END-t)/.8);c.globalAlpha=fo;
-  c.font=`700 112px ${WM}`;const ch=[...'ZEVSDLC'],ws=ch.map(q=>c.measureText(q).width),gap=14,tot=ws.reduce((p,q)=>p+q,0)+gap*6,a=ease(l/.9),y=H/2-70+(1-a)*20;
-  let cx=W/2-tot/2;c.textAlign='left';c.textBaseline='middle';c.fillStyle=goldG(W/2,tot);c.globalAlpha=a*fo;ch.forEach((q,i)=>{c.fillText(q,cx,y);cx+=ws[i]+gap});c.globalAlpha=fo;
-  sp('ПРЕДЗАКАЗ ОТКРЫТ',W/2,H/2+34,36,'#fff',ease((l-.9)/.6)*fo,6,600);
-  sp('discord.gg/uMBXraJs4',W/2,H/2+112,24,'#aab0d6',ease((l-1.5)/.6)*fo,1,400,MONO);
-  sp('t.me/ZevsDLCbestclient',W/2,H/2+150,24,'#aab0d6',ease((l-1.7)/.6)*fo,1,400,MONO);c.globalAlpha=1;
- }
-}
-function draw(t){
- bg(t);
- if(t<S.gui)intro(t);
- if(t>=S.gui&&t<S.gp){mark(ease((t-3.1)/.6)*cl((S.gp-t)/.5));gui(t)}
- if(G>0&&t>=S.gp&&t<S.words)clips(t);
- if(t>=S.words)tail(t);
- const v=c.createRadialGradient(W/2,H/2,H*.4,W/2,H/2,H*.95);v.addColorStop(0,'rgba(0,0,0,0)');v.addColorStop(1,'rgba(0,0,0,.55)');c.fillStyle=v;c.fillRect(0,0,W,H);
- if(t<.5){c.fillStyle=`rgba(0,0,0,${1-t/.5})`;c.fillRect(0,0,W,H)}
- c.fillStyle=goldG(W/2,W);c.fillRect(0,H-3,W*t/END,3);
-}
-function gpCtl(t){
- const l=t-S.gp;
- segs.forEach(s=>{const on=G>0&&l>=s.start&&l<s.start+s.len+.5;
-  if(on&&s.v.paused){try{s.v.currentTime=0;s.v.play()}catch(e){}}else if(!on&&!s.v.paused)s.v.pause()});
-}
-function frame(now){
- if(!playing)return;
- const t=(now-t0)/1000;
- if(t>=END){draw(END-.001);stop(true);return}
- gpCtl(t);draw(t);requestAnimationFrame(frame);
-}
-/* звук */
-function sound(){
- try{
-  ac=new(window.AudioContext||window.webkitAudioContext)();master=ac.createGain();master.gain.value=muted?0:.8;
-  const comp=ac.createDynamicsCompressor();master.connect(comp);comp.connect(ac.destination);
-  const dl=ac.createDelay(1);dl.delayTime.value=.375;const fb=ac.createGain();fb.gain.value=.34;const send=ac.createGain();send.gain.value=.3;
-  dl.connect(fb);fb.connect(dl);send.connect(dl);dl.connect(master);
-  const T=ac.currentTime+.05,nb=ac.createBuffer(1,ac.sampleRate*2,ac.sampleRate),d=nb.getChannelData(0);
-  for(let i=0;i<d.length;i++)d[i]=Math.random()*2-1;
-  const noise=(at,dur,f0,f1,type,g)=>{const s=ac.createBufferSource(),f=ac.createBiquadFilter(),o=ac.createGain(),x=T+at;
-   s.buffer=nb;f.type=type;f.frequency.setValueAtTime(f0,x);f.frequency.exponentialRampToValueAtTime(f1,x+dur);
-   o.gain.setValueAtTime(0,x);o.gain.linearRampToValueAtTime(g,x+.01);o.gain.exponentialRampToValueAtTime(.001,x+dur);
-   s.connect(f);f.connect(o);o.connect(master);s.start(x);s.stop(x+Math.min(2,dur+.1))};
-  const osc=(type,f0,f1,at,dur,g,lp,wet)=>{const o=ac.createOscillator(),e=ac.createGain(),x=T+at;
-   o.type=type;o.frequency.setValueAtTime(f0,x);o.frequency.exponentialRampToValueAtTime(f1,x+dur);
-   e.gain.setValueAtTime(g,x);e.gain.exponentialRampToValueAtTime(.001,x+dur);
-   if(lp){const f=ac.createBiquadFilter();f.type='lowpass';f.frequency.value=lp;o.connect(f);f.connect(e)}else o.connect(e);
-   e.connect(master);if(wet)e.connect(send);o.start(x);o.stop(x+dur+.05)};
-  // пад
-  [110,164.81,220].forEach(f=>{const o=ac.createOscillator(),g=ac.createGain(),lp=ac.createBiquadFilter();
-   o.type='triangle';o.frequency.value=f;lp.type='lowpass';lp.frequency.setValueAtTime(300,T);lp.frequency.linearRampToValueAtTime(900,T+S.end);
-   g.gain.setValueAtTime(0,T);g.gain.linearRampToValueAtTime(.09,T+2.5);g.gain.setValueAtTime(.09,T+END-2.5);g.gain.linearRampToValueAtTime(0,T+END);
-   o.connect(lp);lp.connect(g);g.connect(master);o.start(T);o.stop(T+END)});
-  // нарастание и мягкие удары на смене секций
-  noise(0.2,2.7,300,6000,'bandpass',.22);
-  [S.gui,S.words,S.end].forEach(h=>{osc('sine',90,32,h,1.2,.9);noise(h,1.2,2500,200,'lowpass',.35)});
-  // ритм 120 BPM
-  const ch=[[220,261.63,329.63,440],[174.61,220,261.63,349.23],[261.63,329.63,392,523.25],[196,246.94,293.66,392]],root=[55,43.65,65.41,49],pat=[0,1,2,3,2,1,2,1];
-  for(let b=0;S.gui+b*BT<S.end;b++){
-   const at=S.gui+b*BT,k=Math.floor(b/8)%4;
-   osc('sine',150,42,at,.22,.8);
-   if(at>=6&&b%2==1)noise(at,.18,1900,900,'bandpass',.4);
-   if(at>=6)noise(at+BT/2,.05,7000,9000,'highpass',.16);
-   osc('sawtooth',root[k],root[k],at,BT*.92,.3,260);
-   [0,1].forEach(h=>osc('triangle',ch[k][pat[(b*2+h)%8]],ch[k][pat[(b*2+h)%8]],at+h*BT/2,.3,.09,2600,true));
-  }
- }catch(e){ac=null}
-}
-function start(){
- $('tov').style.display='none';
- if(ac){try{ac.close()}catch(e){}ac=null}
- segs=[];let acc=0;vids.slice().sort((a,b)=>a._n<b._n?-1:1).slice(0,3).forEach(v=>{const len=Math.min(5,v.duration||5);if(len>=1){segs.push({v,start:acc,len});acc+=len}});
- plan(acc);sound();playing=true;t0=performance.now();requestAnimationFrame(frame);
-}
-function stop(done){
- playing=false;segs.forEach(s=>s.v.pause());
- if(ac)setTimeout(()=>{try{ac.close()}catch(e){}ac=null},2500);
- if(done){$('tgo').textContent='Посмотреть ещё раз';$('tov').style.display='flex'}
-}
-$('tgo').onclick=e=>{e.stopPropagation();start()};
-$('tov').onclick=start;
-$('tfs').onclick=()=>{const s=$('tstage');document.fullscreenElement?document.exitFullscreen():s.requestFullscreen&&s.requestFullscreen()};
-$('tmu').onclick=()=>{muted=!muted;$('tmu').textContent=muted?'Звук выключен':'Звук включён';if(master)master.gain.value=muted?0:.8};
-['gameplay1.mp4','gameplay2.mp4','gameplay3.mp4'].forEach(u=>{const v=document.createElement('video');v._n=u;v.muted=true;v.playsInline=true;v.preload='auto';v.onloadedmetadata=()=>{if(v.videoWidth>0)vids.push(v)};v.src=u});
-plan(0);
-(document.fonts&&document.fonts.load?Promise.all([document.fonts.load('700 100px Unbounded'),document.fonts.load('600 17px Onest')]):Promise.resolve()).catch(()=>{}).then(()=>draw(8.2));
-})();
+  <!-- Footer -->
+  <footer>
+    <span class="hearts">🎄❤️🎄</span>
+    <p>Сделано с любовью и праздничным настроением</p>
+    <p style="margin-top: 0.5rem; opacity: 0.5;">С Новым Годом 2027! 🥳</p>
+    <p style="margin-top: 1rem; font-size: 0.75rem; opacity: 0.3;">💡 Попробуй кликнуть по ёлке три раза...</p>
+  </footer>
 
-</script>
+  <script>
+    // === SNOWFALL ===
+    const snowfall = document.getElementById('snowfall');
+    const snowChars = ['❄', '❅', '❆', '•', '∗'];
+    
+    function createSnowflake() {
+      const flake = document.createElement('div');
+      flake.className = 'snowflake';
+      flake.textContent = snowChars[Math.floor(Math.random() * snowChars.length)];
+      flake.style.left = Math.random() * 100 + '%';
+      flake.style.fontSize = (Math.random() * 12 + 6) + 'px';
+      flake.style.opacity = Math.random() * 0.6 + 0.2;
+      flake.style.animationDuration = (Math.random() * 8 + 6) + 's';
+      flake.style.animationDelay = Math.random() * 3 + 's';
+      snowfall.appendChild(flake);
+      
+      setTimeout(() => flake.remove(), 16000);
+    }
+
+    // Initial snowflakes
+    for (let i = 0; i < 30; i++) {
+      setTimeout(createSnowflake, i * 200);
+    }
+
+    // Continuous snowflakes
+    setInterval(createSnowflake, 500);
+
+    // === COUNTDOWN ===
+    function updateCountdown() {
+      const now = new Date();
+      const newYear = new Date(now.getFullYear() + 1, 0, 1);
+      
+      if (now.getMonth() === 0 && now.getDate() <= 5) {
+        newYear.setFullYear(now.getFullYear() + 1);
+      }
+      
+      const diff = newYear - now;
+      
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+      
+      document.getElementById('days').textContent = String(days).padStart(2, '0');
+      document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+      document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+      document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    // === WISHES RANDOMIZER ===
+    const wishes = [
+      { emoji: '🌈', title: 'Радуги после дождя', text: 'Пусть после любой сложности всегда будет свет и радость' },
+      { emoji: '🗺️', title: 'Путешествий', text: 'Пусть каждый год открывает новые горизонты и приключения' },
+      { emoji: '💪', title: 'Силы духа', text: 'Пусть здоровье и энергия помогут покорять любые вершины' },
+      { emoji: '📚', title: 'Мудрости', text: 'Пусть каждый опыт делает тебя сильнее и умнее' },
+      { emoji: '🎵', title: 'Мелодий счастья', text: 'Пусть жизнь будет наполнена приятными сюрпризами и музыкой' },
+      { emoji: '🌺', title: 'Цветения', text: 'Пусть каждый день приносит новые поводы для улыбки' },
+      { emoji: '🔥', title: 'Страсти', text: 'Пусть огонь внутри никогда не гаснет' },
+      { emoji: '🕊️', title: 'Свободы', text: 'Пусть будут возможности делать то, что действительно важно' },
+      { emoji: '🍀', title: 'Удачи', text: 'Пусть везение будет верным спутником во всём' },
+      { emoji: '☀️', title: 'Света', text: 'Пусть тёплый свет согревает в самые холодные вечера' },
+      { emoji: '🎯', title: 'Ясности целей', text: 'Пусть каждый день будет шагом к заветной мечте' },
+      { emoji: '🤝', title: 'Друзей', text: 'Пусть рядом будут верные люди, готовые поддержать' },
+    ];
+
+    document.querySelectorAll('.wish-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const random = wishes[Math.floor(Math.random() * wishes.length)];
+        card.querySelector('.wish-emoji').textContent = random.emoji;
+        card.querySelector('h3').textContent = random.title;
+        card.querySelector('p').textContent = random.text;
+        card.style.transform = 'scale(0.95)';
+        setTimeout(() => card.style.transform = '', 150);
+      });
+    });
+
+    // === SMOOTH SCROLL ===
+    document.querySelector('.cta-btn').addEventListener('click', (e) => {
+      e.preventDefault();
+      document.querySelector('#wishes').scrollIntoView({ behavior: 'smooth' });
+    });
+
+    // === MAGIC CURSOR TRAIL ===
+    const cursorEmojis = ['✨', '⭐', '💫', '🌟', '❄️', '🎄', '🎁', '🔔'];
+    let lastTrail = 0;
+
+    document.addEventListener('mousemove', (e) => {
+      const now = Date.now();
+      if (now - lastTrail < 80) return;
+      lastTrail = now;
+
+      const trail = document.createElement('div');
+      trail.className = 'cursor-trail';
+      trail.textContent = cursorEmojis[Math.floor(Math.random() * cursorEmojis.length)];
+      trail.style.left = e.clientX + 'px';
+      trail.style.top = e.clientY + 'px';
+      document.body.appendChild(trail);
+      setTimeout(() => trail.remove(), 1000);
+    });
+
+    // === CLICK FIREWORKS ===
+    document.addEventListener('click', (e) => {
+      const colors = ['#e74c3c', '#f0c040', '#2ecc71', '#4a90d9', '#9b59b6', '#ff6b81', '#ffa502'];
+      for (let i = 0; i < 20; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'firework-particle';
+        const angle = (Math.PI * 2 * i) / 20;
+        const distance = Math.random() * 80 + 40;
+        const tx = Math.cos(angle) * distance;
+        const ty = Math.sin(angle) * distance;
+        particle.style.cssText = `
+          left: ${e.clientX}px; top: ${e.clientY}px;
+          width: ${Math.random() * 6 + 3}px; height: ${Math.random() * 6 + 3}px;
+          background: ${colors[Math.floor(Math.random() * colors.length)]};
+          --tx: ${tx}px; --ty: ${ty}px;
+        `;
+        document.body.appendChild(particle);
+        setTimeout(() => particle.remove(), 1000);
+      }
+    });
+
+    // === SHOOTING STARS ===
+    function createShootingStar() {
+      const star = document.createElement('div');
+      star.className = 'shooting-star';
+      star.style.top = Math.random() * 50 + '%';
+      star.style.left = Math.random() * 50 + '%';
+      document.body.appendChild(star);
+      setTimeout(() => star.remove(), 1500);
+    }
+
+    setInterval(createShootingStar, 4000);
+    setTimeout(createShootingStar, 1000);
+
+    // === WISH MAKER ===
+    const wishInput = document.getElementById('wishInput');
+    const wishSubmit = document.getElementById('wishSubmit');
+    const launchedWishes = document.getElementById('launchedWishes');
+
+    wishSubmit.addEventListener('click', launchWish);
+    wishInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') launchWish();
+    });
+
+    function launchWish() {
+      const text = wishInput.value.trim();
+      if (!text) return;
+
+      const bubble = document.createElement('div');
+      bubble.className = 'launched-bubble';
+      bubble.textContent = text.length > 30 ? text.slice(0, 30) + '...' : text;
+      launchedWishes.appendChild(bubble);
+
+      wishInput.value = '';
+
+      // Firework at top of screen
+      const fx = window.innerWidth / 2 + (Math.random() - 0.5) * 300;
+      const fy = Math.random() * 200 + 50;
+      for (let i = 0; i < 30; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'firework-particle';
+        const angle = (Math.PI * 2 * i) / 30;
+        const distance = Math.random() * 100 + 50;
+        particle.style.cssText = `
+          left: ${fx}px; top: ${fy}px;
+          width: ${Math.random() * 6 + 3}px; height: ${Math.random() * 6 + 3}px;
+          background: ${['#f0c040', '#9b59b6', '#2ecc71', '#4a90d9', '#e74c3c'][Math.floor(Math.random() * 5)]};
+          --tx: ${Math.cos(angle) * distance}px; --ty: ${Math.sin(angle) * distance}px;
+        `;
+        document.body.appendChild(particle);
+        setTimeout(() => particle.remove(), 1000);
+      }
+
+      if (launchedWishes.children.length > 8) {
+        launchedWishes.removeChild(launchedWishes.firstChild);
+      }
+    }
+
+    // === EASTER EGG: Triple click tree ===
+    let treeClicks = 0;
+    let treeTimeout;
+    const treeEmoji = document.querySelector('.tree-emoji');
+
+    treeEmoji.addEventListener('click', () => {
+      treeClicks++;
+      clearTimeout(treeTimeout);
+      treeTimeout = setTimeout(() => treeClicks = 0, 800);
+
+      if (treeClicks >= 3) {
+        treeClicks = 0;
+        document.body.classList.add('konami-triggered');
+        treeEmoji.textContent = '🎉';
+        treeEmoji.style.fontSize = '8rem';
+
+        // Mega fireworks
+        for (let f = 0; f < 5; f++) {
+          setTimeout(() => {
+            const fx = Math.random() * window.innerWidth;
+            const fy = Math.random() * (window.innerHeight * 0.5);
+            for (let i = 0; i < 30; i++) {
+              const particle = document.createElement('div');
+              particle.className = 'firework-particle';
+              const angle = (Math.PI * 2 * i) / 30;
+              const distance = Math.random() * 120 + 60;
+              particle.style.cssText = `
+                left: ${fx}px; top: ${fy}px;
+                width: ${Math.random() * 8 + 4}px; height: ${Math.random() * 8 + 4}px;
+                background: ${['#f0c040', '#9b59b6', '#2ecc71', '#4a90d9', '#e74c3c', '#ff6b81'][Math.floor(Math.random() * 6)]};
+                --tx: ${Math.cos(angle) * distance}px; --ty: ${Math.sin(angle) * distance}px;
+              `;
+              document.body.appendChild(particle);
+              setTimeout(() => particle.remove(), 1000);
+            }
+          }, f * 300);
+        }
+
+        setTimeout(() => {
+          document.body.classList.remove('konami-triggered');
+          treeEmoji.textContent = '🎄';
+          treeEmoji.style.fontSize = '5rem';
+        }, 5000);
+      }
+    });
+
+    // === MUSIC (Jingle Bells via Web Audio API) ===
+    const musicBtn = document.getElementById('musicBtn');
+    let audioCtx = null;
+    let musicPlaying = false;
+    let musicTimer = null;
+
+    // Ноты (частоты)
+    const NOTES = {
+      'E4': 329.63, 'F4': 349.23, 'G4': 392.00, 'A4': 440.00,
+      'C4': 261.63, 'D4': 293.66, 'B3': 246.94, 'C5': 523.25,
+      'E5': 659.25, 'D5': 587.33
+    };
+
+    // Jingle Bells — припев: [нота, длительность в тактах]
+    const JINGLE = [
+      ['E4', 1], ['E4', 1], ['E4', 2],
+      ['E4', 1], ['E4', 1], ['E4', 2],
+      ['E4', 1], ['G4', 1], ['C4', 1.5], ['D4', 0.5],
+      ['E4', 4],
+      ['F4', 1], ['F4', 1], ['F4', 1.5], ['F4', 0.5],
+      ['F4', 1], ['E4', 1], ['E4', 1], ['E4', 0.5], ['E4', 0.5],
+      ['E4', 1], ['D4', 1], ['D4', 1], ['E4', 1],
+      ['D4', 2], ['G4', 2],
+    ];
+
+    const BEAT = 0.3;
+
+    function playMelody() {
+      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      const master = audioCtx.createGain();
+      master.gain.value = 0.15;
+      master.connect(audioCtx.destination);
+
+      let t = audioCtx.currentTime;
+      JINGLE.forEach(([note, beats]) => {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.value = NOTES[note];
+        gain.gain.setValueAtTime(0, t);
+        gain.gain.linearRampToValueAtTime(1, t + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.001, t + beats * BEAT);
+        osc.connect(gain);
+        gain.connect(master);
+        osc.start(t);
+        osc.stop(t + beats * BEAT);
+        t += beats * BEAT;
+      });
+
+      const totalDuration = (t - audioCtx.currentTime) * 1000;
+      musicTimer = setTimeout(playMelody, totalDuration + 500);
+    }
+
+    musicBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      musicPlaying = !musicPlaying;
+      musicBtn.classList.toggle('playing', musicPlaying);
+      musicBtn.textContent = musicPlaying ? '🔊' : '🎵';
+
+      if (musicPlaying) {
+        playMelody();
+      } else {
+        clearTimeout(musicTimer);
+        if (audioCtx) audioCtx.close();
+        audioCtx = null;
+      }
+    });
+
+    // === KONAMI CODE ===
+    const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+    let konamiIndex = 0;
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === konamiCode[konamiIndex]) {
+        konamiIndex++;
+        if (konamiIndex === konamiCode.length) {
+          konamiIndex = 0;
+          document.body.classList.add('konami-triggered');
+          // Snowstorm!
+          for (let i = 0; i < 100; i++) {
+            setTimeout(createSnowflake, i * 30);
+          }
+          setTimeout(() => document.body.classList.remove('konami-triggered'), 5000);
+        }
+      } else {
+        konamiIndex = 0;
+      }
+    });
+  </script>
 </body>
 </html>
